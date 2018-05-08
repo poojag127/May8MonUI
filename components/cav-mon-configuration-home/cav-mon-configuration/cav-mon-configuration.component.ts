@@ -1247,8 +1247,11 @@ export class CavMonConfigurationComponent implements OnInit {
    textForFileName = formData.fileName;
 
    console.log("textForFileName=", textForFileName)
-
-   val = val + encodeURIComponent(textForFileName) +  COMPONENT.SPACE_SEPARATOR ;
+   if(textForFileName != null && textForFileName != '')
+   {
+      val = val + encodeURIComponent(textForFileName) +  COMPONENT.SPACE_SEPARATOR ;
+      console.log("val = ",val)
+   }
 
    if(formData.enableSearchPattern)
    {
