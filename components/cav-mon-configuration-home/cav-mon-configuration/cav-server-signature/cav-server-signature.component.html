@@ -1,0 +1,38 @@
+<div class = "ui-g-12" >
+  <div class="ui-g-1">
+     <label>Signature  Name</label>
+   </div>
+  <div class="ui-g-3">
+    <input style="width:250px" name="signatureName" [(ngModel)]="item['name']" pattern="[A-Za-z0-9_]+" type="text"  required="true" pInputText />
+  </div>
+ </div>
+
+
+<!--<div class="ui-g-12">
+    <div class="ui-g-2">
+      <p-radioButton name="group1" value="Command" label="Command" [(ngModel)]="item['signType']" ></p-radioButton>
+    </div>
+    <div class="ui-g-3">
+      <input style="width:250px" [disabled] ="item['signType'] != 'Command'"   name="commandName" [(ngModel)]="item['commandName']" type="text"  required="true" pInputText />
+    </div>
+    <div class="ui-g-2">
+      <p-radioButton name="group1" value="File" label="File" [(ngModel)]="item['signType']" ></p-radioButton>
+    </div>
+    <div class="ui-g-3">
+      <input style="width:250px" [disabled] ="item['signType'] != 'File'"  name="FileName" [(ngModel)]="item['FileName']" type="text"  required="true" pInputText />
+    </div>
+</div>-->
+
+<div class = "ui-g-12">
+ <div class="ui-g-1">
+     <label>Signature  Type</label>
+ </div>
+ <div class = "ui-g-3">
+ <p-dropdown [style]="{'width':'150px'}" name="list" required 
+             [options]="serverSignList" [(ngModel)]="item['signType']" class="spanClass2">
+  </p-dropdown>
+  </div>
+  <div class="ui-g-3">
+    <input style="width:250px" [disabled] ="item['signType'] == 'NA'"  name="FileName" [(ngModel)]="item['commandFileName']" type="text"  required="true" pInputText />
+  </div>
+</div>

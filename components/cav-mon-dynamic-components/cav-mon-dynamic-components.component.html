@@ -1,0 +1,168 @@
+<span *ngIf="item['type'] == 'NewLine'">
+ <br>
+</span>
+
+<span *ngIf="item['type']== 'Note'" class="spanClass">
+  <span tooltip={{item.label}}> icon</span>
+</span>
+
+<span *ngIf="item['type']== 'appName'" class="spanClass" tooltip={{item.toolTip}}>
+   <span>
+     <label  style="margin-right: 2%;">{{item.label}}<span style="color:red;" *ngIf="item['validationObj']['required']">*</span></label>
+   </span>
+<span>
+    <input name={{item.label}} type="text" [(ngModel)]="item.value" 
+     class="spanClass2"  
+     title="{{item.modal}}" pInputText
+     [required]="item['validationObj']['required']"
+      ng-model/>
+   </span>
+</span>
+
+
+
+<span *ngIf="item['type'] == 'gdfName'" class="spanClass" tooltip={{item.toolTip}}>
+   <span>
+     <label  style="margin-right: 2%;">{{item.label}}<span style="color:red;" *ngIf="item['validationObj']['required']">*</span></label>
+   </span>
+<span>
+    <input name={{item.label}} type="text" [(ngModel)]="item.value" 
+     class="spanClass2"  
+     title="{{item.modal}}" pInputText
+     [required]="item['validationObj']['required']"
+      ng-model/>
+   </span>
+</span>
+
+
+<span *ngIf="item['type'] == 'instanceName'" class="spanClass" tooltip={{item.toolTip}}>
+   <span>
+     <label  style="margin-right: 2%;">{{item.label}}<span style="color:red;" *ngIf="item['validationObj']['required']">*</span></label>
+   </span>
+<span>
+    <input name={{item.label}} type="text" [(ngModel)]="item.value" 
+     class="spanClass2"  
+     title="{{item.modal}}" pInputText
+     [required]="item['validationObj']['required']"
+      ng-model/>
+   </span>
+</span>
+
+<span *ngIf="item['type']== 'javaHome'" class="spanClass" tooltip={{item.toolTip}}>
+   <span>
+     <label  style="margin-right: 2%;">{{item.label}}<span style="color:red;" *ngIf="item['validationObj']['required']">*</span></label>
+   </span>
+   <span>
+    <input  style="width: 20%" name={{item.label}} type="text" [(ngModel)]="item.value" 
+     class="spanClass2" 
+     title="{{item.modal}}" pInputText 
+     [required]="item['validationObj']['required']"
+     ng-model />
+   </span>
+</span>
+
+
+<span *ngIf="item['type']== 'classPath'" class="spanClass" tooltip={{item.toolTip}}>
+   <span>
+     <label  style="margin-right: 2%;">{{item.label}}<span style="color:red;" *ngIf="item['validationObj']['required']">*</span></label>
+   </span>
+   <span>
+    <input style="width: 20%" name={{item.label}} type="text" [(ngModel)]="item.value"
+     class="spanClass2"  
+     title="{{item.modal}}" pInputText 
+     [required]="item['validationObj']['required']"
+     ng-model/>
+   </span>
+</span>
+
+
+<span *ngIf="item['type'] == 'TextField'" class="spanClass" tooltip={{item.toolTip}}>
+    <span  *ngIf="item['type'] == 'TextField' && item.label != null" >
+      <label  style="margin-right: 2%;">{{item.label}}<span style="color:red;" *ngIf="item['validationObj']['required']">*</span></label>
+    </span>
+
+<span>
+   <input [disabled]="disabled"  
+     name={{item.label}}  type="{{item['validationObj']['inputType']}}"  
+     *ngIf="item.type == 'TextField'" 
+     [(ngModel)]="item.value" 
+     [style.width]="item.width"
+     class="spanClass2" 
+     [required]="item['validationObj']['required']"
+      pInputText 
+      ng-model
+    />
+</span>
+
+</span>
+
+<span *ngIf="item['type'] == 'Checkbox'" class="spanClass" tooltip={{item.toolTip}}>   
+   <p-checkbox  binary="false"  [disabled]="disabled" name="item.label" [(ngModel)]="item.value " ></p-checkbox>
+    <label  style="margin-right: 2%;">{{item.label}}</label>
+    <span  *ngIf="item.dependentComp != null" >
+      <app-cav-mon-dynamic-dependent-comp  (updateTableVal)="updateTableValue($event)"  [disabled]="!item.value" [dependentCompData]="item.dependentComp"></app-cav-mon-dynamic-dependent-comp>
+    </span>
+ </span>
+
+<span *ngIf="item['type'] == 'Spinner'" class="spanClass" tooltip={{item.toolTip}}>
+      <label *ngIf="item['type']== 'Spinner'" style="margin-right: 2%;">{{item.label}}</label>
+      <p-spinner  [disabled]="disabled" 
+         *ngIf="item.type == 'Spinner'"
+         name="item.label" 
+        [min]="item['validationObj']['min']" 
+        [max]="item['validationObj']['max']" 
+        size="4"  [(ngModel)]="item.value"  class="spanClass2"> </p-spinner>
+</span>
+
+<span *ngIf="item['type'] == 'Dropdown' || item['type'] == 'runOptions'" class="spanClass" tooltip={{item.toolTip}}>
+    <label  style="margin-right: 2%;">{{item.label}}</label>   
+     <p-dropdown [style]="{'width':'150px'}" name="list" required
+            [disabled]="disabled" placeholder= "-- Select --"  [options]="item.dropDownList" [(ngModel)]="item.value" class="spanClass2">
+      </p-dropdown>
+  <span *ngFor="let each of item.dropDownList">
+    <span  *ngIf="each.dependentComp != null" >
+      <app-cav-mon-dynamic-dependent-comp  (updateTableVal)="updateTableValue($event)"  [disabled]="item.value  != each.value" [dependentCompData]="each.dependentComp"></app-cav-mon-dynamic-dependent-comp>
+    </span>
+  </span>
+</span>
+
+
+
+<span *ngIf="item['type'] == 'RadioButtonGroup'" class="spanClass">
+          <span  *ngFor="let each of item.items">
+            <p-radioButton  class="innerSpanClass" [name]="item.label"   [disabled]="disabled"  tooltip={{each.toolTip}}  [label] ="each.label" [value] ="each.value" [(ngModel)]="item.value"></p-radioButton>
+            <span  *ngIf="each.dependentComp != null" >
+              <app-cav-mon-dynamic-dependent-comp  (updateTableVal)="updateTableValue($event)"  [disabled]="item.value != each.arg" [dependentCompData]="each.dependentComp"></app-cav-mon-dynamic-dependent-comp>
+            </span>
+</span>
+</span>
+
+<span *ngIf="item['type'] == 'FieldSet'" class="monitor-fieldset">
+  <p-fieldset  legend={{item.label}} [toggleable]="true" collapsed="true">
+    <span  *ngIf="item.dependentComp != null" >
+      <app-cav-mon-dynamic-dependent-comp [disabled]="disabled"  (updateTableVal)="updateTableValue($event)"   [dependentCompData]="item.dependentComp"></app-cav-mon-dynamic-dependent-comp>
+    </span>
+</p-fieldset>
+</span>
+
+<span *ngIf="item['type'] == 'Accordion'">
+   <p-accordion class="monitor-ui-accordion">
+      <p-accordionTab  header={{item.label}} >
+          <!--<div style="margin-bottom: 4%;border: 1px solid">-->
+           <span  *ngIf="item.dependentComp != null" >
+             <app-cav-mon-dynamic-dependent-comp [disabled]="disabled"  (updateTableVal)="updateTableValue($event)"   [dependentCompData]="item.dependentComp"></app-cav-mon-dynamic-dependent-comp>
+           </span> 
+          <!--</div>-->
+      </p-accordionTab>
+   </p-accordion>
+</span>
+
+
+
+
+<!-- <span style="color:red;" *ngIf="item['validationObj']['required']">*</span> -->
+
+<div class="monitor-ui-table" *ngIf="item['type'] == 'Table'" style="padding-left: 9px;padding-right: 9px;">
+  <app-cav-mon-dynamic-table  *ngIf="item['type'] == 'Table'" (updateTableVal)="updateTableValue($event)" [tableCompData]="item"
+    [disabled]="disabled"></app-cav-mon-dynamic-table>
+</div>

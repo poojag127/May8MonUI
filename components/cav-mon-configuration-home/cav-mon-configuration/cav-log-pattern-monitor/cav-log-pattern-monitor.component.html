@@ -1,0 +1,155 @@
+<div class = "ui-g-12">
+        <div class="ui-g-3" style="width: 12%" >
+            <label>File Name Selection</label>
+        </div>
+    
+        <div class="ui-g-2">
+          <p-dropdown [style]="{'width': '225px'}"  name="list" required [options]="logFileSelectionList" 
+             [(ngModel)]="item['fileNameSelection']">
+          </p-dropdown>
+        </div>
+    
+        <div class="ui-g-1" style="margin-left: 20px" *ngIf= "item['fileNameSelection'] != '-f __journald'">
+         <input style="width:225px"  name="FileName" type="text"  required="true" 
+            [(ngModel)]="item['fileName']"
+          pInputText /> 
+        </div>
+        
+        <span  *ngIf= "item['fileNameSelection'] == '-f __journald'" style = "margin-left:29px">
+          <p-radioButton value="all" label="All"  [(ngModel)]="item['journalType']"></p-radioButton>
+        </span>       
+            
+        <span  *ngIf= "item['fileNameSelection'] == '-f __journald'" style = "margin-left:10px">
+          <p-radioButton  value="specified" label="Specified"  [(ngModel)]="item['journalType']"></p-radioButton>
+        </span>
+    
+        <span *ngIf= "item['fileNameSelection'] == '-f __journald'" style="margin-left: 10px">
+          <input style="width:225px"  [disabled]="item['journalType'] != 'specified'"
+              [(ngModel)]="item['fileName']"  name="specificJournalType" type="text"  required="true"
+           pInputText ngModel />
+        </span>
+    </div>
+    
+    
+    <div class = "ui-g-12">
+      <div class="ui-g-3"  style="width: 12%">
+        <label>Instance Name</label>
+      </div>
+    
+      <div class="ui-g-2">
+        <input style="width:225px" name="instanceName"  type="text" pInputText  [(ngModel)]="item['instance']"/>
+      </div>
+    
+      <div class="ui-g-3" style="margin-left: 88px;  margin-right: -137px">
+        <label>Run Options </label>
+      </div> 
+      <div class="ui-g-2" style="margin-left: -106px;">
+        <p-dropdown [style]="{'width':'180px'}" name="runlist" [(ngModel)]="item['runOptions']" required [options]="runOptionList" > </p-dropdown>
+     </div>  
+    
+      <div class="ui-g-3">
+        <p-checkbox label="Use Search Pattern to fetch Access Log" binary="true" [(ngModel)]="item['enableSearchPattern']"></p-checkbox>
+      </div>
+    
+      <div class="ui-g-2" style="margin-left: -92px">
+        <input style="width:225px" name="SearchPattern" type="text"  required="true" 
+          [disabled]="!item['enableSearchPattern']" [(ngModel)]="item['searchPattern']"
+        pInputText />
+       </div>
+    
+     
+    </div>
+        
+    
+    <div class = "ui-g-12">
+        <div class="ui-g-3" style="width: 12%">
+            <label>Display monitor group name </label>
+        </div>
+    
+        <div class="ui-g-2" style="width:22%">
+            <input style="width:225px"  name="FileName" type="text"  required="true" [(ngModel)]="item['gdfName']" pInputText />
+        </div>
+    
+        <div class="ui-g-3" style="margin-left:18px"> 
+           <label>Metric</label>
+        </div>
+        
+        <span style="margin-left: -236px">  
+          <p-dropdown [style]="{'width':'180px'}" name="Metriclist" [(ngModel)]="item['metric']" required [options]="metricList" > </p-dropdown>
+          <input *ngIf="item['metric'] == 'Custom Metrics'"  style="width:225px"  
+            name="FileName" type="text"  required="true" [(ngModel)]="item['customMetricName']" pInputText />
+        </span> 
+    </div>
+    
+    <div class = "ui-g-12">
+        <div class="ui-g-3" style="width: 12%">
+            <label>Log Monitor Name </label>
+        </div>
+    
+        <div class="ui-g-2" style="width:22%">
+            <input style="width:225px"  name="FileName" type="text"  required="true" [(ngModel)]="item['name']" pInputText />
+        </div>
+    </div>
+        
+    <div class = "ui-g-12">
+        <p-accordion>
+            <p-accordionTab header="Graph Definition File Details">
+                <p-dataTable class="monitor-ui-table"  [value]="item['gdfDetails']"  [(selection)]="selectedGDFdetails" [rows]="5" [paginator]="item['gdfDetails']?.length >5" [pageLinks]="3">
+                    <p-header class="monitor-header">
+                        Graph Definition File Details
+                      <div class="monitor-btn-right">
+                        <button pButton type="button" (click)="openDialog()" title="Add Graph Details" icon="fa-plus"></button>
+                        <button pButton type="button" (click)="editDialog()" title="Edit Graph Details" icon="fa-pencil"></button>
+                        <button pButton type="button"class="ui-button-danger" title="Delete Graph Details" (click)="deleteGDFDetails()" icon="fa-trash" ></button>
+                      </div>
+                    </p-header>
+           
+                     <p-column [style]="{'width':'24px'}" selectionMode="multiple"></p-column>
+                     <p-column field="searchPattern" header="Search Pattern"></p-column>
+                     <p-column field="graphName" header="Graph Name"></p-column>
+                     <!--<p-column field="unit" header="Unit" [hidden]= "true" ></p-column>
+                     <p-column field="unit-ui" header="Unit" ></p-column>
+    -->
+                    <p-column field="unit" header="Unit" [hidden]= "true" ></p-column>
+                </p-dataTable>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+           
+           <p-dialog class="profile-dialog monitor-dialog" header="{{dialogHeaderForTable}}" *ngIf="addDialog" [(visible)]="addDialog" modal="modal" width="500" responsive="true">
+            <form (ngSubmit)="saveGDFdetails()" #groupForm="ngForm" ngNativeValidate>
+               <div class="ui-g">
+                   <div class="ui-g-3">
+                       <label>Search Pattern</label>
+                   </div>
+                   <div class="ui-g-8">
+                       <input name="pattern" type="text" [(ngModel)]="gdfData.searchPattern" style="width:180px" pInputText required ngModel />
+                   </div>
+               </div>
+           
+               <div class="ui-g">
+                   <div class="ui-g-3">
+                       <label>Graph Name</label>
+                   </div>
+                   <div class="ui-g-8">
+                      <input name="graphName" type="text"  style="width:180px" [(ngModel)]="gdfData.graphName" pInputText required ngModel />
+                  </div>
+                 </div>
+           
+                   <div class="ui-g">
+                       <div class="ui-g-3">
+                           <label>Unit</label>
+                       </div>
+                       <div class="ui-g-8">
+                          <p-dropdown [style]="{'width':'180px'}" name="unit" [(ngModel)]="gdfData.unit"
+                           required [options]="unitList" ></p-dropdown>
+                       </div>
+                  </div>
+               <footer>
+                   <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                       <button type="submit" pButton icon="fa-check" label="Save"></button>
+                       <button type="button" pButton icon="fa-close" (click)="closeDialog()" label="Cancel"></button>
+                   </div>
+               </footer>
+           </form>
+        </p-dialog>

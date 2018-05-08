@@ -1,0 +1,32 @@
+<p-dialog class="profile-dialog" header="Monitor Information - {{monitorName}}" [(visible)]="displayGdf" width="900" height="520"
+  [modal]="false" (onHide)="dialogCloseEvent($event)">
+
+  <p-accordion class="monitor-ui-accordion">
+      <p-accordionTab *ngFor="let monGrpData of arrPerGrpData; let i = index;" header={{monGrpData.group}} [selected]="i == 0">
+          <div style="margin-bottom: 4%;border: 1px solid">
+            <div class="ui-g">
+              <div class="ui-g-12">
+                <b>Monitor Description: </b>{{arrMonInfo[i].description}}
+              </div>
+            </div>  
+            
+            <div class="ui-g">
+              <div class="ui-g-12">
+                <b>Group Description: </b>{{monGrpData.desc}}
+              </div>
+            </div>
+          
+            <div class="ui-g">
+              <div class="ui-g-12">
+                <b>Hierarchical View: </b>{{monGrpData.meta}}
+              </div>
+            </div>
+          </div>
+
+          <p-dataTable class="monitor-ui-table" [value]="monGrpData.graph" scrollable="true" scrollHeight="180px">
+            <p-column field="gname" header="Metric" [sortable]="true" [style]="{'width':'35%'}"></p-column>
+            <p-column field="desc" header="Description" [sortable]="true" [style]="{'width':'65%'}"></p-column>
+          </p-dataTable>
+      </p-accordionTab>
+  </p-accordion>
+</p-dialog>

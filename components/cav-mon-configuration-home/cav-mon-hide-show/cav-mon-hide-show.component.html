@@ -1,0 +1,19 @@
+
+<p-dialog class="profile-dialog hideShowMon" [(visible)]="displayDialog" header="Show Hidden Monitors" width="350" 
+        [modal]="false" (onHide)="dialogCloseEvent($event)">
+<div>
+
+<p-tree [value]="nodes" [(selection)]="selectedNodes">
+    <ng-template let-data  pTemplate="default">
+        <p-checkbox [(ngModel)]="data.checked" binary="true" (click)="onCheckBoxChangeState(data, data.checked)"></p-checkbox> 
+        <span>{{data.label}}</span>
+     </ng-template>
+</p-tree>
+</div>
+
+  <div class="ui-g-12">
+    <button type="button" pButton  icon="fa-check" style="float: right" (click)= "addMonitor()" label="Add"></button>
+    <button type="button" pButton  icon="fa-close" style="float: right" (click)= "dialogCloseEvent()" label="Cancel" title="Close"></button>
+  </div>
+
+</p-dialog>

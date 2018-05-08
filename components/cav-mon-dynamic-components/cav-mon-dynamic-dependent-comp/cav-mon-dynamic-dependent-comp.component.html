@@ -1,0 +1,7 @@
+<span  *ngFor="let item of dependentCompData; let i = index">
+   <!--<div  *ngIf="item.type == 'TextField'" >
+        <label *ngIf="item.type == 'TextField' && item.label != null" style="margin-right: 2%;">{{item.label}}</label>
+        <input name={{item.label}} [disabled]="disabled" type="text"  *ngIf="item.type == 'TextField'"  [(ngModel)]="item.value" class="spanClass2"  title="{{item.modal}}" required ng-model/>
+    </div>-->
+    <app-cav-mon-dynamic-components (updateTableVal)="updateTableValue($event)" [item]="item" [disabled]="disabled" ></app-cav-mon-dynamic-components>
+</span>

@@ -1,0 +1,141 @@
+<div class="main-box footer-monitor">
+  <div>
+      <p-accordion class="monitor-ui-accordion" [multiple]="true">
+        <p-accordionTab header="{{displayHeader}}" [selected]="true">
+          <form  (ngSubmit)="addData()" #form="ngForm" ngNativeValidate >
+  
+          <div class = "ui-g-12"  *ngIf="tierId != -1" >
+           <div class="ui-g-1">
+                  <label>Server Name</label>
+           </div>
+           <div class="ui-g-3">
+            <p-dropdown name="topoId" [(ngModel)]="formData.serverName" [options]="serverList" placeholder="-- Select Server Name --" [style]="{'width':'77%','margin-left': '-1px'}"  appendTo="body" required ngModel></p-dropdown>
+          </div>
+       </div>
+  
+        <span  *ngFor="let item of compArgs; let i = index" style="padding-left: 11px;">
+          <app-cav-mon-dynamic-components (updateTableVal)="updateTableData($event)" [item]="item"></app-cav-mon-dynamic-components>
+        </span>
+
+       <span *ngIf="monName == 'Check Monitor'">
+         <app-cav-check-monitor [item]="formData"></app-cav-check-monitor>
+       </span>
+
+        <span *ngIf="monName == 'Server Signature'">
+         <app-cav-server-signature [item]="formData"></app-cav-server-signature>
+       </span>
+
+       <span *ngIf="monName == 'Log Pattern Monitor'">
+         <app-cav-log-pattern-monitor [item]="formData"></app-cav-log-pattern-monitor>
+       </span>
+
+
+
+        <div class="ui-g-12">
+          <button type="submit" pButton  icon="fa-check" style="width: 63px ; float: right"  [disabled]="modeStatus" *ngIf="isNewConfig == true" label="Add"></button>
+          <button type="submit" pButton  icon="fa-check" style="width: 93px ; float: right" *ngIf="isNewConfig == false" label="Update"></button>
+          <button type="button" pButton  icon="fa-close" style="width: 93px ; float: right" (click)="closeConfiguration()" [disabled]="isNewConfig" *ngIf="isNewConfig == false" label="Cancel"></button>
+        </div>
+      </form>
+    </p-accordionTab>
+  
+  <p-accordionTab header="Configured Monitor" [selected]="true">
+     <p-dataTable class="monitor-ui-table configured-datatable" [value]="tableData" [(selection)]="selectedTableData" [rows]="5" [paginator]="tableData?.length >5" [pageLinks]="3"  [resizableColumns]='true'>
+              <p-header>
+                  <div  class="treeTableToolbar">
+                     <!-- <button pButton type="button" title="Add " (click)="openAddDialog()" [disabled]="modeStatus" icon="fa-plus"></button> -->
+                     <!-- <button pButton type="button" title="Edit "(click)="openEditMode()" icon="fa-pencil" ></button> -->
+                      <button pButton type="button" class="ui-button-danger" title="You have not selected any configuration(s) to delete, it will delete the entire configured data."  (click)="deleteAllConfig()" icon="fa-trash"></button>
+                  </div>
+               </p-header>
+  
+          <p-column [style]="{'width':'31px'}" selectionMode="multiple">
+          </p-column>
+        
+
+        
+          <p-column  [style]="{'width':'109px'}" class="col-overflow" header="Server" field="serverName" >
+            <template let-col let-data="rowData" pTemplate type="body">
+              <span [title]="data[col.field]">{{data[col.field]}}</span> 
+            </template>
+          </p-column>
+
+        <p-column *ngFor="let col of headerList" [field]="col['field']"  [header]="col['header']" [hidden]="col['isHidden']">
+          <template let-col let-data="rowData" pTemplate type="body">
+              <span [title]="data[col.field]">{{data[col.field]}}</span> 
+            </template>
+        </p-column>
+
+        <p-column *ngIf="displayAppNameColumn" [style]="{'width':'130px'}" class="col-overflow" header="App Name" field="appName">
+          <template  let-col let-data="rowData" pTemplate="body">
+            <span [title]="data[col.field]">{{data[col.field]}}</span> 
+          </template>
+       </p-column>
+
+       <p-column *ngIf="displayInstanceNameColumn" [style]="{'width':'130px'}" class="col-overflow" header="Instance Name" field="instance">
+        <template  let-col let-data="rowData" pTemplate="body">
+          <span [title]="data[col.field]">{{data[col.field]}}</span> 
+        </template>
+       </p-column>
+  
+           <p-column *ngIf ="headerList.length == 0" class="col-overflow" header="Arguments" field="arguments">
+              <template  let-col let-data="rowData" pTemplate="body">
+                <span [title]="data[col.field]">{{data[col.field]}}</span> 
+              </template>
+           </p-column>
+  
+            <p-column  class="col-overflow" header="Server Arguments" field="options" hidden="true">
+              <template  let-col let-data="rowData" pTemplate="body">
+                <span [title]="data[col.field]">{{data[col.field]}}</span> 
+              </template>
+           </p-column>
+
+           <p-column *ngIf="displayJavaHomeColumn" [style]="{'width':'130px'}" class="col-overflow" header="Java Home" field="javaHome">
+            <template  let-col let-data="rowData" pTemplate="body">
+              <span [title]="data[col.field]">{{data[col.field]}}</span> 
+            </template>
+         </p-column>
+
+          <p-column *ngIf="displayClassPathColumn" [style]="{'width':'130px'}" class="col-overflow" header="Java ClassPath" field="classPath">
+            <template  let-col let-data="rowData" pTemplate="body">
+              <span [title]="data[col.field]">{{data[col.field]}}</span> 
+            </template>
+         </p-column>
+   
+  
+           <p-column [style]="{'width':'80px'}" class="col-overflow" header="Action">
+              <template let-col let-json="rowData" pTemplate type="body">
+                  <a (click)="openEditMode(json)">
+                      <i class="fa fa-pencil" style="color: #2572b5;cursor:pointer; margin-left: 20px" title="Edit Configured Data"></i>
+                  </a>
+            
+                  <span *ngIf ="!modeStatus">
+                      <a (click)="startTest(json)">
+                        <i class="fa fa-play" style="color: #2572b5;cursor:pointer; margin-left: 8px"  title="Test Monitor"></i>
+                      </a>
+                     <p-dialog class="profile-dialog monitor-dialog" header="Test Monitor" [(visible)]="showdialog" modal="modal" width="600" responsive="true">
+                       <div style="font-size: 14px"> 
+                         <span><i class="fa fa-thumbs-up" style="color: green; font-size: 22px;"></i></span>
+                           <b>Test Started Successfully.Click on test run number to view webdashboard</b> 
+                         <span style="margin-left: 9px"><a  (click)="goToWebDashboard(testRunNumber)" >{{testRunNumber}}</a></span>
+                       </div>
+                     </p-dialog>
+                    </span>
+
+                    <span  (click)="deleteSpecificConfig(json)">
+                        <i class="fa fa-trash-o" style="color: #f12a2a;cursor:pointer; margin-left: 3px" title="Delete Configured Monitor"></i>
+                    </span>
+
+            </template>
+           </p-column>
+       </p-dataTable>
+      </p-accordionTab>
+    </p-accordion>
+   </div>
+  </div>
+  
+  
+  
+  
+  
+  

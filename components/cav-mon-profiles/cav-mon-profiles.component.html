@@ -1,0 +1,131 @@
+<div class="main-box">
+    <div class="monitor-fieldset">
+        <!-- <p-fieldset legend="Select Topology"> -->
+            <div style="margin-top: 19px;">
+                <label >Topology :</label>
+                <p-dropdown [style]="{'width':'26%'}" class="homedropdown" [options]="topologyList" [(ngModel)]="selectedTopology"
+                    (onChange)="loadProfileData($event.value)"></p-dropdown>
+            </div>
+        <!-- </p-fieldset> -->
+    </div>
+
+    <div class="ui-g">
+        <!--For showing Session Attribute(s) list -->
+        <p-dataTable class="monitor-ui-table" [value]="profileTableData" [(selection)]="selectedProfile" [rows]="10" [paginator]="profileTableData?.length >10"
+            [pageLinks]="3">
+            <p-header class="monitor-header">
+                <span class="monitor-header-text">Available Monitor Group(s)</span>
+                <div class="monitor-btn-right">
+                    <!-- <button pButton class="toolbarIcon" type="button" icon="fa-pencil" (click)="editConfigData()" title="Edit Configuration"></button> -->
+                    <button pButton class="toolbarIcon" *ngIf="!isShowFilter" type="button" icon="fa-search" (click)="showFilter()" title="Show Filter"></button>
+                    <button pButton class="toolbarIcon" *ngIf="isShowFilter" type="button" icon="fa-search" (click)="showFilter()" title="Hide Filter"></button>
+                    <button pButton type="button" (click)="openAddDialog()"  [disabled]="selectedTopology==''" title="Add Profile" icon="fa-plus"></button>
+                    <button pButton type="button" class="ui-button-danger" [disabled]="selectedTopology==''" (click)="deleteProfile()" title="Delete Profile(s)" icon="fa-trash-o"></button>
+
+                    <p-fileUpload mode="basic" id="testUpload" [url]="fileUpload+selectedTopology" [showUploadButton]=true accept=".json" (onUpload)="uploadFileMsg($event)" [disabled] = "selectedTopology==''" auto="true" chooseLabel > 
+                    </p-fileUpload>
+                </div>
+            </p-header>
+
+            <p-column [style]="{'width':'21px'}" selectionMode="multiple"></p-column>
+            <p-column [style]="{'width':'150px'}" class="col-overflow" field="profileName" header="Monitor Group Name" [sortable]="true" [filter]="isShowFilter">
+                <template let-col let-json="rowData" pTemplate type="body">
+                    <span title="{{json[col.field]}}"> <a class="hyperlink" (click)="routeToConfiguration(json['profileName'],selectedTopology)" >{{json[col.field]}}</a></span>
+                </template>
+            </p-column>
+    
+            <p-column [style]="{'width':'380px'}" class="col-overflow" field="desc" header="Description" [sortable]="true" [filter]="isShowFilter">
+                <template let-col let-json="rowData" pTemplate type="body">
+                    <span title="{{json[col.field]}}">{{json[col.field]}}</span>
+                </template>
+            </p-column>
+    
+            <p-column [style]="{'width':'136px'}" class="col-overflow" field="createdBy" header="Owner" [sortable]="true" [filter]="isShowFilter">
+                <template let-col let-json="rowData" pTemplate type="body">
+                        <span title="{{json[col.field]}}">{{json[col.field]}}</span>
+                </template>
+            </p-column>
+    
+             <p-column [style]="{'width':'162px'}" class="col-overflow" field="lastUpdatedBy" header="Last Updated By" [sortable]="true" [filter]="isShowFilter">
+                <template let-col let-json="rowData" pTemplate type="body">
+                        <span title="{{json[col.field]}}">{{json[col.field]}}</span>
+                </template>
+            </p-column>
+
+            <p-column  [style]="{'width':'218px'}" class="col-overflow" field="lastUpdatedOn" header="Last Modified" [sortable]="true" [filter]="isShowFilter">
+                <template let-col let-json="rowData" pTemplate type="body">
+                           <span style="float:right" title="{{json[col.field]}}">{{json[col.field]}}</span>
+                        </template>
+            </p-column>
+
+            <p-column [style]="{'width':'113px'}" class="col-overflow"  header="Actions" [sortable]="true" [filter]="isShowFilter">
+                <template let-col let-json="rowData" pTemplate type="body">
+                    <a (click)="editProfile(json['profileName'],selectedTopology)">
+                        <i class="fa fa-pencil" style="color: #2572b5;cursor:pointer; margin-left: 5px" title="Edit Profile"></i>
+                    </a>
+                          
+                    <span (click)="versionCommit(json)">
+                        <i class="fa fa-fw fa-check-circle" style="color: #2572b5;cursor:pointer; margin-left: 10px" title="Version Commit"></i>
+                    </span>
+
+                    <span (click)="versionLog(json)">
+                        <i class="fa fa-fw fa-history" style="color: #2572b5;cursor:pointer; margin-left: 10px" title="Version Log"></i>
+                    </span>
+
+                    <span *ngIf ="!modeStatus">
+                        <a (click)="startTest(json)">
+                          <i class="fa fa-play" style="color: #2572b5;cursor:pointer; margin-left: 8px"  title="Test Monitor"></i>
+                        </a>
+                       <p-dialog class="profile-dialog monitor-dialog" header="Test Monitor" [(visible)]="showdialog" modal="modal" width="600" responsive="true">
+                         <div style="font-size: 14px"> 
+                           <span><i class="fa fa-thumbs-up" style="color: green; font-size: 22px;"></i></span>
+                             <b>Test Started Successfully.Click on test run number to view webdashboard</b> 
+                           <span style="margin-left: 9px"><a  (click)="goToWebDashboard(testRunNumber)" >{{testRunNumber}}</a></span>
+                         </div>
+                       </p-dialog>
+                      </span>
+
+                    <span  (click)="importProfile(json)">
+                         <i class="fa fa-download" style="color: #2572b5;cursor:pointer; margin-left: 10px" title="Import Profile"></i>
+                    </span>
+    
+                    
+                </template>
+            </p-column>
+ 
+        </p-dataTable>
+    </div>
+
+
+    <!--Dialog for adding MJson-->
+
+    <p-dialog class="profile-dialog monitor-dialog" header="Add Monitor Group" *ngIf="addProfileDialog" [(visible)]="addProfileDialog"
+        modal="modal" width="500" responsive="true">
+        <form (ngSubmit)="saveEditProfile(selectedTopology, addProfile)" #groupForm="ngForm" ngNativeValidate>
+            <div class="ui-g">
+                <div class="ui-g-4">
+                    <label>Monitor Group Name</label>
+                </div>
+                <div class="ui-g-8">
+                    <input name="appName" type="text"  pInputText [(ngModel)]="addProfile.profileName" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                        autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
+                </div>
+            </div>
+
+            <div class="ui-g">
+                <div class="ui-g-4">
+                    <label>Description</label>
+                </div>
+                <div class="ui-g-8">
+                    <textarea name="desc" rows="2" cols="31" pInputTextarea [(ngModel)]="addProfile.desc" ngModel></textarea>
+                </div>
+            </div>
+            <footer>
+                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+                    <button type="submit" pButton icon="fa-check" label="Save"></button>
+                    <button type="button" pButton icon="fa-close" (click)="addProfileDialog = false;" label="Cancel"></button>
+                </div>
+            </footer>
+        </form>
+    </p-dialog>
+</div>

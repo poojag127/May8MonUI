@@ -1,0 +1,37 @@
+<p-dataTable class="monitor-ui-table"  [value]="tableData" [(selection)]="selectedJson" [rows]="5" [paginator]="tableData?.length >5" [pageLinks]="3">
+  <p-header>
+      <span class="monitor-header-text">{{headerForTable}}</span>
+      <div  class="monitor-btn-right">
+         <button pButton type="button" title="Add " (click)="openAddDialog()" icon="fa-plus" [disabled]="disabled"></button>
+         <button pButton type="button" title="Edit "(click)="openEditDialog()" icon="fa-pencil" [disabled]="disabled"></button>
+         <button pButton type="button"class="ui-button-danger" title="Delete " (click)="deleteData()" icon="fa-trash" [disabled]="disabled"></button>
+      </div>
+   </p-header>
+
+  <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+  <p-column  *ngFor="let col of cols" [field]="col.field" [header]="col.header">
+      <template  let-data="rowData" pTemplate>
+         <span >{{data[col.field]}}</span>
+      </template>
+  </p-column>
+</p-dataTable>
+
+
+<!--Dialog for add/Edit funtionality-->
+<p-dialog class="profile-dialog" header="{{dialogHeaderForTable}}" *ngIf="addEditDialog" [(visible)]="addEditDialog" modal="modal" width="500" responsive="true">
+   <form (ngSubmit)="saveData()" #groupForm="ngForm" ngNativeValidate>
+     <div class="ui-g"  *ngFor="let item of columnData; let i = index">
+        <span style="margin-bottom: 5px">
+        <app-cav-mon-dynamic-components [item]="item"></app-cav-mon-dynamic-components>
+      </span>
+     </div>
+   <footer>
+    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+      <button type="submit" pButton icon="fa-check"  label="Save"></button>
+      <button type="button" pButton icon="fa-close" (click)="addEditDialog = false;" label="Cancel"></button>
+    </div>
+  </footer>
+  </form>
+</p-dialog>
+
+          

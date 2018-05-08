@@ -1,0 +1,56 @@
+<div class="main-box monitor-block" >
+  
+  <p-toolbar class ="monitor-toolbar">
+    <div class="ui-toolbar-group-left">
+      <!-- <button pButton (click)="saveMonitorsConfigurationData()" type="button" label="Save" icon="fa-check"></button> -->
+      <button pButton type="button" title="Save Monitor Configuration(s)"  [disabled]="modeStatus" (click)="saveMonitorsConfigurationData()" icon="fa-save" label="Save"></button>
+      <!-- <button pButton type="button" title="Refresh"  [disabled]="modeStatus" icon="fa fa-refresh"></button>
+      <button pButton type="button" title="Summary"  [disabled]="modeStatus" icon="fa fa-info"></button>
+      <button pButton type="button" title="Open all members"  [disabled]="modeStatus" icon="fa-folder-open"></button> -->
+      <!-- <button pButton type="button" title="Save & Apply" icon="fa fa-refresh"></button> -->
+      <!-- <button pButton type="button" title="Audit log"  [disabled]="modeStatus" icon="fa fa-history"></button> -->
+      <button pButton type="button" pButton  icon="fa fa-eye-slash" (click)="hideMonitors()" title= "Please select monitor(s) to hide.&#013; You can hide category as well as subcategory monitor(s)."  label="Hide"></button>
+      <button pButton type="button" pButton  icon="fa-check" (click)="showHiddenMonitors()"  title="Show list of hidden monitors"  label="Show"></button>
+    </div>
+
+    <div class="treeTableToolbar">
+      <span> Monitor Group: </span> {{profileName}}
+      <span class="treeTableSpan">,</span>
+      <span> Topology: </span> {{topoName}}
+    </div>
+   </p-toolbar>
+  
+  <p-panel>
+    <p-treeTable class="mon-ui configTreeTable" selectionMode="single"  [(selection)]="selectedFile" (onNodeExpand)="loadNode($event)" [value]="compData" [style]="{'max-height':'530px', 'overflow':'auto'}">
+      <!-- <div class="ui-g-12" id="top-div"> -->
+  
+      <p-column [style]="{'width':'230px'}" field="monitor" header="Monitor(s)">
+        <template let-col let-data="rowData" pTemplate>
+          <p-checkbox [(ngModel)]="data.data['monitorState']" (click)="onTreeNodeCheckBoxChange(data)" binary="false"></p-checkbox>
+          <a style=" margin-right:30%; cursor: pointer;" (click)="advanceSettings(data,-1,'monitor')">{{data.data[col['field']]}}</a>
+        </template>
+      </p-column>
+  
+      <p-column [style]="{'width':'38px','cursor':'pointer'}" *ngFor="let col of cols" [field]="col.field">
+        <template pTemplate="header">
+          <span title={{col.header}}>{{col.header}}</span>
+        </template>
+        <template  let-data="rowData" pTemplate="body">
+          <div [style.background]="data.data[col.header]['colorName']">
+          <p-checkbox *ngIf="data['children'] == null" [(ngModel)]="data.data[col.header]['chk']" (click)="onCheckBoxChange(data,col.header)"
+            binary="false"></p-checkbox>
+          <a *ngIf="col.field != 'monitor'">
+            <i class="fa fa-external-link" (click)="advanceSettings(data,col.field,col.header,data.data[col.header]['chk'])" aria-hidden="true" title="Advance settings"></i>
+          </a>
+          </div>
+        </template>
+      </p-column>
+  
+  
+      <!--<p-column field="name" header="Name"></p-column>
+      <p-column field="size" header="Size"></p-column>
+      <p-column field="type" header="Type"></p-column>-->
+      <!-- </div> -->
+    </p-treeTable>
+  </p-panel>
+</div>
