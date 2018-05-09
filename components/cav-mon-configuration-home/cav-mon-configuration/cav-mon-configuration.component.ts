@@ -1249,7 +1249,7 @@ export class CavMonConfigurationComponent implements OnInit {
    console.log("textForFileName=", textForFileName)
    if(textForFileName != null && textForFileName != '')
    {
-      val = val + encodeURIComponent(textForFileName) +  COMPONENT.SPACE_SEPARATOR ;
+      val = val + encodeURIComponent(textForFileName) +COMPONENT.SPACE_SEPARATOR ;
       console.log("val = ",val)
    }
 
@@ -1259,14 +1259,14 @@ export class CavMonConfigurationComponent implements OnInit {
    }
   
   let gdfDetails = formData.gdfDetails;
-  let unitData = "-C";
+  let unitData = "-C" + COMPONENT.SPACE_SEPARATOR;
   let searchPattern = "";
   gdfDetails.map(function(each){
-    unitData = unitData + COMPONENT.SPACE_SEPARATOR + each.unit + ","
-    searchPattern = searchPattern + "-p" + COMPONENT.SPACE_SEPARATOR + each.searchPattern + ",";
+    unitData = unitData + each.unit + ",";
+    searchPattern = searchPattern + "-p" + COMPONENT.SPACE_SEPARATOR + each.searchPattern + COMPONENT.SPACE_SEPARATOR;
   })
 
-  val = val +  unitData.substring(0,unitData.length-1) + COMPONENT.SPACE_SEPARATOR + searchPattern.substring(0,searchPattern.length-1);
+  val = val +  unitData.substring(0,unitData.length-1) + COMPONENT.SPACE_SEPARATOR + searchPattern.trim();
   return val.trim();
  }
 
