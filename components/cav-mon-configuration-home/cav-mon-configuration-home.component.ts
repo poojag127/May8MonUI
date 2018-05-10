@@ -495,7 +495,7 @@ export class CavMonConfigurationHomeComponent implements OnInit {
       this.monConfigData.isEnabled = val ;
       this.monConfigData.monType = monType;
       this.monConfigData.serverDTOList = serverMonList;
-      this.monConfigData.logParserGdfData = this.logParserGdfList;
+      // this.monConfigData.logParserGdfData = this.logParserGdfList;
 
       obj[monName]  = this.monConfigData ;
       

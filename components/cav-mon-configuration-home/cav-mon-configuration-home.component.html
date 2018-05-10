@@ -27,7 +27,7 @@
       <p-column [style]="{'width':'230px'}" field="monitor" header="Monitor(s)">
         <template let-col let-data="rowData" pTemplate>
           <p-checkbox [(ngModel)]="data.data['monitorState']" (click)="onTreeNodeCheckBoxChange(data)" binary="false"></p-checkbox>
-          <a style=" margin-right:30%; cursor: pointer;" (click)="advanceSettings(data,-1,'monitor')">{{data.data[col['field']]}}</a>
+          <a style=" margin-right:30%; cursor: pointer;"  title="{{showTitleForChildNodes}}" (mouseover) = "childNodeInfo(data.data)" (click)="advanceSettings(data,-1,'monitor')">{{data.data[col['field']]}}</a>
         </template>
       </p-column>
   
@@ -36,11 +36,11 @@
           <span title={{col.header}}>{{col.header}}</span>
         </template>
         <template  let-data="rowData" pTemplate="body">
-          <div [style.background]="data.data[col.header]['colorName']">
+          <div [style.background]="data.data[col.header]['colorName']" (mouseover)="showColorCodeDesc(data.data[col.header]['color'])"  title = "{{colorCodeInfo}}" >
           <p-checkbox *ngIf="data['children'] == null" [(ngModel)]="data.data[col.header]['chk']" (click)="onCheckBoxChange(data,col.header)"
             binary="false"></p-checkbox>
           <a *ngIf="col.field != 'monitor'">
-            <i class="fa fa-external-link" (click)="advanceSettings(data,col.field,col.header,data.data[col.header]['chk'])" aria-hidden="true" title="Advance settings"></i>
+            <i class="fa fa-external-link" (click)="advanceSettings(data,col.field,col.header,data.data[col.header]['chk'])" aria-hidden="true" title="Configure Monitor"></i>
           </a>
           </div>
         </template>
