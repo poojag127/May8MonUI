@@ -101,6 +101,78 @@ export class MonConfigurationService {
   }
 
 
+   /**
+  *
+  * @param calledFrom     this.monConfServiceObj.clearData();
+  this.monConfServiceObj.setProfileName(profileName);
+  this.monConfServiceObj.setTopoName(selectedTopo);
+  */
+
+  public clearSessionVariable() {
+    sessionStorage.removeItem('profileName');
+    sessionStorage.removeItem('topoName');
+    sessionStorage.removeItem('profDesc');
+    sessionStorage.removeItem('monMode');
+    sessionStorage.removeItem('testRun');
+   }
+
+    public restoreVariableFromSession() {
+
+   if(sessionStorage.getItem('profileName') != null) {
+       this.profileName = sessionStorage.getItem('profileName').toString();
+     }
+
+     if(sessionStorage.getItem('topoName') != null) {
+       this.topoName = sessionStorage.getItem('topoName').toString();
+     }
+
+     if(sessionStorage.getItem('profDesc') != null) {
+       this.profileDesc = sessionStorage.getItem('profDesc').toString();
+     }
+
+     if(sessionStorage.getItem('monMode') != null) {
+        this.monDataService.setMonMode(Number(sessionStorage.getItem('monMode')));
+     }
+       if(sessionStorage.getItem('testRun') != null) {
+       this.monDataService.setTestRunNum(Number(sessionStorage.getItem('testRun')));
+     }
+    }
+
+  public setVariableInSession(calledFrom) {
+    this.clearSessionVariable();
+
+   if(calledFrom == 0) { // Edit
+       sessionStorage.setItem('profileName', this.profileName);
+       sessionStorage.setItem('topoName', this.topoName);
+       sessionStorage.setItem('profDesc', this.profileDesc);
+       sessionStorage.setItem('monMode', this.monDataService.getMonMode().toString())
+   }else if(calledFrom == 2) {
+    sessionStorage.setItem('profileName', this.cavLayoutService.getProfileName());
+     sessionStorage.setItem('topoName', this.cavLayoutService.getTopologyName());
+   // sessionStorage.setItem('profDesc', this.cavLayoutService.get); need to set the profile description of profile
+    sessionStorage.setItem('monMode', this.cavLayoutService.getMonMode().toString());
+   } else { // testRun mode
+
+      let txSession = JSON.parse(localStorage.getItem('monitorGUI'));
+
+      if(txSession['monMode'] !== null && txSession['monMode'] !== undefined) {
+        sessionStorage.setItem('monMode', txSession['monMode']);
+      }
+      if(txSession['profileName'] !== null && txSession['profileName'] !== undefined) {
+          sessionStorage.setItem('profileName',txSession['profileName'] );
+        }
+
+      if(txSession['topoName'] !== null && txSession['topoName'] !== undefined) {
+            sessionStorage.setItem('topoName',txSession['topoName'] );
+      }
+
+      if (txSession['testRunNumber'] !== null && txSession['testRunNumber'] !== undefined) {
+        sessionStorage.setItem('testRun', txSession['testRunNumber']);
+      }
+    }
+ }
+
+
 
   /**
    * 

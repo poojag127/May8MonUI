@@ -56,7 +56,7 @@
     <label>End Event</label>
 </div>
 <div class="ui-g-2" style="width:16%">
-   <p-dropdown name="endEvents" [options]="endEventArr"  [disabled]="item['fromEvent'] == 'NA' || item['fromEvent'] == 1 || item['frequency'] != 2 || item['fromEvent'] == 90" [(ngModel)]="item['endEvent']" [style]="{'width': '70%'}"  appendTo="body"></p-dropdown>
+   <p-dropdown name="endEvents" [options]="endEventArr"  [disabled]="item['fromEvent'] == 'NA' || item['fromEvent'] == 1 || item['frequency'] == 2 || item['fromEvent'] == 90" [(ngModel)]="item['endEvent']" [style]="{'width': '70%'}"  appendTo="body"></p-dropdown>
 </div>
 
   <div class="ui-g-1 checkMon">
@@ -64,7 +64,7 @@
     <label *ngIf="item['endEvent'] == 3 " >End Phase Name</label>
   </div>
   <div class="ui-g-2">
-     <input style="width:150px" *ngIf="item['endEvent'] != 3" placeholder="NA" name="count" [disabled]="item['fromEvent'] == NA || item['fromEvent'] == 1 || item['frequency'] == 1 || item['endEvent'] == 'NA' ||item['endEvent'] == 1 || item['fromEvent'] == 90 || item['frequency'] == 'NA' || item['endEvent'] == 'NA'" 
+     <input style="width:150px" *ngIf="item['endEvent'] != 3" placeholder="NA" name="count" [disabled]="item['fromEvent'] == NA || item['fromEvent'] == 1 || item['frequency'] == 2 || item['endEvent'] == 'NA' ||item['endEvent'] == 1 || item['fromEvent'] == 90  || item['endEvent'] == 'NA'" 
          [(ngModel)]="item['count']" type="number" min="1"  title="Please enter valid count value. &#013; Max count value must be a numeral. &#013; Max count value should be greater than zero." pInputText />
 
      <input style="width:150px" *ngIf="item['endEvent'] == 3"   [(ngModel)]="item['endPhaseName']" type="text" pInputText />

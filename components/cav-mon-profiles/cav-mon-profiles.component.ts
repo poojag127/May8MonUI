@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 import { MdDialog, MdDialogRef } from '@angular/material';
 import { CavScenVersionCommitComponent } from '../../../../main/components/cav-scen-version-commit/cav-scen-version-commit.component';
 import { CavScenVersionLogComponent } from '../../../../main/components/cav-scen-version-log/cav-scen-version-log.component';
+import * as COMPONENT from '../../constants/mon-component-constants';
+
 
 @Component({
   selector: 'app-cav-mon-profiles',
@@ -59,7 +61,8 @@ export class CavMonProfilesComponent implements OnInit {
     
   constructor(public dataService: MonDataService, private router: Router, private profileService: MonProfileService,
     private utilityObj: UtilityService, private monConfServiceObj: MonConfigurationService,
-    private messageService: MessageService, private _dialog: MdDialog, private confirmationService: ConfirmationService) { }
+    private messageService: MessageService, private _dialog: MdDialog, private confirmationService: ConfirmationService
+  ) { }
 
   ngOnInit() {
  
@@ -118,6 +121,7 @@ export class CavMonProfilesComponent implements OnInit {
      this.monConfServiceObj.setProfileName(addProfile.profileName);
      this.monConfServiceObj.setProfileDesc(addProfile.desc);
      this.monConfServiceObj.setTopoName(topoName);
+     this.monConfServiceObj.setVariableInSession(0);
      this.router.navigate([URL.PROF_CONFIGURATION]);
      return;
    }
@@ -145,6 +149,7 @@ export class CavMonProfilesComponent implements OnInit {
     this.monConfServiceObj.clearData();
     this.monConfServiceObj.setProfileName(profileName);
     this.monConfServiceObj.setTopoName(topoName);
+    this.monConfServiceObj.setVariableInSession(0);
     this.router.navigate([URL.PROF_CONFIGURATION]);
   }
 
@@ -169,7 +174,7 @@ export class CavMonProfilesComponent implements OnInit {
       return;
     }
       this.confirmationService.confirm({
-      message: 'Do you want to delete selected monitor group(s)?',
+      message: COMPONENT.DELETE_MON_GROUP_MSG,
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {
@@ -260,9 +265,7 @@ export class CavMonProfilesComponent implements OnInit {
     this.monConfServiceObj.clearData();
     this.monConfServiceObj.setProfileName(profileName);
     this.monConfServiceObj.setTopoName(selectedTopo);
-
-
-    
+    this.monConfServiceObj.setVariableInSession(0);
     this.router.navigate([URL.PROF_CONFIGURATION]);
   }
 
@@ -315,7 +318,7 @@ export class CavMonProfilesComponent implements OnInit {
   {
     console.log("startTest() method called ,rowData = ", rowData)
     this.confirmationService.confirm({
-      message: 'Are you sure you want to run test for '  + rowData.profileName + '?',
+      message: COMPONENT.START_TEST_MSG  + " " + rowData.profileName + '?',
       header: 'Test Monitor Group Confirmation',
       icon: 'fa fa-question-circle',
       accept: () => {

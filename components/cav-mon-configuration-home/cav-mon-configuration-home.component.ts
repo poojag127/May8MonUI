@@ -16,6 +16,7 @@ import { HideShowMonitorData } from '../../containers/hide-show-monitor-data';
 import { CavMonHideShowComponent } from './cav-mon-hide-show/cav-mon-hide-show.component';
 import { MonConfigData } from '../../containers/mon-config-data';
 import { ServerConfigData } from '../../containers/server-config-data';
+import { CavLayoutService } from "../../../../main/services/cav-layout-provider.service";
 
 @Component({
   selector: 'app-cav-mon-configuration-home',
@@ -77,13 +78,26 @@ export class CavMonConfigurationHomeComponent implements OnInit {
               private messageService: MessageService,
               private dataService : MonDataService,
               private _dialog: MdDialog,
-              private confirmationService: ConfirmationService
+              private confirmationService: ConfirmationService,
+              private _cavLaoutService : CavLayoutService
    ) { }
 
   ngOnInit() 
   {
 
     console.log("profileName--",this.monConfServiceObj.getProfileName())
+
+    this.monConfServiceObj.restoreVariableFromSession();
+
+    let txSession = JSON.parse(localStorage.getItem('monitorGUI'));
+    if(txSession != null) {
+      this.monConfServiceObj.setVariableInSession(1);
+      localStorage.removeItem('monitorGUI');
+    }else if(this._cavLaoutService.getProfileName() != undefined) {
+      this.monConfServiceObj.setVariableInSession(2);
+    }
+
+
 
     this.modeStatus = this.dataService.monModeStatus()
     this.profileName = this.monConfServiceObj.getProfileName();
