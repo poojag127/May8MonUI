@@ -122,6 +122,7 @@ export class MonConfigurationService {
     public restoreVariableFromSession() {
 
    if(sessionStorage.getItem('profileName') != null) {
+       console.log("profileName = " , this.profileName)
        this.profileName = sessionStorage.getItem('profileName').toString();
      }
 
@@ -143,13 +144,16 @@ export class MonConfigurationService {
 
   public setVariableInSession(calledFrom) {
     this.clearSessionVariable();
-
+    console.log("calledFrom = ",  calledFrom)
    if(calledFrom == 0) { // Edit
+      console.log("1=")
        sessionStorage.setItem('profileName', this.profileName);
        sessionStorage.setItem('topoName', this.topoName);
        sessionStorage.setItem('profDesc', this.profileDesc);
        sessionStorage.setItem('monMode', this.monDataService.getMonMode().toString())
    }else if(calledFrom == 2) {
+    console.log("2 =")
+    console.log("this.cavLayoutService.getProfileName()=", this.cavLayoutService.getProfileName())
     sessionStorage.setItem('profileName', this.cavLayoutService.getProfileName());
      sessionStorage.setItem('topoName', this.cavLayoutService.getTopologyName());
    // sessionStorage.setItem('profDesc', this.cavLayoutService.get); need to set the profile description of profile
@@ -162,6 +166,7 @@ export class MonConfigurationService {
         sessionStorage.setItem('monMode', txSession['monMode']);
       }
       if(txSession['profileName'] !== null && txSession['profileName'] !== undefined) {
+        console.log("txSession['profileName']= ", txSession['profileName'])
           sessionStorage.setItem('profileName',txSession['profileName'] );
         }
 

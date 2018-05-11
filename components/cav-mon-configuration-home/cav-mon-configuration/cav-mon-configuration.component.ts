@@ -837,6 +837,11 @@ export class CavMonConfigurationComponent implements OnInit {
   chkDuplicateEntryForGDF(operation,id)
   {
     let key = this.formData['gdfName'];
+    for(let i = 0; i < key.length; i++)
+    {
+      key = key.replace(" ", "_");
+    }
+
     this.gdfNameArr = this.monConfigurationService.getGDFNameList();
 
     if(operation == "edit")
