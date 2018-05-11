@@ -1201,7 +1201,7 @@ export class CavMonConfigurationComponent implements OnInit {
     } 
     else if (formdata.fromEvent == "2" || formdata.fromEvent == "3") 
     {
-      if (formdata.fromEvent == "3" && (formdata.endEvent == "3" && formdata.phaseName == "NA" || formdata.phaseName == ""))
+      if (formdata.fromEvent == "3" && (formdata.phaseName == "NA" || formdata.phaseName == ""))
        {
         this.messageService.errorMessage("Please Enter Valid Phase Name ");
         return false;
@@ -1224,7 +1224,7 @@ export class CavMonConfigurationComponent implements OnInit {
           {
             if (formdata.endPhaseName == "NA" || formdata.endPhaseName == '' || formdata.endPhaseName == null) 
             {
-              this.messageService.errorMessage("Please Enter Valid Count ");
+              this.messageService.errorMessage("Please Enter End Phase Name");
               return false;
             }
           } 
@@ -1297,14 +1297,14 @@ export class CavMonConfigurationComponent implements OnInit {
    }
   
   let gdfDetails = formData.gdfDetails;
-  let unitData = "-C";
+  let unitData = "-C" + COMPONENT.SPACE_SEPARATOR;
   let searchPattern = "";
   gdfDetails.map(function(each){
-    unitData = unitData + COMPONENT.SPACE_SEPARATOR + each.unit + ","
-    searchPattern = searchPattern + "-p" + COMPONENT.SPACE_SEPARATOR + each.searchPattern + ",";
+    unitData = unitData + each.unit + ",";
+    searchPattern = searchPattern + "-p" + COMPONENT.SPACE_SEPARATOR + each.searchPattern + COMPONENT.SPACE_SEPARATOR;
   })
 
-  val = val +  unitData.substring(0,unitData.length-1) + COMPONENT.SPACE_SEPARATOR + searchPattern.substring(0,searchPattern.length-1);
+  val = val +  unitData.substring(0,unitData.length-1) + COMPONENT.SPACE_SEPARATOR + searchPattern.trim();
   return val.trim();
  }
 
@@ -1415,7 +1415,7 @@ export class CavMonConfigurationComponent implements OnInit {
        noRowSelected = true;
 
       this.confirmationService.confirm({
-      message: (noRowSelected) ? 'Do you want to delete all configuration(s)?' : 'Do you want to delete selected configuration(s)?',
+      message: (noRowSelected) ? COMPONENT.DELETE_ALL_CONFIGURATIONS : COMPONENT.DELETE_SPECIFIC_CONFIGURATION,
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {
@@ -1478,7 +1478,7 @@ export class CavMonConfigurationComponent implements OnInit {
   deleteSpecificConfig(rowData) 
   {
     this.confirmationService.confirm({
-      message: 'Do you want to delete selected configuration?',
+      message: COMPONENT.DELETE_SPECIFIC_CONFIGURATION,
       header: 'Delete Confirmation',
       icon: 'fa fa-trash',
       accept: () => {
@@ -1540,7 +1540,7 @@ export class CavMonConfigurationComponent implements OnInit {
     startTest(configuredData)
     {
       this.confirmationService.confirm({
-        message: 'Are you sure you want to run test for ' + this.monName + '?',
+        message: COMPONENT.START_TEST_MSG + " " + this.monName + '?',
         header: 'Test Monitor Confirmation',
         icon: 'fa fa-question-circle',
         accept: () => {

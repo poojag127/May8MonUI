@@ -16,9 +16,6 @@ export class CavMonHideShowComponent implements OnInit {
   /* Available Tree nodes. */
   nodes: TreeNode[];
 
- /* Selected Tree nodes. */
-  selectedNodes: TreeNode[];
-
   /* This flag is used to make dialog for show hidden monitors visible */
   displayDialog: boolean = true;
 
@@ -44,17 +41,19 @@ export class CavMonHideShowComponent implements OnInit {
 
 /* Function called when user wants to show the hidden monitor back in the treeTableData*/
 addMonitor()
-{
-    this.confirmationService.confirm({
+{   
+  this.confirmationService.confirm({
     message: 'Are you sure you want to unhide monitor(s)?',
     header: 'Show Hidden Monitors Confirmation',
     accept: () => {
       console.log("Method addMonitors called , nodes = " , this.nodes)
       
       this.monConfServiceObj.showHiddenMonitors(this.nodes)
+      this.monConfServiceObj.isFromAdd= true;
       this.dialogCloseEvent();
   },
     reject: () => {
+
     }
   });
 }
@@ -74,7 +73,7 @@ addMonitor()
     {
       existingObj = _.find(hideShowMonList,function(each) {return each['category'] == rowData['data']})
     }
-    
+
     console.log("existingObj = ",existingObj)
 
     if (chk) // means when the checkbox is checked for a given node.
@@ -83,6 +82,7 @@ addMonitor()
 
       if(existingObj == null) // when the hideShowMonList is empty initially when no node is selected, we do need to add the hideShowMonitorData.
       {
+        let parentNode; // for holding the category name.
         /*Case when only child node is selected and parent node is not selected.*/
        if (rowData.parent != null) // means the selected node is a child node.
        {
@@ -91,10 +91,16 @@ addMonitor()
           if (each['data'] == rowData['data']) // check whether selected box node matches with the node data or not.
             childMonList.push(each['data'])  // push that child node in an array.
         })
-        this.hideShowMonitorData = new HideShowMonitorData(); 
-        this.hideShowMonitorData.category = rowData.parent['data']; // set category as the parent node label
-        this.hideShowMonitorData.subCategory = childMonList; // set all the children selected in the subcategory.
-        hideShowMonList.push(this.hideShowMonitorData); 
+        parentNode = rowData.parent['data'];
+       }
+
+       else if(rowData['children'].length == 0)
+       {
+        let subCategoryList = [];
+          subCategoryList.push("All");
+        
+        parentNode = rowData['data'];
+        childMonList = subCategoryList;
        }
 
       else // when parent node is checked and no child node is selected.In that case all the child nodes of that parent must get checked.
@@ -107,24 +113,13 @@ addMonitor()
           each['checked'] = true; 
           childMonList.push(each['data']); // make al the child nodes get checked when only the parent node is selected.
         })
-
-          this.hideShowMonitorData = new HideShowMonitorData(); 
-          this.hideShowMonitorData.category = rowData['data'];
-          this.hideShowMonitorData.subCategory = childMonList;
-          hideShowMonList.push(this.hideShowMonitorData);
+        parentNode = rowData['data'];
        }
 
-       if(rowData['children'].length == 0)
-       {
-        let subCategoryList = [];
-        subCategoryList.push("All");
-        
-
-        this.hideShowMonitorData = new HideShowMonitorData(); 
-        this.hideShowMonitorData.category = rowData['data']; // set category as the parent node label
-        this.hideShowMonitorData.subCategory = subCategoryList; // set all the children selected in the subcategory.
-        hideShowMonList.push(this.hideShowMonitorData); 
-       }
+       this.hideShowMonitorData = new HideShowMonitorData(); 
+       this.hideShowMonitorData.category = parentNode;
+       this.hideShowMonitorData.subCategory = childMonList;
+       hideShowMonList.push(this.hideShowMonitorData); 
       }
 
       else if (existingObj != null)
@@ -193,13 +188,15 @@ addMonitor()
 
 
   dialogCloseEvent($evt?: any) {
-    if(this.dialogRef) {
+    if(this.dialogRef) 
+    {
       this.dialogRef.close();
     }
   }
 
   ngOnDestroy() {
     this.dialogCloseEvent();
+    this.monConfServiceObj.clearHideShowMonList();
   }
 
 }

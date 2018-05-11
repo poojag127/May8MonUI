@@ -33,6 +33,7 @@ import { CavCheckMonitorComponent } from './components/cav-mon-configuration-hom
 import { CavServerSignatureComponent} from './components/cav-mon-configuration-home/cav-mon-configuration/cav-server-signature/cav-server-signature.component';
  // import { CavMonRightPaneComponent } from './components/cav-mon-right-pane/cav-mon-right-pane.component';
  import { CavLogPatternMonitorComponent } from './components/cav-mon-configuration-home/cav-mon-configuration/cav-log-pattern-monitor/cav-log-pattern-monitor.component';
+ import { CavMonHealthCheckComponent } from './components/cav-mon-configuration-home/cav-mon-health-check/cav-mon-health-check.component';
 
 //services
 import { MonDataService } from './services/mon-data.service';
@@ -92,7 +93,8 @@ import { MonitorCompReducer } from './reducers/monitor-comp-reducer';
   CavCheckMonitorComponent,
 
   CavServerSignatureComponent,
-  CavLogPatternMonitorComponent
+  CavLogPatternMonitorComponent,
+  CavMonHealthCheckComponent
   
   ],
   
@@ -140,7 +142,8 @@ import { MonitorCompReducer } from './reducers/monitor-comp-reducer';
   /*Required for opening in model window. */
   entryComponents: [
     CavMonStatsComponent,
-    CavMonHideShowComponent
+    CavMonHideShowComponent,
+    CavMonHealthCheckComponent
   ],
 
   exports: [

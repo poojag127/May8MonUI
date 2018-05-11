@@ -4,7 +4,7 @@
             <div style="margin-top: 19px;">
                 <label >Topology :</label>
                 <p-dropdown [style]="{'width':'26%'}" class="homedropdown" [options]="topologyList" [(ngModel)]="selectedTopology"
-                    (onChange)="loadProfileData($event.value)"></p-dropdown>
+                    (onChange)="loadProfileData($event.value)" filter="true" ></p-dropdown>
             </div>
         <!-- </p-fieldset> -->
     </div>
@@ -19,10 +19,10 @@
                     <!-- <button pButton class="toolbarIcon" type="button" icon="fa-pencil" (click)="editConfigData()" title="Edit Configuration"></button> -->
                     <button pButton class="toolbarIcon" *ngIf="!isShowFilter" type="button" icon="fa-search" (click)="showFilter()" title="Show Filter"></button>
                     <button pButton class="toolbarIcon" *ngIf="isShowFilter" type="button" icon="fa-search" (click)="showFilter()" title="Hide Filter"></button>
-                    <button pButton type="button" (click)="openAddDialog()"  [disabled]="selectedTopology==''" title="Add Profile" icon="fa-plus"></button>
-                    <button pButton type="button" class="ui-button-danger" [disabled]="selectedTopology==''" (click)="deleteProfile()" title="Delete Profile(s)" icon="fa-trash-o"></button>
+                    <button pButton type="button" (click)="openAddDialog()"  [disabled]="selectedTopology==''" title="Add Monitor Group" icon="fa-plus"></button>
+                    <button pButton type="button" class="ui-button-danger" [disabled]="selectedTopology==''" (click)="deleteProfile()" title="Delete Monitor Group(s). &#013; Please select the monitor group(s) you want to delete." icon="fa-trash-o"></button>
 
-                    <p-fileUpload mode="basic" id="testUpload" [url]="fileUpload+selectedTopology" [showUploadButton]=true accept=".json" (onUpload)="uploadFileMsg($event)" [disabled] = "selectedTopology==''" auto="true" chooseLabel > 
+                    <p-fileUpload mode="basic" id="testUpload" [url]="fileUpload+selectedTopology" [showUploadButton]=true accept=".json" (onUpload)="uploadFileMsg($event)" [disabled] = "selectedTopology==''" title="Upload" auto="true" chooseLabel > 
                     </p-fileUpload>
                 </div>
             </p-header>
@@ -61,7 +61,7 @@
             <p-column [style]="{'width':'113px'}" class="col-overflow"  header="Actions" [sortable]="true" [filter]="isShowFilter">
                 <template let-col let-json="rowData" pTemplate type="body">
                     <a (click)="editProfile(json['profileName'],selectedTopology)">
-                        <i class="fa fa-pencil" style="color: #2572b5;cursor:pointer; margin-left: 5px" title="Edit Profile"></i>
+                        <i class="fa fa-pencil" style="color: #2572b5;cursor:pointer; margin-left: 5px" title="Edit Monitor Group"></i>
                     </a>
                           
                     <span (click)="versionCommit(json)">
@@ -86,7 +86,7 @@
                       </span>
 
                     <span  (click)="importProfile(json)">
-                         <i class="fa fa-download" style="color: #2572b5;cursor:pointer; margin-left: 10px" title="Import Profile"></i>
+                         <i class="fa fa-download" style="color: #2572b5;cursor:pointer; margin-left: 10px" title="Download Monitor Group"></i>
                     </span>
     
                     
