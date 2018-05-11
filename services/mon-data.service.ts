@@ -26,21 +26,24 @@ export class MonDataService {
     
     productKey:string;
 
-    // private serviceURL: string = "http://10.10.50.12:8002/ProductUI/productSummary/MonitorWebService/";
+    private serviceURL: string = "http://10.10.50.12:8002/ProductUI/productSummary/MonitorWebService/";
     // private serviceURL: string = "http://10.10.40.7:8006/ProductUI/productSummary/MonitorWebService/";
-      private serviceURL: string = "https://10.10.50.5/ProductUI/productSummary/MonitorWebService/";
+    //   private serviceURL: string = "https://10.10.50.5/ProductUI/productSummary/MonitorWebService/";
 
    constructor(private _productConfig: CavConfigService, private _navService: CavTopPanelNavigationService,private cavLayoutService: CavLayoutService) {
         //need to change
     //    this.serviceURL = this._productConfig.getINSPrefix() + this._navService.getDCNameForScreen('monitorgui') + "/ProductUI/productSummary/MonitorWebService/";
-       this.productKey = _productConfig.$productKey;
+       console.log("Constructor called _productConfig.$productKey in Mon data service  ",_productConfig.$productKey)
+    //    this.productKey = _productConfig.$productKey;
 
     }
 
      public initConfiguration()
      {
+       console.log("Method initConfiguration called "+this.getProductKey())
        try
         {
+          this.productKey = this._productConfig.$productKey;
           /*Checking for availability of session. */
           if (this._productConfig.$userName == null) {
             // this.log.info('Session not available. Restoring session.');
