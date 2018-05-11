@@ -314,6 +314,8 @@ export class CavMonConfigurationHomeComponent implements OnInit {
        {
          this.monConfServiceObj.getMonitorConfiguartion(currNode['drivenJsonName'], monName, tierName).then(data => {
             this.router.navigate([URL.MON_CONFIGURATION,this.profileName,this.topoName,monName,tierId,tierName],{ relativeTo: this.route });
+            if (monName == COMPONENT.LOG_PATTERN_MONITOR || monName == COMPONENT.GET_LOG_FILE)
+              this.monConfServiceObj.getLogMonGDF(monName);
          })
        }
        else {
