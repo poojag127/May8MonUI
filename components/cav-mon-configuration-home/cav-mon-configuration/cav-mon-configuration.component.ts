@@ -138,6 +138,9 @@ export class CavMonConfigurationComponent implements OnInit {
 /** holds the  unique key with combination of serverName,Instance,Name ***/
  uniqueKey:any[] = [];
 
+ /**Store the list of the gdf names for each log monitor*/
+ gdfNameArr:any[] = [];
+
   constructor( private router:Router,
                private route: ActivatedRoute,              
                private store: Store<any>,
@@ -828,6 +831,35 @@ export class CavMonConfigurationComponent implements OnInit {
   return true;
   }
 
+  /**
+   * This method is used at the time of ADD and EDIT to check for duplicate gdf
+   */
+  chkDuplicateEntryForGDF(operation,id)
+  {
+    let key = this.formData['gdfName'];
+    this.gdfNameArr = this.monConfigurationService.getGDFNameList();
+
+    if(operation == "edit")
+    {
+      let selectedRowObj = _.find(this.tableData, function(each) { return each['id'] == id});
+      let selectedRowKey = selectedRowObj.gdfName;
+  
+      if(key == selectedRowKey) // when there is no change in the gdf name at the time of edit and other fields are updated.
+        return true;
+     }
+
+      let name = _.find(this.gdfNameArr, function(each){ return each == key })
+      if (name) // if gdf name already exists in the list then return
+      {
+        this.messageService.errorMessage("GDF already exists");
+          return false;
+      }
+      else  // if gdf name does not exists then add the new gdf name to the list.
+        this.gdfNameArr.push(key);
+
+
+     return true;
+    }
 
 /**
  * This method is called when add button is clicked 
@@ -907,16 +939,22 @@ export class CavMonConfigurationComponent implements OnInit {
     else if(this.type == COMPONENT.LOG_PATTERN_TYPE)
     {
       let msg = "This combination of server name, log monitor name and instance name already exists";
-      if (this.validateLogPatternMon(this.formData))
+      if (this.validateLogPatternMon(this.formData)) // this check is used to validate whether graph details are provided or not before submit.
        {
         if (this.isNewConfig)
          {
           if(!this.chkDuplicateEntry("add",msg,"-1"))   //checking duplicate entry when adding
              return ;
-        }
+
+          if(!this.chkDuplicateEntryForGDF("add", "-1")) //checking for duplicate entry of gdf when adding
+            return;
+         }
         else {
           if(!this.chkDuplicateEntry("edit",msg,this.formData.id))    //checking duplicate entry when editing
              return ;
+
+          if(!this.chkDuplicateEntryForGDF("edit",this.formData.id)) //checking duplicate entry of gdf when editing
+            return;
         }
       }
       else     //case when validation fails and user is not allowd to make entry thus returning it.
@@ -1249,7 +1287,7 @@ export class CavMonConfigurationComponent implements OnInit {
    console.log("textForFileName=", textForFileName)
    if(textForFileName != null && textForFileName != '')
    {
-      val = val + encodeURIComponent(textForFileName) +COMPONENT.SPACE_SEPARATOR ;
+      val = val + encodeURIComponent(textForFileName) +  COMPONENT.SPACE_SEPARATOR ;
       console.log("val = ",val)
    }
 
@@ -1388,11 +1426,13 @@ export class CavMonConfigurationComponent implements OnInit {
         
         /*This is used to make an array for combinations of server name and app name which are going to be deleted*/
         let selectedServerEntry = [];
+        let selectedMonGroupName = []; // this is used to store the gdf names selected for delete
         
         this.selectedTableData.map(function(each)
         {
           arrId.push(each.id); // push items to be deleted
           selectedServerEntry.push(each.serverName + each.appName); // pushing combination of server name and app name in an array to be deleted from tempArr
+          selectedMonGroupName.push(each.gdfName);
         })
 
         this.tableData = this.tableData.filter(function(val)
@@ -1407,6 +1447,14 @@ export class CavMonConfigurationComponent implements OnInit {
           {
              return selectedServerEntry.indexOf(item) == -1;
           })
+          
+         /*this is used to remove the selected gdf name for delete from the gdfname list when a particular configuration is deleted*/ 
+          this.gdfNameArr = this.gdfNameArr.filter(function(item)
+          {
+            return selectedMonGroupName.indexOf(item) ==  -1;
+          })
+           
+           this.monConfigurationService.setGDFNameList(this.gdfNameArr);
 
          /*Case when edit and delete operation are performed simultaneously*/
          let that = this;
@@ -1416,7 +1464,6 @@ export class CavMonConfigurationComponent implements OnInit {
              that.clearFormFields();
              that.isNewConfig = true;
          }
-
 
           /**clearing object used for storing data ****/
           this.selectedTableData = [];
@@ -1439,14 +1486,18 @@ export class CavMonConfigurationComponent implements OnInit {
 
          /*This is used to make an array for combinations of server name and app name which are going to be deleted*/
          let selectedServerEntry = [];
+         let selectedMonGroupName = [];
 
         arrId.push(rowData.id) // push selected row's id 
         selectedServerEntry.push(rowData.serverName + rowData.appName); // pushing combination of server name and app name in an array
-       
+        selectedMonGroupName.push(rowData.gdfName);// this is used to store the gdf names selected for delete
+
         this.tableData = this.tableData.filter(function(val)
         {
           return arrId.indexOf(val.id) == -1;  //value to be deleted should return false
         })
+
+        console.log(" selectedMonGroupName =" , selectedMonGroupName)
 
          /*To delete key combination from the array used in validateAppNameAndServerName() method 
           *for checking duplicate server entry
@@ -1455,6 +1506,14 @@ export class CavMonConfigurationComponent implements OnInit {
           {
              return selectedServerEntry.indexOf(item) == -1;
           })
+
+          /*this is used to remove the selected gdf name for delete from the gdfname list when a particular configuration is deleted*/ 
+          this.gdfNameArr = this.gdfNameArr.filter(function(item)
+          {
+            return selectedMonGroupName.indexOf(item) == -1;
+          })
+
+          this.monConfigurationService.setGDFNameList(this.gdfNameArr);
 
           /* Case when user is editing a row and 
            * wants to delete that row without performing edit operation, then at edit time as we are
@@ -1466,6 +1525,7 @@ export class CavMonConfigurationComponent implements OnInit {
               this.clearFormFields();
               this.isNewConfig = true;
           }
+          console.log("gdfNameArr after delete = ", this.gdfNameArr)
       },
 
       reject: () => {

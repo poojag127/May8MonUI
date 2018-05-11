@@ -60,6 +60,9 @@ export class MonConfigurationService {
    /*This flag is used for add functionality in show hidden monitor case */
    isFromAdd:boolean = false;
 
+   /*This variable is used to store the list of gdf file names*/
+   gdfNameList:any[]=[];
+
   constructor(private http: Http, private _restApi: RestApiService,
     private monDataService: MonDataService,
     private store: Store<any>,
@@ -932,6 +935,30 @@ export class MonConfigurationService {
     this.hideShowMonList = [];
   }
 
+  setGDFNameList(data){
+    this.gdfNameList = data;
+  }
+  
+  getGDFNameList(){
+    return this.gdfNameList;
+  }
+  
+  /*This method is called to get the list of gdf names according to the type of the log monitor*/
+  getLogMonGDF(monName) 
+  {
+    this.blockUI.start();
+    let url = this.monDataService.getserviceURL() + URL.GET_GDF_LIST;
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('monName', monName);
+    params.set('productKey', this.monDataService.getProductKey());
 
+    return this.http.get(url, { search: params }).map(res => res.json())
+      .toPromise()
+      .then(res => {
+        this.blockUI.stop();
+        this.gdfNameList = res;
+      }).
+      catch(this.handleError);
+  }
   
 }

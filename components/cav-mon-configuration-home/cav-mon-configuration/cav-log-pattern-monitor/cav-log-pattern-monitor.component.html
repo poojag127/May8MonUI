@@ -76,7 +76,7 @@
         
         <span style="margin-left: -236px">  
           <p-dropdown [style]="{'width':'180px'}" name="Metriclist" [(ngModel)]="item['metric']" required [options]="metricList" > </p-dropdown>
-          <input *ngIf="item['metric'] == 'Custom Metrics'"  style="width:225px"  
+          <input *ngIf="item['metric'] == 'Custom Metrics'"  style="width:225px; margin-left: 16px"  
             name="FileName" type="text"  required="true" [(ngModel)]="item['customMetricName']" pInputText />
         </span> 
     </div>
@@ -107,7 +107,7 @@
                      <p-column [style]="{'width':'24px'}" selectionMode="multiple"></p-column>
                      <p-column field="searchPattern" header="Search Pattern"></p-column>
                      <p-column field="graphName" header="Graph Name"></p-column>
-                     <!--<p-column field="unit" header="Unit" [hidden]= "true" ></p-column>
+                     <!-- <p-column field="unit" header="Unit" [hidden]= "true" ></p-column>
                      <p-column field="unit-ui" header="Unit" ></p-column>
     -->
                     <p-column field="unit" header="Unit"  ></p-column>

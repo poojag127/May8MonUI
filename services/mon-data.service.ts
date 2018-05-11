@@ -30,6 +30,7 @@ export class MonDataService {
     // private serviceURL: string = "http://10.10.40.7:8006/ProductUI/productSummary/MonitorWebService/";
     //   private serviceURL: string = "https://10.10.50.5/ProductUI/productSummary/MonitorWebService/";
 
+
    constructor(private _productConfig: CavConfigService, private _navService: CavTopPanelNavigationService,private cavLayoutService: CavLayoutService) {
         //need to change
     //    this.serviceURL = this._productConfig.getINSPrefix() + this._navService.getDCNameForScreen('monitorgui') + "/ProductUI/productSummary/MonitorWebService/";

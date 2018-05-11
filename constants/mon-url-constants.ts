@@ -47,3 +47,6 @@ export const GET_MONITORS_CONFIG = "getMonConfigurationData";
 export const TEST_MONITOR = "testMonitor";
 export const HIDE_MONITORS = "updateMonitorMode";
 export const SHOW_HIDDEN_MON= "getHiddenMonitorList";
+
+/*Url for getting gdf list according to monitor type */
+export const GET_GDF_LIST = `getListOfGdf`;
