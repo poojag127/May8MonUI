@@ -1,0 +1,56 @@
+
+<p-dialog class="profile-dialog hideShowMon" [(visible)]="displayDialog" header="Health Check Monitor Configurations" width="1000"
+        [modal]="false" (onHide)="dialogCloseEvent($event)">
+
+     <div class = "ui-g-12">
+        <p-accordion>
+          <p-accordionTab header="Configure Health Check Monitor">
+           <p-fieldset  legend="Advance Settings" [toggleable]="true" collapsed="true">
+
+             <div class= "ui-g-12">
+               <div class="ui-g-1">
+                  <label>Packet </label>
+               </div>
+               <div class ="ui-g-3">
+               <input name="packet" type="text"  pInputText [(ngModel)]="packet" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                        autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
+               </div>
+
+               <div class = "ui-g-1">
+                 <label>Interval</label>
+               </div>
+               <div class ="ui-g-3">
+                  <input name="interval" type="text"  pInputText [(ngModel)]="interval" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                  autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
+               </div>
+             </div>
+                    
+           </p-fieldset>
+          </p-accordionTab>
+        </p-accordion>
+
+          <p-accordion>
+          <p-accordionTab header="Health Check Configuration data">
+                      
+          </p-accordionTab>
+        </p-accordion>
+    </div>
+
+
+
+<div>
+
+<p-tree [value]="nodes">
+    <ng-template let-data  pTemplate="default">
+        <p-checkbox [(ngModel)]="data.checked" binary="true" (click)="onCheckBoxChangeState(data, data.checked)"></p-checkbox> 
+        <span>{{data.label}}</span>
+     </ng-template>
+</p-tree>
+</div>
+
+  <div class="ui-g-12">
+    <button type="button" pButton  icon="fa-check" style="float: right" (click)= "addMonitor()" title="Show hidden monitors" label="Show"></button>
+    <button type="button" pButton  icon="fa-close" style="float: right" (click)= "dialogCloseEvent()" label="Cancel" title="Close"></button>
+  </div>
+
+</p-dialog>

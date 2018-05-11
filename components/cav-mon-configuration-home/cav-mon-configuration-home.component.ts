@@ -17,6 +17,7 @@ import { CavMonHideShowComponent } from './cav-mon-hide-show/cav-mon-hide-show.c
 import { MonConfigData } from '../../containers/mon-config-data';
 import { ServerConfigData } from '../../containers/server-config-data';
 import { CavLayoutService } from "../../../../main/services/cav-layout-provider.service";
+import { CavMonHealthCheckComponent } from "./cav-mon-health-check/cav-mon-health-check.component";
 
 @Component({
   selector: 'app-cav-mon-configuration-home',
@@ -52,6 +53,8 @@ export class CavMonConfigurationHomeComponent implements OnInit {
    modeStatus: boolean = false; 
    _dialogFileRef: MdDialogRef<CavMonStatsComponent>;
    _dialogForShowMon: MdDialogRef<CavMonHideShowComponent>;
+
+   _dialogForHealthCheckMon:MdDialogRef<CavMonHealthCheckComponent>;
    
    disableShowHiddenMon:boolean = false;
 
@@ -934,6 +937,23 @@ removeSpecificChildNode(obj)
       this.showTitleForChildNodes = "Click to view monitor stats";
     else
       this.showTitleForChildNodes = "";
+  }
+
+
+  openHealthCheckMonitorDialog()
+  {
+    let that = this;
+    this._dialogForHealthCheckMon = this._dialog.open(CavMonHealthCheckComponent, {});
+  
+    this._dialogForHealthCheckMon.afterClosed().subscribe(result => {
+           console.log("Dialog closed for show monitors UI")
+
+        if(this.monConfServiceObj.isFromAdd) // if this is true then it means that user had added hidden monitors to be shown back i.e. means unhidden monitor.
+        {
+          that.compData = that.monConfServiceObj.getMonTierTableData(); 
+          this.monConfServiceObj.isFromAdd = false;
+        } 
+      }); 
   }
 
 }

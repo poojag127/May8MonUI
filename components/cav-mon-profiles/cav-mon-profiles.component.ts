@@ -62,7 +62,9 @@ export class CavMonProfilesComponent implements OnInit {
   constructor(public dataService: MonDataService, private router: Router, private profileService: MonProfileService,
     private utilityObj: UtilityService, private monConfServiceObj: MonConfigurationService,
     private messageService: MessageService, private _dialog: MdDialog, private confirmationService: ConfirmationService
-  ) { }
+  ) { 
+    console.log("Constructor of  cavMonProfilesComp called")
+  }
 
   ngOnInit() {
  
