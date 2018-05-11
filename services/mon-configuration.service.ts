@@ -99,8 +99,9 @@ export class MonConfigurationService {
       }).
       catch(this.handleError);
   }
+  
 
-
+  
    /**
   *
   * @param calledFrom     this.monConfServiceObj.clearData();

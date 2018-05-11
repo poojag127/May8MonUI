@@ -1,9 +1,9 @@
 
-<p-dialog class="profile-dialog hideShowMon" [(visible)]="displayDialog" header="Health Check Monitor Configurations" width="1000"
+<p-dialog class="profile-dialog monitor-dialog" [(visible)]="displayDialog" header="Health Check Monitor Configurations" width="1000"
         [modal]="false" (onHide)="dialogCloseEvent($event)">
 
      <div class = "ui-g-12">
-        <p-accordion>
+        <p-accordion class="monitor-ui-accordion">
           <p-accordionTab header="Configure Health Check Monitor">
            <p-fieldset  legend="Advance Settings" [toggleable]="true" collapsed="true">
 
@@ -24,12 +24,110 @@
                   autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
                </div>
              </div>
-                    
+
+             <div class= "ui-g-12">
+               <div class="ui-g-1">
+                  <label>Proxy URL </label>
+               </div>
+               <div class ="ui-g-3">
+               <input name="url" type="text"  pInputText [(ngModel)]="proxyUrl"  required ngModel />
+               </div>
+
+               <div class = "ui-g-1">
+                 <label>User Name</label>
+               </div>
+               <div class ="ui-g-3">
+                  <input name="interval" type="text"  pInputText [(ngModel)]="userName" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                  autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
+               </div>
+
+                <div class = "ui-g-1">
+                 <label>Password</label>
+               </div>
+               <div class ="ui-g-3">
+                  <input name="pwd" type="text"  pInputText [(ngModel)]="pwd" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                  autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
+               </div>
+             </div>
+  
+             <div class="ui-g-12">
+               <div class = "ui-g-1">
+                 <label>Number of  Threads</label>
+               </div>
+               <div class ="ui-g-3">
+                  <input name="threadPool" type="number"  pInputText [(ngModel)]="threadPool" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                  autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
+               </div>
+
+                <div class = "ui-g-1">
+                 <label>Status Code</label>
+               </div>
+               <div class ="ui-g-3">
+                  <input name="statusCode" type="text"  pInputText [(ngModel)]="statusCode" required ngModel />
+               </div>
+             </div>
+
+
+             <div class = "ui-g-12">
+                <div class = "ui-g-1">
+                 <label>Number of  Threads</label>
+               </div>
+               <div class ="ui-g-3">
+                  <input name="threadPool" type="number"  pInputText [(ngModel)]="threadPool" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                  autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
+               </div>
+
+               <div class = "ui-g-1">
+                 <label>Connection TimeOut</label>
+               </div>
+               <div class ="ui-g-3">
+                  <input name="connectionTimeOut" type="number"  pInputText [(ngModel)]="timeOut"  required ngModel />
+               </div>
+             </div>
+
+
            </p-fieldset>
+           
+           <p-fieldset  legend="Configuration" [toggleable]="true" collapsed="true">
+            <div class = "ui-g-12">
+              <p-radioButton  name = "tier"   [disabled]="disabled" 
+                label = "Select Tier and Server " value ="topology" [(ngModel)]="tierServerType">
+              </p-radioButton>
+
+            <p-dropdown [style]="{'width':'150px'}" name="list" required
+              [disabled]="tier != 'topoTier'" onChange="onTierChange()" [options]="tierList" [(ngModel)]="tierName" >
+            </p-dropdown>
+
+           <p-dropdown [style]="{'width':'150px'}" name="list" required
+              [disabled]="tier != 'topoTier'" placeholder= "-- Select Server--"  [options]="serverList" [(ngModel)]="serverName" >
+            </p-dropdown>
+           </div>
+
+            <div class = "ui-g-12">
+              <p-radioButton  name = "tier"   
+                label = "Tier Name  " value ="custom" [(ngModel)]="tierServerType">
+              </p-radioButton>
+
+               <div class = "ui-g-1">
+                 <label>Tier Name</label>
+               </div>
+               <div class ="ui-g-3">
+                  <input name="tierName" type="text"  pInputText [(ngModel)]="tierName"  required ngModel />
+               </div>
+
+                <div class = "ui-g-1">
+                 <label>Server Name</label>
+               </div>
+               <div class ="ui-g-3">
+                  <input name="serverName" type="text"  pInputText [(ngModel)]="serverName"  required ngModel />
+               </div>
+           </div>
+
+          </p-fieldset>
           </p-accordionTab>
         </p-accordion>
 
-          <p-accordion>
+          <p-accordion class="monitor-ui-accordion">
           <p-accordionTab header="Health Check Configuration data">
                       
           </p-accordionTab>
