@@ -144,12 +144,29 @@
           </p-accordionTab>
         </p-accordion>
 
-          <p-accordion class="monitor-ui-accordion">
-          <p-accordionTab header="Health Check Configuration data">
-                      
-          </p-accordionTab>
-        </p-accordion>
-    </div>
+      <p-accordion class="monitor-ui-accordion">
+       <p-accordionTab header="Health Check Configuration data">
+
+       <p-treeTable class="mon-ui configTreeTable" selectionMode="single"  [(selection)]="selectedFile" (onNodeExpand)="loadNode($event)" [value]="heathCheckMonitorData" [style]="{'max-height':'530px', 'overflow':'auto'}">
+  
+        <p-column [style]="{'width':'380px'}" class="col-overflow" field="nodeName" header="Nodes" [sortable]="true" [filter]="isShowFilter">
+          <template let-col let-json="rowData" pTemplate type="body">
+            <span title="{{json[col.field]}}">{{json[col.field]}}</span>
+          </template>
+        </p-column>
+    
+  
+        <p-column [style]="{'width':'380px'}" class="col-overflow" field="arguments" header="Arguments" [sortable]="true" [filter]="isShowFilter">
+          <template let-col let-json="rowData" pTemplate type="body">
+            <span title="{{json[col.field]}}">{{json[col.field]}}</span>
+          </template>
+        </p-column>
+    
+     </p-treeTable>
+                              
+    </p-accordionTab>
+  </p-accordion>
+</div>
 
 
   <div class="ui-g-12">

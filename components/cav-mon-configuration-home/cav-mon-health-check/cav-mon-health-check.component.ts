@@ -2,6 +2,7 @@ import { Component, OnInit, Optional, Inject } from '@angular/core';
 import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
 import {ConfirmationService, TreeNode} from 'primeng/primeng';
 import { MonConfigurationService } from '../../../services/mon-configuration.service';
+import { MonHealthCheckService } from '../../../services/mon-health-check-services';
 import * as _ from "lodash";
 import { UtilityService } from '../../../services/utility.service';
 import { HealthCheckMonData } from '../../../containers/health-check-data';
@@ -33,17 +34,21 @@ export class CavMonHealthCheckComponent implements OnInit {
   
   heathCheckMonData:HealthCheckMonData;
 
+  heathCheckMonitorData:TreeNode[];
 
   constructor(private monConfServiceObj: MonConfigurationService,
               private dialogRef: MdDialogRef<CavMonHealthCheckComponent>, 
               private confirmationService: ConfirmationService,
-              private utilityService:UtilityService
+              private utilityService:UtilityService,
+              private healthChkMonServiceOobj: MonHealthCheckService
               ) { }
 
   ngOnInit()
   {
     console.log("Method CavMonHealthCheckComponent called")
     this.heathCheckMonData =  new HealthCheckMonData();
+    // this.heathCheckMonitorData = this.healthChkMonServiceOobj.getHealthCheckTreeTableDate();
+     this.healthChkMonServiceOobj.getHealthCheckTreeTableData().then(files => this.heathCheckMonitorData = files);
     this.tierHeadersList = this.monConfServiceObj.getTierHeaderList();
     let tierList = [];
     this.tierHeadersList.map(function(each){
