@@ -33,6 +33,8 @@ export class CavMonHealthCheckComponent implements OnInit {
   
   heathCheckMonData:HealthCheckMonData;
 
+  /*This variable is used to store the options for the health check type*/
+  healthCheckList:any[] = [];
 
   constructor(private monConfServiceObj: MonConfigurationService,
               private dialogRef: MdDialogRef<CavMonHealthCheckComponent>, 
@@ -52,16 +54,23 @@ export class CavMonHealthCheckComponent implements OnInit {
     tierList.unshift("--Select --");
     console.log("tierList CavMonHealthCheckComponentcalled= "+tierList)
     this.tierList = UtilityService.createDropdown(tierList);
+
+    //creating dropdown list for health check type
+    let healthChkLabel = ['Ping', 'HTTP', 'Socket'];
+    let healthCheckVal = ['Ping', 'HTTP', 'Socket'];
+    this.healthCheckList = UtilityService.createListWithKeyValue(healthChkLabel, healthCheckVal);
+    
   }
 
   onTierChange(tierName)
   {
-    console.log("Method onTierChange called ")
-    let tierId = _.find(this.tierHeadersList,function(each) { return each['name'] == tierName})
-    
+    console.log("Method onTierChange called, tierName ", tierName)
+    let tierInfo = _.find(this.tierHeadersList,function(each) { return each['name'] == tierName})
+
       /*** To get the server list in the dropdown ****/
      /*** Here unshift is used to insert element at 0 position of array ****/
-     this.utilityService.getServerList(tierId)
+     console.log("tierId- ", tierInfo.id)
+     this.utilityService.getServerList(tierInfo.id)
      .subscribe(data => {
                 if(data != null)
                 {
@@ -70,7 +79,7 @@ export class CavMonHealthCheckComponent implements OnInit {
                   this.serverList = UtilityService.createListWithKeyValue(data["label"], data["value"]);
                 }
               })
-
+console.log("this.serbverlist =", this.serverList)
   }
 
 /* Function called when user wants to show the hidden monitor back in the treeTableData*/
