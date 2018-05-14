@@ -14,20 +14,20 @@ export class MonHealthCheckService {
 
     healthCheckTreeTableData: TreeNode[];
 
-    //mjsonname: any[];
     constructor(private _restApi: RestApiService, private monDataService: MonDataService,private http: Http) {
  
     }
 
     getHealthCheckTreeTableData()
     {
-   
-    
-     return this.http.get('../../../assets/filesystem.json')
+     return this.http.get('../../../../assets/filesystem.json')
                     .toPromise()
                     .then(res => <TreeNode[]> res.json().data);
-    //   this.nodeService.getFi\les().then(files => this.healthCheckTreeTableData = files);
-     
+     }
+
+    setHealthCheckTreeTableData(heathCheckMonitorData)
+    {
+     this.healthCheckTreeTableData = heathCheckMonitorData;
     }
    
 

@@ -111,7 +111,6 @@ export class CavLogPatternMonitorComponent implements OnInit {
       this.addDialog = false;
       this.selectedGDFdetails = [];
     }
- 
   }
 
   /**For EDIT Functionality-
