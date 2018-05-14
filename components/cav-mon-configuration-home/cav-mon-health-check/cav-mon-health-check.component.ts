@@ -45,7 +45,10 @@ export class CavMonHealthCheckComponent implements OnInit {
     console.log("Method CavMonHealthCheckComponent called")
     this.heathCheckMonData =  new HealthCheckMonData();
     this.tierHeadersList = this.monConfServiceObj.getTierHeaderList();
-    let tierList = _.map(this.tierHeadersList, _.pick('name'));
+    let tierList = [];
+    this.tierHeadersList.map(function(each){
+      tierList.push(each.name)
+    })
     tierList.unshift("--Select --");
     console.log("tierList CavMonHealthCheckComponentcalled= "+tierList)
     this.tierList = UtilityService.createDropdown(tierList);
