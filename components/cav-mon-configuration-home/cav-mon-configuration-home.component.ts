@@ -94,9 +94,11 @@ export class CavMonConfigurationHomeComponent implements OnInit {
 
     let txSession = JSON.parse(localStorage.getItem('monitorGUI'));
     if(txSession != null) {
+      console.log("txSession=", txSession)
       this.monConfServiceObj.setVariableInSession(1);
       localStorage.removeItem('monitorGUI');
     }else if(this._cavLaoutService.getProfileName() != undefined) {
+      console.log("txSession else part =", txSession)
       this.monConfServiceObj.setVariableInSession(2);
     }
 
@@ -104,7 +106,9 @@ export class CavMonConfigurationHomeComponent implements OnInit {
 
     this.modeStatus = this.dataService.monModeStatus()
     this.profileName = this.monConfServiceObj.getProfileName();
+    console.log("profileName = ", this.profileName);
     this.topoName = this.monConfServiceObj.getTopoName();
+    console.log("topoName = ", this.topoName);
 
     if (this.monConfServiceObj.getTierHeaderList() == null)
     {
