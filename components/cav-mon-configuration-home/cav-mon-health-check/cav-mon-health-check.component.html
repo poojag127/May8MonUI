@@ -12,7 +12,7 @@
                   <label>Packet </label>
                </div>
                <div class ="ui-g-3">
-               <input name="packet" type="text"  pInputText [(ngModel)]="packet" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+               <input name="packet" type="text"  pInputText [(ngModel)]="heathCheckMonData.packet" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
                         autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
                </div>
 
@@ -20,8 +20,8 @@
                  <label>Interval</label>
                </div>
                <div class ="ui-g-3">
-                  <input name="interval" type="text"  pInputText [(ngModel)]="interval" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
-                  autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
+                  <input name="interval" type="text"  pInputText [(ngModel)]="heathCheckMonData.interval" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                  autofocus required required ngModel />
                </div>
              </div>
 
@@ -30,14 +30,14 @@
                   <label>Proxy URL </label>
                </div>
                <div class ="ui-g-3">
-               <input name="url" type="text"  pInputText [(ngModel)]="proxyUrl"  required ngModel />
+               <input name="url" type="text"  pInputText [(ngModel)]="heathCheckMonData.proxyUrl"  required ngModel />
                </div>
 
                <div class = "ui-g-1">
                  <label>User Name</label>
                </div>
                <div class ="ui-g-3">
-                  <input name="interval" type="text"  pInputText [(ngModel)]="userName" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                  <input name="interval" type="text"  pInputText [(ngModel)]="heathCheckMonData.userName" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
                   autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
                </div>
 
@@ -45,7 +45,7 @@
                  <label>Password</label>
                </div>
                <div class ="ui-g-3">
-                  <input name="pwd" type="text"  pInputText [(ngModel)]="pwd" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                  <input name="pwd" type="paqssword"  pInputText [(ngModel)]="heathCheckMonData.pwd" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
                   autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
                </div>
              </div>
@@ -55,7 +55,7 @@
                  <label>Number of  Threads</label>
                </div>
                <div class ="ui-g-3">
-                  <input name="threadPool" type="number"  pInputText [(ngModel)]="threadPool" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                  <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.threadPool" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
                   autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
                </div>
 
@@ -63,7 +63,7 @@
                  <label>Status Code</label>
                </div>
                <div class ="ui-g-3">
-                  <input name="statusCode" type="text"  pInputText [(ngModel)]="statusCode" required ngModel />
+                  <input name="statusCode" type="text"  pInputText [(ngModel)]="heathCheckMonData.statusCode" required ngModel />
                </div>
              </div>
 
@@ -73,7 +73,7 @@
                  <label>Number of  Threads</label>
                </div>
                <div class ="ui-g-3">
-                  <input name="threadPool" type="number"  pInputText [(ngModel)]="threadPool" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
+                  <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.threadPool" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
                   autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
                </div>
 
@@ -81,45 +81,59 @@
                  <label>Connection TimeOut</label>
                </div>
                <div class ="ui-g-3">
-                  <input name="connectionTimeOut" type="number"  pInputText [(ngModel)]="timeOut"  required ngModel />
+                  <input name="connectionTimeOut" type="number"  pInputText [(ngModel)]="heathCheckMonData.timeOut"  required ngModel />
                </div>
              </div>
 
 
            </p-fieldset>
            
-           <p-fieldset  legend="Configuration" [toggleable]="true" collapsed="true">
+          <p-fieldset  class = "healthChkMonCss"  legend="Configuration" [toggleable]="true" collapsed="true">
             <div class = "ui-g-12">
+             <div class = "ui-g-3">
               <p-radioButton  name = "tier"   [disabled]="disabled" 
-                label = "Select Tier and Server " value ="topology" [(ngModel)]="tierServerType">
+                label = "Select Tier and Server " value ="topology" [(ngModel)]="heathCheckMonData.tierServerType">
               </p-radioButton>
+              </div>
 
-            <p-dropdown [style]="{'width':'150px'}" name="list" required
-              [disabled]="tier != 'topoTier'" onChange="onTierChange()" [options]="tierList" [(ngModel)]="tierName" >
-            </p-dropdown>
+            <div class="ui-g-1">
+            </div>
 
-           <p-dropdown [style]="{'width':'150px'}" name="list" required
-              [disabled]="tier != 'topoTier'" placeholder= "-- Select Server--"  [options]="serverList" [(ngModel)]="serverName" >
-            </p-dropdown>
+            <div class ="ui-g-3">
+              <p-dropdown [style]="{'width':'150px'}" name="list" required
+                [disabled]="tier != 'topoTier'" onChange="onTierChange()" [options]="tierList" [(ngModel)]="heathCheckMonData.tierName" >
+              </p-dropdown>
+            </div>
+
+           <div class="ui-g-1">
            </div>
+   
+          <div class = "ui-g-3">
+           <p-dropdown [style]="{'width':'150px'}" name="list" required
+              [disabled]="tier != 'topoTier'" placeholder= "-- Select Server--"  [options]="serverList" [(ngModel)]="heathCheckMonData.serverName" >
+            </p-dropdown>
+          </div>
+        </div>
 
             <div class = "ui-g-12">
-              <p-radioButton  name = "tier"   
-                label = "Tier Name  " value ="custom" [(ngModel)]="tierServerType">
-              </p-radioButton>
+              <div class = "ui-g-2">
+               <p-radioButton  name = "tier"   
+                label = "" value ="custom" [(ngModel)]="heathCheckMonData.tierServerType">
+               </p-radioButton>
+              </div>
 
                <div class = "ui-g-1">
                  <label>Tier Name</label>
                </div>
                <div class ="ui-g-3">
-                  <input name="tierName" type="text"  pInputText [(ngModel)]="tierName"  required ngModel />
+                  <input name="tierName" type="text" [disabled]="heathCheckMonData.tierServerType != 'custom'"  pInputText [(ngModel)]="heathCheckMonData.tierName"  required ngModel />
                </div>
 
                 <div class = "ui-g-1">
                  <label>Server Name</label>
                </div>
                <div class ="ui-g-3">
-                  <input name="serverName" type="text"  pInputText [(ngModel)]="serverName"  required ngModel />
+                  <input name="serverName" type="text" [disabled]="heathCheckMonData.tierServerType != 'custom'" pInputText [(ngModel)]="heathCheckMonData.serverName"  required ngModel />
                </div>
            </div>
 
@@ -135,19 +149,8 @@
     </div>
 
 
-
-<div>
-
-<p-tree [value]="nodes">
-    <ng-template let-data  pTemplate="default">
-        <p-checkbox [(ngModel)]="data.checked" binary="true" (click)="onCheckBoxChangeState(data, data.checked)"></p-checkbox> 
-        <span>{{data.label}}</span>
-     </ng-template>
-</p-tree>
-</div>
-
   <div class="ui-g-12">
-    <button type="button" pButton  icon="fa-check" style="float: right" (click)= "addMonitor()" title="Show hidden monitors" label="Show"></button>
+    <button type="button" pButton  icon="fa-check" style="float: right" (click)= "addMonitor()" title="Done" label="Done"></button>
     <button type="button" pButton  icon="fa-close" style="float: right" (click)= "dialogCloseEvent()" label="Cancel" title="Close"></button>
   </div>
 

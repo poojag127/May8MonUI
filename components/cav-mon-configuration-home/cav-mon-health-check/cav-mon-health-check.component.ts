@@ -4,6 +4,7 @@ import {ConfirmationService, TreeNode} from 'primeng/primeng';
 import { MonConfigurationService } from '../../../services/mon-configuration.service';
 import * as _ from "lodash";
 import { UtilityService } from '../../../services/utility.service';
+import { HealthCheckMonData } from '../../../containers/health-check-data';
 
 
 @Component({
@@ -29,7 +30,8 @@ export class CavMonHealthCheckComponent implements OnInit {
   serverList:any[] = [];
 
   tierHeadersList:any[] = [];
-
+  
+  heathCheckMonData:HealthCheckMonData;
 
 
   constructor(private monConfServiceObj: MonConfigurationService,
@@ -40,9 +42,12 @@ export class CavMonHealthCheckComponent implements OnInit {
 
   ngOnInit()
   {
+    console.log("Method CavMonHealthCheckComponent called")
+    this.heathCheckMonData =  new HealthCheckMonData();
     this.tierHeadersList = this.monConfServiceObj.getTierHeaderList();
     let tierList = _.map(this.tierHeadersList, _.pick('name'));
-    tierList.unshift("--Select Tier--");
+    tierList.unshift("--Select --");
+    console.log("tierList CavMonHealthCheckComponentcalled= "+tierList)
     this.tierList = UtilityService.createDropdown(tierList);
   }
 
