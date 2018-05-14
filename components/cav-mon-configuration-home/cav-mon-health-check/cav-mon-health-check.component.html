@@ -90,27 +90,32 @@
            
           <p-fieldset  class = "healthChkMonCss"  legend="Configuration" [toggleable]="true" collapsed="true">
             <div class = "ui-g-12">
-             <div class = "ui-g-3">
-              <p-radioButton  name = "tier"   [disabled]="disabled" 
-                label = "Select Tier and Server " value ="topology" [(ngModel)]="heathCheckMonData.tierServerType">
+             <div class = "ui-g-2">
+              <p-radioButton  name = "tier" label = "Select Tier" 
+                 value ="topology" [(ngModel)]="heathCheckMonData.tierServerType">
               </p-radioButton>
               </div>
 <!-- 
             <div class="ui-g-1">
             </div> -->
 
-            <div class ="ui-g-3">
+            <div class ="ui-g-3"  style="margin-left: -57px">
               <p-dropdown [style]="{'width':'150px'}" name="list" required
-                [disabled]="tier != 'topoTier'" onChange="onTierChange()" [options]="tierList" [(ngModel)]="heathCheckMonData.tierName" >
+                [disabled]="!heathCheckMonData.tierServerType" (onChange) = "onTierChange(heathCheckMonData.tierName)" [options]="tierList" [(ngModel)]="heathCheckMonData.tierName" >
               </p-dropdown>
             </div>
 <!-- 
            <div class="ui-g-1">
            </div>
     -->
-          <div class = "ui-g-3">
+          <div class = "ui-g-2" >
+            <label>
+              Select Server
+            </label>  
+          </div>
+          <div class ="ui-g-3">
            <p-dropdown [style]="{'width':'150px'}" name="list" required
-              [disabled]="tier != 'topoTier'" placeholder= "-- Select Server--"  [options]="serverList" [(ngModel)]="heathCheckMonData.serverName" >
+              [disabled]="!heathCheckMonData.tierName" placeholder= "-- Select Server--"  [options]="serverList" [(ngModel)]="heathCheckMonData.serverName" >
             </p-dropdown>
           </div>
         </div>
@@ -122,23 +127,133 @@
                </p-radioButton>
               </div> -->
 
-               <div class = "ui-g-1" style="width: 9.3333%">
+               <div class = "ui-g-2" >
                   <p-radioButton  name = "tier" value ="custom" 
                      [(ngModel)]="heathCheckMonData.tierServerType">
                  </p-radioButton>
                  <label>Tier Name</label>
                </div>
-               <div class ="ui-g-3">
+               <div class ="ui-g-3" style="margin-left: -57px">
                   <input name="tierName" type="text" [disabled]="heathCheckMonData.tierServerType != 'custom'"  pInputText [(ngModel)]="heathCheckMonData.tierName"  required ngModel />
                </div>
 
-                <div class = "ui-g-1">
+                <div class = "ui-g-2">
                  <label>Server Name</label>
                </div>
                <div class ="ui-g-3">
                   <input name="serverName" type="text" [disabled]="heathCheckMonData.tierServerType != 'custom'" pInputText [(ngModel)]="heathCheckMonData.serverName"  required ngModel />
                </div>
            </div>
+
+           <div class = "ui-g-12">
+             <div class = "ui-g-2">
+              <p-checkbox [(ngModel)]="enableTierVal"  label="Enable Tier" ></p-checkbox>
+             </div>
+
+             <!-- <div class="ui-g-1">
+              </div> -->
+
+             <div class = "ui-g-2" style="margin-left: 11px">
+              <p-checkbox [(ngModel)]="enableServerVal"  label="Enable Server" ></p-checkbox>
+            </div>
+<!-- 
+            <div class="ui-g-1">
+              </div> -->
+
+           <div class = "ui-g-2" style="margin-left: 8px">
+              <label>
+                  Health Check Type
+              </label>
+           </div>
+           
+           <div class = "ui-g-3">
+                <p-dropdown name="list"  [style]="{'width':'120px'}"
+                  [options]="healthCheckList" [(ngModel)]="heathCheckMonData.healthCheckType" >
+                 </p-dropdown>
+            </div>
+          </div>
+
+           <div class = "ui-g-12">
+              <p-accordion class="monitor-ui-accordion">
+                  <p-accordionTab header="Advance Settings">
+                   <div class = "ui-g-12" style= "border: 1px solid" [hidden]='heathCheckMonData.healthCheckType != "Ping"'>
+                     <div class="ui-g-1">
+                       <label>Packet</label>
+                     </div>
+                   <div class = "ui-g-3">
+                     <input name="packet" type="number"  pInputText [(ngModel)]="heathCheckMonData.packet" autofocus required ngModel />
+                   </div>
+
+                     <div class = "ui-g-1">
+                       <label>Interval</label>
+                     </div>
+                   <div class ="ui-g-3">
+                     <input name="interval" type="number"  pInputText [(ngModel)]="heathCheckMonData.interval" 
+                      autofocus required ngModel />
+                   </div>
+               </div>    
+               
+               <div class = "ui-g-12" style= "border: 1px solid" [hidden]='heathCheckMonData.healthCheckType != "Socket"'>
+                  <div class="ui-g-1">
+                    <label>Thread Pool</label>
+                  </div>
+                <div class = "ui-g-3">
+                  <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.threadPool" autofocus required ngModel />
+                </div>
+
+                  <div class = "ui-g-1" style="width:14.3333%">
+                    <label>Connection Time Out</label>
+                  </div>
+                <div class ="ui-g-3">
+                  <input name="connectionTimeOut" type="number"  pInputText [(ngModel)]="heathCheckMonData.timeOut" 
+                   autofocus required ngModel />
+                </div>
+            </div>     
+
+            <div class= "ui-g-12" style= "border: 1px solid" [hidden]='heathCheckMonData.healthCheckType != "HTTP"'>
+                <div class="ui-g-1">
+                   <label>Proxy URL </label>
+                </div>
+                <div class ="ui-g-3">
+                  <input name="url" type="text"  pInputText [(ngModel)]="heathCheckMonData.proxyUrl"  required ngModel />
+                </div>
+ 
+                <div class = "ui-g-1">
+                  <label>User Name</label>
+                </div>
+                <div class ="ui-g-3">
+                   <input name="interval" type="text"  pInputText [(ngModel)]="heathCheckMonData.userName" 
+                   autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
+                </div>
+ 
+                 <div class = "ui-g-1">
+                  <label>Password</label>
+                </div>
+                <div class ="ui-g-3">
+                   <input name="pwd" type="password"  pInputText [(ngModel)]="heathCheckMonData.pwd" 
+                   autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
+                </div>
+   
+                <div class = "ui-g-1">
+                  <label>Thread Pool</label>
+                </div>
+                <div class ="ui-g-3">
+                   <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.threadPool"
+                   autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
+                </div>
+ 
+                 <div class = "ui-g-1">
+                  <label>Status Code</label>
+                </div>
+                <div class ="ui-g-3">
+                   <input name="statusCode" type="number"  pInputText [(ngModel)]="heathCheckMonData.statusCode" required ngModel />
+                </div>
+
+              </div>
+            </p-accordionTab>
+          </p-accordion>
+        </div>
+
 
           </p-fieldset>
           </p-accordionTab>
