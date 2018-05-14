@@ -95,19 +95,19 @@
                 label = "Select Tier and Server " value ="topology" [(ngModel)]="heathCheckMonData.tierServerType">
               </p-radioButton>
               </div>
-
+<!-- 
             <div class="ui-g-1">
-            </div>
+            </div> -->
 
             <div class ="ui-g-3">
               <p-dropdown [style]="{'width':'150px'}" name="list" required
                 [disabled]="tier != 'topoTier'" onChange="onTierChange()" [options]="tierList" [(ngModel)]="heathCheckMonData.tierName" >
               </p-dropdown>
             </div>
-
+<!-- 
            <div class="ui-g-1">
            </div>
-   
+    -->
           <div class = "ui-g-3">
            <p-dropdown [style]="{'width':'150px'}" name="list" required
               [disabled]="tier != 'topoTier'" placeholder= "-- Select Server--"  [options]="serverList" [(ngModel)]="heathCheckMonData.serverName" >
@@ -116,13 +116,16 @@
         </div>
 
             <div class = "ui-g-12">
-              <div class = "ui-g-2">
+              <!-- <div class = "ui-g-3"> 
                <p-radioButton  name = "tier"   
                 label = "" value ="custom" [(ngModel)]="heathCheckMonData.tierServerType">
                </p-radioButton>
-              </div>
+              </div> -->
 
-               <div class = "ui-g-1">
+               <div class = "ui-g-1" style="width: 9.3333%">
+                  <p-radioButton  name = "tier" value ="custom" 
+                     [(ngModel)]="heathCheckMonData.tierServerType">
+                 </p-radioButton>
                  <label>Tier Name</label>
                </div>
                <div class ="ui-g-3">
