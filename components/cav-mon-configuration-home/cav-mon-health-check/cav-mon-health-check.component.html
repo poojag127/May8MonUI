@@ -6,7 +6,7 @@
     <p-accordion class="monitor-ui-accordion">
       <p-accordionTab header="Configure Health Check Monitor">
         <!--<form  (ngSubmit)="saveData()" #form="ngForm" ngNativeValidate >-->
-        <p-fieldset  legend="Advance Settings" [toggleable]="true" collapsed="true">
+        <p-fieldset  legend="Ping Global Settings" [toggleable]="true" collapsed="true">
              <div class= "ui-g-12">
                 <div class="ui-g-1">
                    <label>Packet </label>
@@ -21,7 +21,7 @@
                 </div>
                 <div class ="ui-g-3">
                   <input name="interval" type="number"  pInputText [(ngModel)]="heathCheckMonData.interval"
-                     autofocus required ngModel />
+                      required ngModel />
                </div>
       
              </div>
@@ -130,7 +130,8 @@
 
             <div class ="ui-g-3"  style="margin-left: -57px">
               <p-dropdown [style]="{'width':'150px'}" name="list" required
-                [disabled]="!heathCheckMonData.tierServerType" (onChange) = "onTierChange(heathCheckMonData.tierName)" [options]="tierList" [(ngModel)]="heathCheckMonData.tierName" >
+                [disabled]="!heathCheckMonData.tierServerType" (onChange) = "onTierChange(heathCheckMonData.tierName)"
+                 [options]="tierList" [(ngModel)]="heathCheckMonData.tierName" >
               </p-dropdown>
             </div>
 
@@ -161,7 +162,7 @@
                  <label>Server Name</label>
                </div>
                <div class ="ui-g-3">
-                  <input name="serverName" type="text" [disabled]="heathCheckMonData.tierServerType != 'custom'" pInputText [(ngModel)]="heathCheckMonData.serverName"  required ngModel />
+                  <input name="serverName" type="text" [disabled]="heathCheckMonData.tierServerType != 'custom'" pInputText [(ngModel)]="heathCheckMonData.customServerName"  required ngModel />
                </div>
            </div>
 
@@ -204,7 +205,7 @@
                      </div>
                    <div class ="ui-g-3">
                      <input name="interval" type="number"  pInputText [(ngModel)]="heathCheckMonData.interval" 
-                      autofocus required ngModel />
+                       ngModel />
                    </div>
                </div>    
                
@@ -282,7 +283,7 @@
 
       <p-accordion class="monitor-ui-accordion">
        <p-accordionTab header="Health Check Configuration data">
-         <p-treeTable  [value]="heathCheckMonitorData"  selectionMode="single">
+         <p-treeTable  class = "healthChk-treeTable" [value]="heathCheckMonitorData"  selectionMode="single">
            <p-column field="nodeName" header="Name"></p-column>
            <p-column field="arguments" header="Arguments"></p-column>
         </p-treeTable>

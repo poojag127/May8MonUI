@@ -66,7 +66,7 @@ export class CavMonHealthCheckComponent implements OnInit {
   ngOnInit()
   {
     console.log("proifile Name = ", this.monConfServiceObj.topoName, this.monConfServiceObj.profileName, this.monDataService.userName);
-    this.healthChkMonServiceObj.readHealthMonitorJson(this.monConfServiceObj.topoName, this.monConfServiceObj.profileName,  this.monDataService.getMonMode(), this.monDataService.userName, this.monDataService.getTestRunNum());
+    // this.healthChkMonServiceObj.readHealthMonitorJson(this.monConfServiceObj.topoName, this.monConfServiceObj.profileName,  this.monDataService.getMonMode(), this.monDataService.userName, this.monDataService.getTestRunNum());
     console.log("Method CavMonHealthCheckComponent called")
     this.heathCheckMonData =  new HealthCheckMonData();
     // this.heathCheckMonitorData = this.healthChkMonServiceOobj.getHealthCheckTreeTableDate();
@@ -112,7 +112,6 @@ export class CavMonHealthCheckComponent implements OnInit {
                   this.serverList = UtilityService.createListWithKeyValue(data["label"], data["value"]);
                 }
               })
-console.log("this.serbverlist =", this.serverList)
   }
 
 /* Function called when user wants to show the hidden monitor back in the treeTableData*/
@@ -177,7 +176,7 @@ addMonitor()
    else if(this.heathCheckMonData.healthCheckType == "Socket")
      healthChkTypeString = "TimeOut = " + this.heathCheckMonData.timeOut  + ", ThreadPool = " +this.heathCheckMonData.threadPool;
 
-   else if(this.heathCheckMonData.healthCheckType == "Http")
+   else if(this.heathCheckMonData.healthCheckType == "HTTP")
       healthChkTypeString = "Url = " + this.heathCheckMonData.proxyUrl + ", User Name = " + this.heathCheckMonData.userName + ", Password = " + this.heathCheckMonData.pwd;
      
    this.healthChkTypeNode.arguments = healthChkTypeString;
