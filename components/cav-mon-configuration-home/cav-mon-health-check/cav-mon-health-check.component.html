@@ -2,26 +2,26 @@
 <p-dialog class="profile-dialog monitor-dialog" [(visible)]="displayDialog" header="Health Check Monitor Configurations" width="1000"
         [modal]="false" (onHide)="dialogCloseEvent($event)">
 
-     <div class = "ui-g-12">
-        <p-accordion class="monitor-ui-accordion">
-          <p-accordionTab header="Configure Health Check Monitor">
+  <div class = "ui-g-12">
+    <p-accordion class="monitor-ui-accordion">
+      <p-accordionTab header="Configure Health Check Monitor">
+        <form  (ngSubmit)="saveData()" #form="ngForm" ngNativeValidate >
            <p-fieldset  legend="Advance Settings" [toggleable]="true" collapsed="true">
-
              <div class= "ui-g-12">
-               <div class="ui-g-1">
-                  <label>Packet </label>
-               </div>
-               <div class ="ui-g-3">
-               <input name="packet" type="text"  pInputText [(ngModel)]="heathCheckMonData.packet" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
-                        autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
-               </div>
+                <div class="ui-g-1">
+                   <label>Packet </label>
+                </div>
+                <div class ="ui-g-3">
+                  <input name="packet" type="number"  pInputText [(ngModel)]="heathCheckMonData.packet" 
+                        autofocus  required ngModel />
+                </div>
 
-               <div class = "ui-g-1">
-                 <label>Interval</label>
-               </div>
-               <div class ="ui-g-3">
-                  <input name="interval" type="text"  pInputText [(ngModel)]="heathCheckMonData.interval" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
-                  autofocus required required ngModel />
+                <div class = "ui-g-1">
+                  <label>Interval</label>
+                </div>
+                <div class ="ui-g-3">
+                  <input name="interval" type="number"  pInputText [(ngModel)]="heathCheckMonData.interval"
+                     autofocus required ngModel />
                </div>
              </div>
 
@@ -37,33 +37,41 @@
                  <label>User Name</label>
                </div>
                <div class ="ui-g-3">
-                  <input name="interval" type="text"  pInputText [(ngModel)]="heathCheckMonData.userName" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
-                  autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
+                  <input name="userName" type="text"  pInputText [(ngModel)]="heathCheckMonData.userName" 
+                   autofocus required ngModel />
                </div>
 
-                <div class = "ui-g-1">
+                <!-- <div class = "ui-g-1">
                  <label>Password</label>
                </div>
                <div class ="ui-g-3">
-                  <input name="pwd" type="paqssword"  pInputText [(ngModel)]="heathCheckMonData.pwd" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
-                  autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
+                  <input name="pwd" type="password"  pInputText [(ngModel)]="heathCheckMonData.pwd"
+                      required ngModel />
                </div>
-             </div>
+             </div> -->
   
              <div class="ui-g-12">
-               <div class = "ui-g-1">
+                <div class = "ui-g-1">
+                    <label>Password</label>
+                  </div>
+                  <div class ="ui-g-3">
+                     <input name="pwd" type="password"  pInputText [(ngModel)]="heathCheckMonData.pwd"
+                         required ngModel />
+                  </div>
+                </div>
+               <!-- <div class = "ui-g-1">
                  <label>Number of  Threads</label>
                </div>
                <div class ="ui-g-3">
-                  <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.threadPool" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
-                  autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
-               </div>
+                  <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.threadPool" 
+                  required ngModel />
+               </div> -->
 
                 <div class = "ui-g-1">
                  <label>Status Code</label>
                </div>
                <div class ="ui-g-3">
-                  <input name="statusCode" type="text"  pInputText [(ngModel)]="heathCheckMonData.statusCode" required ngModel />
+                  <input name="statusCode" type="number"  pInputText [(ngModel)]="heathCheckMonData.statusCode" required ngModel />
                </div>
              </div>
 
@@ -73,8 +81,8 @@
                  <label>Number of  Threads</label>
                </div>
                <div class ="ui-g-3">
-                  <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.threadPool" title="Please enter valid monitor group name. &#013;Monitor group name is of maximum 32 characters.  &#013;First character must be Alpha.  &#013;Other characters are Alpha, Numeric, Dash or Underscore"
-                  autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
+                  <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.threadPool" 
+                     required ngModel />
                </div>
 
                <div class = "ui-g-1">
@@ -134,7 +142,7 @@
                  <label>Tier Name</label>
                </div>
                <div class ="ui-g-3" style="margin-left: -57px">
-                  <input name="tierName" type="text" [disabled]="heathCheckMonData.tierServerType != 'custom'"  pInputText [(ngModel)]="heathCheckMonData.tierName"  required ngModel />
+                  <input name="tierName" type="text" [disabled]="heathCheckMonData.tierServerType != 'custom'"  pInputText [(ngModel)]="heathCheckMonData.customTierName"  required ngModel />
                </div>
 
                 <div class = "ui-g-2">
@@ -147,14 +155,14 @@
 
            <div class = "ui-g-12">
              <div class = "ui-g-2">
-              <p-checkbox [(ngModel)]="enableTierVal"  label="Enable Tier" ></p-checkbox>
+              <p-checkbox [(ngModel)]="enableTierVal"  name="tier" label="Enable Tier" ></p-checkbox>
              </div>
 
              <!-- <div class="ui-g-1">
               </div> -->
 
              <div class = "ui-g-2" style="margin-left: 11px">
-              <p-checkbox [(ngModel)]="enableServerVal"  label="Enable Server" ></p-checkbox>
+              <p-checkbox [(ngModel)]="enableServerVal"  name="server"   label="Enable Server" ></p-checkbox>
             </div>
 <!-- 
             <div class="ui-g-1">
@@ -198,7 +206,7 @@
                     <label>Thread Pool</label>
                   </div>
                 <div class = "ui-g-3">
-                  <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.threadPool" autofocus required ngModel />
+                  <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.threadPool"  ngModel />
                 </div>
 
                   <div class = "ui-g-1" style="width:14.3333%">
@@ -206,7 +214,7 @@
                   </div>
                 <div class ="ui-g-3">
                   <input name="connectionTimeOut" type="number"  pInputText [(ngModel)]="heathCheckMonData.timeOut" 
-                   autofocus required ngModel />
+                  ngModel />
                 </div>
             </div>     
 
@@ -222,7 +230,7 @@
                   <label>User Name</label>
                 </div>
                 <div class ="ui-g-3">
-                   <input name="interval" type="text"  pInputText [(ngModel)]="heathCheckMonData.userName" 
+                   <input name="user" type="text"  pInputText [(ngModel)]="heathCheckMonData.userName" 
                    autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
                 </div>
  
@@ -230,8 +238,8 @@
                   <label>Password</label>
                 </div>
                 <div class ="ui-g-3">
-                   <input name="pwd" type="password"  pInputText [(ngModel)]="heathCheckMonData.pwd" 
-                   autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
+                   <input name="passwrd" type="password"  pInputText [(ngModel)]="heathCheckMonData.pwd" 
+                    required ngModel />
                 </div>
    
                 <div class = "ui-g-1">
@@ -239,7 +247,7 @@
                 </div>
                 <div class ="ui-g-3">
                    <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.threadPool"
-                   autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
+                    ngModel />
                 </div>
  
                  <div class = "ui-g-1">
@@ -250,12 +258,16 @@
                 </div>
 
               </div>
-            </p-accordionTab>
-          </p-accordion>
+   
+            </p-accordionTab>       
+          </p-accordion>   
         </div>
-
-
           </p-fieldset>
+          
+            <div class="ui-g-12" style="margin-top: 7px">
+              <button type="submit" pButton icon="fa-check" style="width: 63px ; float: right" label="Add"></button>
+            </div>
+          </form>
           </p-accordionTab>
         </p-accordion>
 

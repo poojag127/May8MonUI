@@ -12,4 +12,5 @@ export class HealthCheckMonData
  tierName:string;
  serverName:string;
  healthCheckType:string = "Ping";
+ customTierName:string;
 }
