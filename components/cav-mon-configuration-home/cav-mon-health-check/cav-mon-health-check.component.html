@@ -271,12 +271,15 @@
           </p-accordionTab>
         </p-accordion>
 
-          <p-accordion class="monitor-ui-accordion">
-          <p-accordionTab header="Health Check Configuration data">
-                      
-          </p-accordionTab>
-        </p-accordion>
-    </div>
+      <p-accordion class="monitor-ui-accordion">
+       <p-accordionTab header="Health Check Configuration data">
+         <p-treeTable  [value]="heathCheckMonitorData">
+           <p-column field="nodeName" header="Name"></p-column>
+           <p-column field="arguments" header="Arguments"></p-column>
+        </p-treeTable>
+      </p-accordionTab>
+  </p-accordion>
+</div>
 
 
   <div class="ui-g-12">

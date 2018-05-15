@@ -45,6 +45,7 @@ import { MonConfigurationService } from './services/mon-configuration.service';
 import { GdfService } from './services/gdf-services';
 import { CavMonConfigurationRoutingComponent } from './components/cav-mon-configuration-home/cav-mon-configuration-routing/cav-mon-configuration-routing.component';
 import { StoreModule } from '@ngrx/store';
+import { MonHealthCheckService } from './services/mon-health-check-services';
 
 //utility
 // import { ColorCodeData } from './utility/color-code-data';
@@ -134,8 +135,9 @@ import { MonitorCompReducer } from './reducers/monitor-comp-reducer';
   ],
   providers: [
     { provide: LoggerOptions, useValue: { level: LoggerLevel.DEBUG } },
-    Logger, MonDataService, MonProfileService, RestApiService, UtilityService, MonConfigurationService, MessageService,ConfirmationService,
-    GdfService
+    Logger, MonDataService, MonProfileService, RestApiService, UtilityService, 
+    MonConfigurationService, MessageService,ConfirmationService,
+    GdfService,MonHealthCheckService
     
   ],
 
