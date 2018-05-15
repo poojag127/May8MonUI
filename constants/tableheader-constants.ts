@@ -28,6 +28,7 @@ export const logPatternMonList = [
       {field:  COMPONENT.RUN_OPTIONS, header: 'COMPONENT.RUN_OPTIONS' ,isHidden:true},
       {field : COMPONENT.METRIC ,header :"Metric"},
       {field : COMPONENT.LOG_FILE_NAME ,header:"File Name"},
+      {field : COMPONENT.JOURNALD_FILE_NAME ,header:"Journalld File Name"},
       {field : COMPONENT.SEARCH_PATTERN ,header:"Search Pattern to fetch Access Log"},
       {field : COMPONENT.INSTANCE ,header: "Instance Name"},
       {field : COMPONENT.RUN_OPTIONS_UI, header :'Run Options'},

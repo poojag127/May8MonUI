@@ -83,6 +83,7 @@ export const METRIC = "metric";
 export const LOG_FILE_NAME = "fileName";
 export const SEARCH_PATTERN ="searchPattern";
 export const INSTANCE = "instance";
+export const JOURNALD_FILE_NAME = "specificJournalType";
 
 
 

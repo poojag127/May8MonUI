@@ -51,7 +51,9 @@ export class CavMonHealthCheckComponent implements OnInit {
     console.log("Method CavMonHealthCheckComponent called")
     this.heathCheckMonData =  new HealthCheckMonData();
     // this.heathCheckMonitorData = this.healthChkMonServiceOobj.getHealthCheckTreeTableDate();
-     this.healthChkMonServiceObj.getHealthCheckTreeTableData().then(files => this.heathCheckMonitorData = files);
+    //  this.healthChkMonServiceObj.getHealthCheckTreeTableData().then(files => this.heathCheckMonitorData = files);
+    this.healthChkMonServiceObj.setHealthCheckTreeTableData(this.heathCheckMonitorData);
+    this.heathCheckMonitorData = this.healthChkMonServiceObj.getHealthCheckTreeTableData();
     this.tierHeadersList = this.monConfServiceObj.getTierHeaderList();
     let tierList = [];
     this.tierHeadersList.map(function(each){

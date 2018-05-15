@@ -20,15 +20,51 @@ export class MonHealthCheckService {
 
     getHealthCheckTreeTableData()
     {
-     return this.http.get('../../../../assets/filesystem.json')
-                    .toPromise()
-                    .then(res => <TreeNode[]> res.json().data);
+    //  return this.http.get('../../../../assets/filesystem.json')
+    //                 .toPromise()
+    //                 .then(res => <TreeNode[]> res.json().data);
+     return this.healthCheckTreeTableData;
      }
 
     setHealthCheckTreeTableData(heathCheckMonitorData)
     {
-     this.healthCheckTreeTableData = heathCheckMonitorData;
+    //  this.healthCheckTreeTableData = heathCheckMonitorData;
+     let arr = [];
+     let obj =  { "data":{  
+                  "nodeName":"Tier1",
+                  "arguments":"true",
+                  "prop":{
+                      "host":"",
+                      "port":"",
+                     "ping":{"packet":"","proxy":""},
+                     "socket":{"packet":"","interval":""},
+                     "http":{"uName":"","pwd":""}
+                      }
+                   },
+                   "leaf":false,
+                   "children":[
+                        { "data":{  
+                          "nodeName":"Tier1",
+                          "arguments":"true",
+                          "prop":{
+                            "host":"",
+                             "port":"",
+                            "ping":{"packet":"","proxy":""},
+                     "socket":{"packet":"","interval":""},
+                     "http":{"uName":"","pwd":""}
+                      }
+                   },
+                   "leaf":true
+                        }
+
+                   ]
+                   } 
+     arr.push(obj)
+     let obj2 = {"data":arr};
+     this.healthCheckTreeTableData = obj2.data;
     }
+
+   
    
 
    

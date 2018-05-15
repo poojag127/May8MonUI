@@ -1285,7 +1285,7 @@ export class CavMonConfigurationComponent implements OnInit {
 
   /** -f "__journald%3A-u+specifiueJournanlD+" */
   if(formData.fileNameSelection == "-f __journald" && formData.journalType == "-u")
-   textForFileName = formData.journalType + COMPONENT.SPACE_SEPARATOR + formData.specificJournalType;
+   textForFileName = formData.journalType + COMPONENT.SPACE_SEPARATOR + formData.specificJournalType ;
   else
    textForFileName = formData.fileName;
 
