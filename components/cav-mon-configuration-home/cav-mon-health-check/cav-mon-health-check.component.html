@@ -261,7 +261,7 @@
 
       <p-accordion class="monitor-ui-accordion">
        <p-accordionTab header="Health Check Configuration data">
-         <p-treeTable  [value]="heathCheckMonitorData">
+         <p-treeTable  [value]="heathCheckMonitorData"  selectionMode="single">
            <p-column field="nodeName" header="Name"></p-column>
            <p-column field="arguments" header="Arguments"></p-column>
         </p-treeTable>

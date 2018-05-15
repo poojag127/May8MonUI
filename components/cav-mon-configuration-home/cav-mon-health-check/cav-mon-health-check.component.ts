@@ -69,6 +69,12 @@ export class CavMonHealthCheckComponent implements OnInit {
     this.healthCheckList = UtilityService.createListWithKeyValue(healthChkLabel, healthCheckVal);
     
   }
+  
+  nodeSelect(event)
+  {
+    console.log("event = ",event)
+  }
+
 
   onTierChange(tierName)
   {
