@@ -15,4 +15,5 @@ export class HealthCheckMonData
  customTierName:string;
  enableTier:boolean=false;
  enableServer:boolean = false;
+
 }

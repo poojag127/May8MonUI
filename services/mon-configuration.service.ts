@@ -23,9 +23,9 @@ import { HideShowMonitorData } from '../containers/hide-show-monitor-data';
 @Injectable()
 export class MonConfigurationService {
 
-  private topoName: string = "mosaic_stress_as1";
+  public topoName: string = "mosaic_stress_as1";
 
-  private profileName: string = "test";
+  public profileName: string = "test";
   private profileDesc: string = 'NA';
 
   monTierTreeTableData: any[] = null;

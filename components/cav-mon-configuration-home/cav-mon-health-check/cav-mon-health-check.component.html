@@ -23,7 +23,9 @@
                   <input name="interval" type="number"  pInputText [(ngModel)]="heathCheckMonData.interval"
                      autofocus required ngModel />
                </div>
+      
              </div>
+                   
 
              <div class= "ui-g-12">
                <div class="ui-g-1">
@@ -40,32 +42,29 @@
                   <input name="globalUserName" type="text"  pInputText [(ngModel)]="heathCheckMonData.userName" 
                    autofocus required ngModel />
                </div>
+            
+               </div>    
+           </p-fieldset>
+           
+            <p-fieldset  class = "healthChkMonCss" legend="Socket Global Settings" [toggleable]="true" collapsed="true">
+               <div class = "ui-g-12">
+                  <div class="ui-g-1">
+                    <label>Thread Pool</label>
+                  </div>
 
-                <!-- <div class = "ui-g-1">
-                 <label>Password</label>
-               </div>
-               <div class ="ui-g-3">
-                  <input name="pwd" type="password"  pInputText [(ngModel)]="heathCheckMonData.pwd"
-                      required ngModel />
-               </div>
-             </div> -->
-  
-             <div class="ui-g-12">
-                <div class = "ui-g-1">
-                    <label>Password</label>
-                  </div>
-                  <div class ="ui-g-3">
-                     <input name="globalPwd" type="password"  pInputText [(ngModel)]="heathCheckMonData.pwd"
-                         required ngModel />
-                  </div>
+                <div class = "ui-g-3">
+                  <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.threadPool"  ngModel />
                 </div>
-               <!-- <div class = "ui-g-1">
-                 <label>Number of  Threads</label>
-               </div>
-               <div class ="ui-g-3">
-                  <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.threadPool" 
-                  required ngModel />
-               </div> -->
+
+                  <div class = "ui-g-1" style="width:14.3333%">
+                    <label>Connection Time Out</label>
+                  </div>
+                <div class ="ui-g-3">
+                  <input name="connectionTimeOut" type="number"  pInputText [(ngModel)]="heathCheckMonData.timeOut" 
+                  ngModel />
+                </div>
+            </div>    
+            </p-fieldset>
 
                 <!--<div class = "ui-g-1">
                  <label>Status Code</label>
@@ -73,28 +72,52 @@
                <div class ="ui-g-3">
                   <input name="statusCode" type="text"  pInputText [(ngModel)]="heathCheckMonData.statusCode" required ngModel />
                </div>-->
-             </div>
 
 
-             <div class = "ui-g-12">
+          <p-fieldset class = "healthChkMonCss" legend="HTTP Global Settings" [toggleable]="true" collapsed="true">
+            <div class= "ui-g-12">
+                <div class="ui-g-1">
+                   <label>Proxy URL </label>
+                </div>
+                <div class ="ui-g-3">
+                  <input name="url" type="text"  pInputText [(ngModel)]="heathCheckMonData.proxyUrl" 
+                    required ngModel />
+                </div>
+ 
                 <div class = "ui-g-1">
-                 <label>Number of  Threads</label>
-               </div>
-               <div class ="ui-g-3">
-                  <input name="globalThreadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.threadPool" 
-                     required ngModel />
-               </div>
+                  <label>User Name</label>
+                </div>
+                <div class ="ui-g-3">
+                   <input name="user" type="text"  pInputText [(ngModel)]="heathCheckMonData.userName" 
+                   autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
+                </div>
+ 
+                 <div class = "ui-g-1">
+                  <label>Password</label>
+                </div>
+                <div class ="ui-g-3">
+                   <input name="passwrd" type="password"  pInputText [(ngModel)]="heathCheckMonData.pwd" 
+                    required ngModel />
+                </div>
+   
+                <div class = "ui-g-1">
+                  <label>Thread Pool</label>
+                </div>
+                <div class ="ui-g-3">
+                   <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.threadPool"
+                    ngModel />
+                </div>
+ 
+                 <div class = "ui-g-1">
+                  <label>Status Code</label>
+                </div>
+                <div class ="ui-g-3">
+                   <input name="statusCode" type="number"  pInputText 
+                   [(ngModel)]="heathCheckMonData.statusCode" required ngModel />
+                </div>
 
-               <div class = "ui-g-1">
-                 <label>Connection TimeOut</label>
-               </div>
-               <div class ="ui-g-3">
-                  <input name="globalconnectionTimeOut" type="number"  pInputText [(ngModel)]="heathCheckMonData.timeOut"  required ngModel />
-               </div>
-             </div>
-
-
-           </p-fieldset>
+              </div>
+          </p-fieldset>
            
         <form  (ngSubmit)="saveData()" #form="ngForm" ngNativeValidate >
           <p-fieldset  class = "healthChkMonCss"  legend="Configuration" [toggleable]="true" collapsed="true">
@@ -151,9 +174,6 @@
              <div class = "ui-g-2" style="margin-left: 11px">
               <p-checkbox [(ngModel)]="heathCheckMonData.enableServer"  name="enableServer" binary=true  label="Enable Server" ></p-checkbox>
             </div>
-<!-- 
-            <div class="ui-g-1">
-              </div> -->
 
            <div class = "ui-g-2" style="margin-left: 8px">
               <label>
@@ -275,5 +295,4 @@
     <button type="button" pButton  icon="fa-check" style="float: right" (click)= "addMonitor()" title="Done" label="Done"></button>
     <button type="button" pButton  icon="fa-close" style="float: right" (click)= "dialogCloseEvent()" label="Cancel" title="Close"></button>
   </div>
-
 </p-dialog>
