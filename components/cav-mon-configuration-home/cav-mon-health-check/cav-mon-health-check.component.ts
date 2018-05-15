@@ -9,6 +9,7 @@ import { HealthCheckMonData } from '../../../containers/health-check-data';
 import { HealthCheckTableData } from '../../../containers/health-check-tabledata';
 import { ImmutableArray } from '../../../utility/immutable-array';
 import { MonDataService } from '../../../services/mon-data.service';
+import { MessageService } from '../../../services/message.service';
 
 
 @Component({
@@ -60,6 +61,7 @@ export class CavMonHealthCheckComponent implements OnInit {
               private utilityService:UtilityService,
               private healthChkMonServiceObj: MonHealthCheckService,
               public monDataService: MonDataService,
+              private messageService: MessageService,
               
               ) { }
 
@@ -78,7 +80,7 @@ export class CavMonHealthCheckComponent implements OnInit {
     this.tierHeadersList.map(function(each){
       tierList.push(each.name)
     })
-    tierList.unshift("--Select --");
+    // tierList.unshift("--Select --");
     console.log("tierList CavMonHealthCheckComponentcalled= "+tierList)
     this.tierList = UtilityService.createDropdown(tierList);
 
@@ -115,13 +117,26 @@ export class CavMonHealthCheckComponent implements OnInit {
   }
 
 /* Function called when user wants to show the hidden monitor back in the treeTableData*/
+addMonitor()
+{   
+  this.confirmationService.confirm({
+    message: 'Are you sure you want to unhide monitor(s)?',
+    header: 'Show Hidden Monitors Confirmation',
+    accept: () => {
+      console.log("Method addMonitors called , nodes = " , this.nodes)
+      
+      this.monConfServiceObj.showHiddenMonitors(this.nodes)
+      this.monConfServiceObj.isFromAdd= true;
+      this.dialogCloseEvent();
+  },
+    reject: () => {
 
+    }
+  });
+}
 
  
-  finalSubmit()
-  {
-    this.dialogCloseEvent();
-  }
+  
 
 
   dialogCloseEvent($evt?: any) {
@@ -133,6 +148,7 @@ export class CavMonHealthCheckComponent implements OnInit {
 
   ngOnDestroy() {
     this.dialogCloseEvent();
+    this.monConfServiceObj.clearHideShowMonList();
   }
 
   /*this method is used to add data for the health check mon*/
@@ -142,28 +158,13 @@ export class CavMonHealthCheckComponent implements OnInit {
    console.log("Method saveData() called, savedata= ", this.heathCheckMonData)
   
    let treeTableData = this.healthChkMonServiceObj.getHealthCheckTreeTableData();
-
-  
    let id = treeTableData.length + 1;
    this.tierNode = new HealthCheckTableData();
-   let tierName;
-   let serverName;
-   if(this.heathCheckMonData.tierServerType == "custom")
-   {
-     tierName = this.heathCheckMonData.customTierName;
-     serverName = this.heathCheckMonData.customServerName;
-   }
-   else
-   {
-     tierName = this.heathCheckMonData.tierName;
-     serverName = this.heathCheckMonData.serverName;
-   }
-   
-   this.tierNode.nodeName = tierName;
+   this.tierNode.nodeName = this.heathCheckMonData.tierName;
    this.tierNode.arguments = this.heathCheckMonData.enableTier;
    
    this.serverNode = new HealthCheckTableData();
-   this.serverNode.nodeName = serverName;
+   this.serverNode.nodeName = this.heathCheckMonData.serverName;
    this.serverNode.arguments = this.heathCheckMonData.enableServer;
 
    console.log("serverNode = ",this.serverNode)
@@ -213,6 +214,21 @@ export class CavMonHealthCheckComponent implements OnInit {
      console.log("newTierNode = ",newTierNode)
 
      this.heathCheckMonitorData = ImmutableArray.push(this.heathCheckMonitorData, newTierNode);
+     this.messageService.successMessage("You have successfully added health check monitor");
+  }
+
+  finalSubmit()
+  {
+    let ping;
+    let socket;
+    let http;
+    console.log("method finalSubmit =", this.heathCheckMonitorData )
+    
+
+    if(this.dialogRef) 
+    {
+      this.dialogRef.close();
+    }
   }
 
 }

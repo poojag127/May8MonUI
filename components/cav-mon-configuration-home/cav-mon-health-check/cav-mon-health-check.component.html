@@ -112,7 +112,7 @@
             <div class ="ui-g-3"  style="margin-left: -57px">
               <p-dropdown [style]="{'width':'150px'}" name="list" required
                 [disabled]="!heathCheckMonData.tierServerType" (onChange) = "onTierChange(heathCheckMonData.tierName)"
-                 [options]="tierList" [(ngModel)]="heathCheckMonData.tierName" >
+                 [options]="tierList" placeholder= "--Select Tier--" [(ngModel)]="heathCheckMonData.tierName" >
               </p-dropdown>
             </div>
 
@@ -143,7 +143,7 @@
                  <label>Server Name</label>
                </div>
                <div class ="ui-g-3">
-                  <input name="serverName" type="text" [disabled]="heathCheckMonData.tierServerType != 'custom'" pInputText [(ngModel)]="heathCheckMonData.customServerName"  required ngModel />
+                  <input name="serverName" type="text" [disabled]="heathCheckMonData.tierServerType == ''" pInputText [(ngModel)]="heathCheckMonData.customServerName"   ngModel />
                </div>
            </div>
 
