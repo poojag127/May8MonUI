@@ -117,4 +117,10 @@ addMonitor()
     this.monConfServiceObj.clearHideShowMonList();
   }
 
+  /*this method is used to add data for the health check mon*/
+  saveData()
+  {
+   console.log("Method saveData() called, savedata= ", this.heathCheckMonData)
+  }
+
 }

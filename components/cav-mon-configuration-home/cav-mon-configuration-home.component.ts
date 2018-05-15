@@ -90,17 +90,17 @@ export class CavMonConfigurationHomeComponent implements OnInit {
 
     console.log("profileName--",this.monConfServiceObj.getProfileName())
 
-    this.monConfServiceObj.restoreVariableFromSession();
+    // this.monConfServiceObj.restoreVariableFromSession();
 
-    let txSession = JSON.parse(localStorage.getItem('monitorGUI'));
-    if(txSession != null) {
-      console.log("txSession=", txSession)
-      this.monConfServiceObj.setVariableInSession(1);
-      localStorage.removeItem('monitorGUI');
-    }else if(this._cavLaoutService.getProfileName() != undefined) {
-      console.log("txSession else part =", txSession)
-      this.monConfServiceObj.setVariableInSession(2);
-    }
+    // let txSession = JSON.parse(localStorage.getItem('monitorGUI'));
+    // if(txSession != null) {
+    //   console.log("txSession=", txSession)
+    //   this.monConfServiceObj.setVariableInSession(1);
+    //   localStorage.removeItem('monitorGUI');
+    // }else if(this._cavLaoutService.getProfileName() != undefined) {
+    //   console.log("txSession else part =", txSession)
+    //   this.monConfServiceObj.setVariableInSession(2);
+    // }
 
 
 
