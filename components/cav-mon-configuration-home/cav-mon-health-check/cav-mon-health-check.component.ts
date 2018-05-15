@@ -6,7 +6,8 @@ import { MonHealthCheckService } from '../../../services/mon-health-check-servic
 import * as _ from "lodash";
 import { UtilityService } from '../../../services/utility.service';
 import { HealthCheckMonData } from '../../../containers/health-check-data';
-
+import { HealthCheckTableData } from '../../../containers/health-check-tabledata';
+import { ImmutableArray } from '../../../utility/immutable-array';
 
 @Component({
   selector: 'app-cav-mon-health-check',
@@ -22,6 +23,8 @@ export class CavMonHealthCheckComponent implements OnInit {
   /* This flag is used to make dialog for show hidden monitors visible */
   displayDialog: boolean = true;
 
+  healthCheckTableData: HealthCheckTableData
+
 
   /*This flag is used to bind value of the checkbox*/
   checked:boolean = false; 
@@ -35,6 +38,12 @@ export class CavMonHealthCheckComponent implements OnInit {
   heathCheckMonData:HealthCheckMonData;
 
   heathCheckMonitorData:TreeNode[];
+
+  tierNode:HealthCheckTableData;
+
+  serverNode:HealthCheckTableData;
+
+  healthChkTypeNode:HealthCheckTableData;
 
   /*This variable is used to store the options for the health check type*/
   healthCheckList:any[] = [];
@@ -134,7 +143,66 @@ addMonitor()
   /*this method is used to add data for the health check mon*/
   saveData()
   {
+   
    console.log("Method saveData() called, savedata= ", this.heathCheckMonData)
+  
+   let treeTableData = this.healthChkMonServiceObj.getHealthCheckTreeTableData();
+   let id = treeTableData.length + 1;
+   this.tierNode = new HealthCheckTableData();
+   this.tierNode.nodeName = this.heathCheckMonData.tierName;
+   this.tierNode.arguments = this.heathCheckMonData.enableTier;
+   
+   this.serverNode = new HealthCheckTableData();
+   this.serverNode.nodeName = this.heathCheckMonData.serverName;
+   this.serverNode.arguments = this.heathCheckMonData.enableServer;
+
+   console.log("serverNode = ",this.serverNode)
+
+   this.healthChkTypeNode = new HealthCheckTableData();
+   this.healthChkTypeNode.nodeName = this.heathCheckMonData.healthCheckType;
+   let healthChkTypeString = '';
+   if(this.heathCheckMonData.healthCheckType == "Ping")
+       healthChkTypeString = "Packet = " + this.heathCheckMonData.packet + ", Interval = " + this.heathCheckMonData.interval ;
+   
+   else if(this.heathCheckMonData.healthCheckType == "Socket")
+     healthChkTypeString = "TimeOut = " + this.heathCheckMonData.timeOut  + ", ThreadPool = " +this.heathCheckMonData.threadPool;
+
+   else if(this.heathCheckMonData.healthCheckType == "Http")
+      healthChkTypeString = "Url = " + this.heathCheckMonData.proxyUrl + ", User Name = " + this.heathCheckMonData.userName + ", Password = " + this.heathCheckMonData.pwd;
+     
+   this.healthChkTypeNode.arguments = healthChkTypeString;
+
+   console.log("this.healthChkTypeNode = ",this.healthChkTypeNode)
+   
+   let serChildArr = [];
+   let healthChkTypeArr = [];
+   healthChkTypeArr.push({
+      "id":id + ".1.1",
+      "data":this.healthChkTypeNode,
+      "children":[],
+      "leaf":true
+   })
+
+   console.log("healthChkTypeArr = ",healthChkTypeArr)
+   
+   let that = this;
+   serChildArr.push({
+      "id": id + ".1",
+      "data": this.serverNode,
+      "children":healthChkTypeArr,
+      "leaf":false
+   })
+
+
+   let newTierNode = {
+     "id":id,
+     "data": this.tierNode,
+     "leaf": false,
+     "children": serChildArr
+      }
+     console.log("newTierNode = ",newTierNode)
+
+     this.heathCheckMonitorData = ImmutableArray.push(this.heathCheckMonitorData, newTierNode);
   }
 
 }
