@@ -6,6 +6,7 @@ import { MonHealthCheckService } from '../../../services/mon-health-check-servic
 import * as _ from "lodash";
 import { UtilityService } from '../../../services/utility.service';
 import { HealthCheckMonData } from '../../../containers/health-check-data';
+import { MonDataService } from '../../../services/mon-data.service';
 
 
 @Component({
@@ -39,15 +40,23 @@ export class CavMonHealthCheckComponent implements OnInit {
   /*This variable is used to store the options for the health check type*/
   healthCheckList:any[] = [];
 
+  topoName:string;
+  monName:string;
+  mjsonName:string;
+
   constructor(private monConfServiceObj: MonConfigurationService,
               private dialogRef: MdDialogRef<CavMonHealthCheckComponent>, 
               private confirmationService: ConfirmationService,
               private utilityService:UtilityService,
-              private healthChkMonServiceObj: MonHealthCheckService
+              private healthChkMonServiceObj: MonHealthCheckService,
+              public monDataService: MonDataService,
+              
               ) { }
 
   ngOnInit()
   {
+    console.log("proifile Name = ", this.monConfServiceObj.topoName, this.monConfServiceObj.profileName, this.monDataService.userName);
+    this.healthChkMonServiceObj.readHealthMonitorJson(this.monConfServiceObj.topoName, this.monConfServiceObj.profileName,  this.monDataService.getMonMode(), this.monDataService.userName, this.monDataService.getTestRunNum());
     console.log("Method CavMonHealthCheckComponent called")
     this.heathCheckMonData =  new HealthCheckMonData();
     // this.heathCheckMonitorData = this.healthChkMonServiceOobj.getHealthCheckTreeTableDate();

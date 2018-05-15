@@ -13,4 +13,6 @@ export class HealthCheckMonData
  serverName:string;
  healthCheckType:string = "Ping";
  customTierName:string;
+ enableTier: boolean;
+ enableServer:boolean;
 }
