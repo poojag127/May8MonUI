@@ -6,7 +6,7 @@
     <p-accordion class="monitor-ui-accordion">
       <p-accordionTab header="Configure Health Check Monitor">
         <!--<form  (ngSubmit)="saveData()" #form="ngForm" ngNativeValidate >-->
-        <p-fieldset  legend="Advance Settings" [toggleable]="true" collapsed="true">
+        <p-fieldset  legend="Ping Advance Settings" [toggleable]="true" collapsed="true">
              <div class= "ui-g-12">
                 <div class="ui-g-1">
                    <label>Packet </label>
@@ -25,25 +25,6 @@
                </div>
       
              </div>
-                   
-
-             <div class= "ui-g-12">
-               <div class="ui-g-1">
-                  <label>Proxy URL </label>
-               </div>
-               <div class ="ui-g-3">
-               <input name="globalUrl" type="text"  pInputText [(ngModel)]="heathCheckMonData.proxyUrl"  required ngModel />
-               </div>
-
-               <div class = "ui-g-1">
-                 <label>User Name</label>
-               </div>
-               <div class ="ui-g-3">
-                  <input name="globalUserName" type="text"  pInputText [(ngModel)]="heathCheckMonData.userName" 
-                   autofocus required ngModel />
-               </div>
-            
-               </div>    
            </p-fieldset>
            
             <p-fieldset  class = "healthChkMonCss" legend="Socket Global Settings" [toggleable]="true" collapsed="true">
@@ -161,7 +142,7 @@
                  <label>Server Name</label>
                </div>
                <div class ="ui-g-3">
-                  <input name="serverName" type="text" [disabled]="heathCheckMonData.tierServerType != 'custom'" pInputText [(ngModel)]="heathCheckMonData.serverName"  required ngModel />
+                  <input name="serverName" type="text" [disabled]="heathCheckMonData.tierServerType != 'custom'" pInputText [(ngModel)]="heathCheckMonData.customServerName"  required ngModel />
                </div>
            </div>
 
@@ -292,7 +273,7 @@
 
 
   <div class="ui-g-12">
-    <button type="button" pButton  icon="fa-check" style="float: right" (click)= "addMonitor()" title="Done" label="Done"></button>
+    <button type="button" pButton  icon="fa-check" style="float: right" (click)= "finalSubmit()" title="Done" label="Done"></button>
     <button type="button" pButton  icon="fa-close" style="float: right" (click)= "dialogCloseEvent()" label="Cancel" title="Close"></button>
   </div>
 </p-dialog>

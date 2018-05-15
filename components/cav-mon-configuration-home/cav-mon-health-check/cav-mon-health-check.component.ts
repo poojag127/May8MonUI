@@ -66,7 +66,7 @@ export class CavMonHealthCheckComponent implements OnInit {
   ngOnInit()
   {
     console.log("proifile Name = ", this.monConfServiceObj.topoName, this.monConfServiceObj.profileName, this.monDataService.userName);
-    this.healthChkMonServiceObj.readHealthMonitorJson(this.monConfServiceObj.topoName, this.monConfServiceObj.profileName,  this.monDataService.getMonMode(), this.monDataService.userName, this.monDataService.getTestRunNum());
+    // this.healthChkMonServiceObj.readHealthMonitorJson(this.monConfServiceObj.topoName, this.monConfServiceObj.profileName,  this.monDataService.getMonMode(), this.monDataService.userName, this.monDataService.getTestRunNum());
     console.log("Method CavMonHealthCheckComponent called")
     this.heathCheckMonData =  new HealthCheckMonData();
     // this.heathCheckMonitorData = this.healthChkMonServiceOobj.getHealthCheckTreeTableDate();
@@ -116,26 +116,13 @@ console.log("this.serbverlist =", this.serverList)
   }
 
 /* Function called when user wants to show the hidden monitor back in the treeTableData*/
-addMonitor()
-{   
-  this.confirmationService.confirm({
-    message: 'Are you sure you want to unhide monitor(s)?',
-    header: 'Show Hidden Monitors Confirmation',
-    accept: () => {
-      console.log("Method addMonitors called , nodes = " , this.nodes)
-      
-      this.monConfServiceObj.showHiddenMonitors(this.nodes)
-      this.monConfServiceObj.isFromAdd= true;
-      this.dialogCloseEvent();
-  },
-    reject: () => {
 
-    }
-  });
-}
 
  
-  
+  finalSubmit()
+  {
+    this.dialogCloseEvent();
+  }
 
 
   dialogCloseEvent($evt?: any) {
@@ -147,7 +134,6 @@ addMonitor()
 
   ngOnDestroy() {
     this.dialogCloseEvent();
-    this.monConfServiceObj.clearHideShowMonList();
   }
 
   /*this method is used to add data for the health check mon*/
@@ -157,13 +143,28 @@ addMonitor()
    console.log("Method saveData() called, savedata= ", this.heathCheckMonData)
   
    let treeTableData = this.healthChkMonServiceObj.getHealthCheckTreeTableData();
+
+  
    let id = treeTableData.length + 1;
    this.tierNode = new HealthCheckTableData();
-   this.tierNode.nodeName = this.heathCheckMonData.tierName;
+   let tierName;
+   let serverName;
+   if(this.heathCheckMonData.tierServerType == "custom")
+   {
+     tierName = this.heathCheckMonData.customTierName;
+     serverName = this.heathCheckMonData.customServerName;
+   }
+   else
+   {
+     tierName = this.heathCheckMonData.tierName;
+     serverName = this.heathCheckMonData.serverName;
+   }
+   
+   this.tierNode.nodeName = tierName;
    this.tierNode.arguments = this.heathCheckMonData.enableTier;
    
    this.serverNode = new HealthCheckTableData();
-   this.serverNode.nodeName = this.heathCheckMonData.serverName;
+   this.serverNode.nodeName = serverName;
    this.serverNode.arguments = this.heathCheckMonData.enableServer;
 
    console.log("serverNode = ",this.serverNode)
