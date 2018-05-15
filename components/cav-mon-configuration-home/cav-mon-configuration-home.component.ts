@@ -952,13 +952,7 @@ removeSpecificChildNode(obj)
     this._dialogForHealthCheckMon = this._dialog.open(CavMonHealthCheckComponent, {});
   
     this._dialogForHealthCheckMon.afterClosed().subscribe(result => {
-           console.log("Dialog closed for show monitors UI")
-
-        if(this.monConfServiceObj.isFromAdd) // if this is true then it means that user had added hidden monitors to be shown back i.e. means unhidden monitor.
-        {
-          that.compData = that.monConfServiceObj.getMonTierTableData(); 
-          this.monConfServiceObj.isFromAdd = false;
-        } 
+           console.log("Dialog closed for Health Check monitors UI")
       }); 
   }
 
