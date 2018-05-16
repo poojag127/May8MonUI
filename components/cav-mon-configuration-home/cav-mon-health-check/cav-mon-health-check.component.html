@@ -7,25 +7,23 @@
       <p-accordionTab header="Configure Health Check Monitor">
         <!--<form  (ngSubmit)="saveData()" #form="ngForm" ngNativeValidate >-->
         <p-fieldset  legend="Ping Global Settings" [toggleable]="true" collapsed="true">
-             <div class= "ui-g-12">
-                <div class="ui-g-1">
-                   <label>Packet </label>
-                </div>
-                <div class ="ui-g-3">
-                  <input name="packet" type="number"  pInputText [(ngModel)]="heathCheckMonData.packet" 
-                        autofocus  required ngModel />
-                </div>
+          <div class= "ui-g-12">
+            <div class="ui-g-1">
+                <label>Packet </label>
+            </div>
+            <div class ="ui-g-3">
+               <input name="pckt" type="number"  pInputText [(ngModel)]="heathCheckMonData.globalPacket" autofocus  required ngModel />
+            </div>
 
-                <div class = "ui-g-1">
-                  <label>Interval</label>
-                </div>
-                <div class ="ui-g-3">
-                  <input name="interval" type="number"  pInputText [(ngModel)]="heathCheckMonData.interval"
-                      required ngModel />
-               </div>
-      
-             </div>
-           </p-fieldset>
+            <div class = "ui-g-1">
+              <label>Interval</label>
+            </div>
+            <div class ="ui-g-3">
+              <input name="interval" type="number"  pInputText [(ngModel)]="heathCheckMonData.globalInterval"
+                       ngModel />
+           </div>
+          </div>
+        </p-fieldset>
            
             <p-fieldset  class = "healthChkMonCss" legend="Socket Global Settings" [toggleable]="true" collapsed="true">
                <div class = "ui-g-12">
@@ -93,9 +91,18 @@
                   <label>Status Code</label>
                 </div>
                 <div class ="ui-g-3">
-                   <input name="statusCode" type="number"  pInputText 
-                   [(ngModel)]="heathCheckMonData.statusCode" required ngModel />
+                   <input name="statusCode" type="text"  pInputText 
+                   [(ngModel)]="heathCheckMonData.statusCode" 
+                    ngModel />
                 </div>
+
+                <div class = "ui-g-1">
+                    <label>Instance</label>
+                  </div>
+                  <div class ="ui-g-3">
+                     <input name="inst" type="text"  pInputText [(ngModel)]="heathCheckMonData.instanceName"
+                       ngModel />
+                  </div>
 
               </div>
           </p-fieldset>
@@ -111,7 +118,7 @@
 
             <div class ="ui-g-3"  style="margin-left: -57px">
               <p-dropdown [style]="{'width':'150px'}" name="list" required
-                [disabled]="!heathCheckMonData.tierServerType" (onChange) = "onTierChange(heathCheckMonData.tierName)"
+                [disabled]="heathCheckMonData.tierServerType == 'custom' || heathCheckMonData.tierServerType == ''" (onChange) = "onTierChange(heathCheckMonData.tierName)"
                  [options]="tierList" placeholder= "--Select Tier--" [(ngModel)]="heathCheckMonData.tierName" >
               </p-dropdown>
             </div>
@@ -122,8 +129,8 @@
             </label>  
           </div>
           <div class ="ui-g-3">
-           <p-dropdown [style]="{'width':'150px'}" name="list" required
-              [disabled]="!heathCheckMonData.tierName" placeholder= "-- Select Server--"  [options]="serverList" [(ngModel)]="heathCheckMonData.serverName" >
+           <p-dropdown [style]="{'width':'150px'}" name="lists" required
+              [disabled]="heathCheckMonData.tierServerType == 'custom' || heathCheckMonData.tierName == ''" placeholder= "-- Select Server--"  [options]="serverList" [(ngModel)]="heathCheckMonData.serverName" >
             </p-dropdown>
           </div>
         </div>
@@ -164,7 +171,7 @@
            </div>
            
            <div class = "ui-g-3">
-                <p-dropdown name="list"  [style]="{'width':'120px'}"
+                <p-dropdown name="healthChkList"  [style]="{'width':'120px'}"
                   [options]="healthCheckList" [(ngModel)]="heathCheckMonData.healthCheckType" >
                  </p-dropdown>
             </div>
@@ -181,13 +188,20 @@
                      <input name="packet" type="number"  pInputText [(ngModel)]="heathCheckMonData.packet"  required ngModel />
                    </div>
 
+                   <div class = "ui-g-1">
+                      <label>Host</label>
+                    </div>
+                  <div class ="ui-g-3">
+                    <input name="host" type="text"  pInputText [(ngModel)]="heathCheckMonData.hostName"  ngModel />
+                  </div>
+
                      <div class = "ui-g-1">
                        <label>Interval</label>
                      </div>
                    <div class ="ui-g-3">
-                     <input name="interval" type="number"  pInputText [(ngModel)]="heathCheckMonData.interval" 
-                       ngModel />
+                     <input name="interval" type="number"  pInputText [(ngModel)]="heathCheckMonData.interval"  ngModel />
                    </div>
+                   
                </div>    
                
                <div class = "ui-g-12" style= "border: 1px solid" [hidden]='heathCheckMonData.healthCheckType != "Socket"'>
@@ -198,13 +212,40 @@
                   <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.threadPool"  ngModel />
                 </div>
 
+                <div class = "ui-g-1">
+                    <label>Host</label>
+                  </div>
+                  <div class ="ui-g-3">
+                     <input name="host" type="text"  pInputText [(ngModel)]="heathCheckMonData.hostName"
+                       ngModel />
+                  </div>
+
+                  <div class = "ui-g-1">
+                      <label>Port</label>
+                    </div>
+                    <div class ="ui-g-3">
+                       <input name="port" type="number"  pInputText [(ngModel)]="heathCheckMonData.port"
+                         ngModel />
+                    </div>
+                
+                <div class = "ui-g-1">
+                    <label>Instance</label>
+                  </div>
+                  <div class ="ui-g-3">
+                     <input name="inst" type="text"  pInputText [(ngModel)]="heathCheckMonData.instanceName"
+                       ngModel />
+                  </div>
+
                   <div class = "ui-g-1" style="width:14.3333%">
-                    <label>Connection Time Out</label>
+                    <label>Time Out</label>
                   </div>
                 <div class ="ui-g-3">
                   <input name="connectionTimeOut" type="number"  pInputText [(ngModel)]="heathCheckMonData.timeOut" 
                   ngModel />
                 </div>
+
+       
+  
             </div>     
 
             <div class= "ui-g-12" style= "border: 1px solid" [hidden]='heathCheckMonData.healthCheckType != "HTTP"'>
@@ -239,15 +280,15 @@
                    <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.threadPool"
                     ngModel />
                 </div>
- 
-                 <!--<div class = "ui-g-1">
-                  <label>Status Code</label>
-                </div>
-                <div class ="ui-g-3">
-                   <input name="test" type="number"  pInputText [(ngModel)]="heathCheckMonData.statusCode"
-                   autofocus required ngModel />
-                </div>-->
 
+                <div class = "ui-g-1">
+                    <label>Status Code</label>
+                  </div>
+                  <div class ="ui-g-3">
+                     <input name="statusCode" type="text"  pInputText title="Comma separated values other than 200 status code"
+                     [(ngModel)]="heathCheckMonData.statusCode" ngModel />
+                  </div>
+ 
               </div>
    
             </p-accordionTab>       

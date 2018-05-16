@@ -41,7 +41,7 @@ export class MonHealthCheckService {
      let arr = [];
      let obj =  { "data":{  
                   "nodeName":"Tier1",
-                  "arguments":"true",
+                  "arguments":"Active",
                   "prop":{
                       "host":"",
                       "port":"",
@@ -54,7 +54,7 @@ export class MonHealthCheckService {
                    "children":[
                         { "data":{  
                           "nodeName":"Server",
-                          "arguments":"true",
+                          "arguments":"Active",
                           "prop":{
                             "host":"",
                              "port":"",

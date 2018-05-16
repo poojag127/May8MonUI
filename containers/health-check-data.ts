@@ -8,13 +8,19 @@ export class HealthCheckMonData
  statusCode:string;
  threadPool:number;
  timeOut:number;
- tierServerType:string;
- tierName:string;
+ tierServerType:string = "";
+ tierName:string = "";
  serverName:string;
  healthCheckType:string = "Ping";
  customTierName:string;
  customServerName:string;
  enableTier:boolean=false;
  enableServer:boolean = false;
+ instanceName:string;
+ hostName:string;
+ port:number;
+
+globalPacket:number = 5;
+globalInterval:number;
 
 }

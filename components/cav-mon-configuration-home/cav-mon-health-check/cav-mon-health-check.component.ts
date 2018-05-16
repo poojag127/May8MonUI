@@ -116,29 +116,6 @@ export class CavMonHealthCheckComponent implements OnInit {
               })
   }
 
-/* Function called when user wants to show the hidden monitor back in the treeTableData*/
-addMonitor()
-{   
-  this.confirmationService.confirm({
-    message: 'Are you sure you want to unhide monitor(s)?',
-    header: 'Show Hidden Monitors Confirmation',
-    accept: () => {
-      console.log("Method addMonitors called , nodes = " , this.nodes)
-      
-      this.monConfServiceObj.showHiddenMonitors(this.nodes)
-      this.monConfServiceObj.isFromAdd= true;
-      this.dialogCloseEvent();
-  },
-    reject: () => {
-
-    }
-  });
-}
-
- 
-  
-
-
   dialogCloseEvent($evt?: any) {
     if(this.dialogRef) 
     {
@@ -161,11 +138,11 @@ addMonitor()
    let id = treeTableData.length + 1;
    this.tierNode = new HealthCheckTableData();
    this.tierNode.nodeName = this.heathCheckMonData.tierName;
-   this.tierNode.arguments = this.heathCheckMonData.enableTier;
+   this.tierNode.arguments = this.heathCheckMonData.enableTier ? "Active" : "Inactive";
    
    this.serverNode = new HealthCheckTableData();
    this.serverNode.nodeName = this.heathCheckMonData.serverName;
-   this.serverNode.arguments = this.heathCheckMonData.enableServer;
+   this.serverNode.arguments = this.heathCheckMonData.enableServer ? "Active" :"Inactive";
 
    console.log("serverNode = ",this.serverNode)
 
@@ -173,13 +150,13 @@ addMonitor()
    this.healthChkTypeNode.nodeName = this.heathCheckMonData.healthCheckType;
    let healthChkTypeString = '';
    if(this.heathCheckMonData.healthCheckType == "Ping")
-       healthChkTypeString = "Packet = " + this.heathCheckMonData.packet + ", Interval = " + this.heathCheckMonData.interval ;
+       healthChkTypeString = "Packet = " + this.heathCheckMonData.packet + ", Host = " + this.heathCheckMonData.hostName +  ", Interval = " + this.heathCheckMonData.interval ;
    
    else if(this.heathCheckMonData.healthCheckType == "Socket")
-     healthChkTypeString = "TimeOut = " + this.heathCheckMonData.timeOut  + ", ThreadPool = " +this.heathCheckMonData.threadPool;
+     healthChkTypeString = "TimeOut = " + this.heathCheckMonData.timeOut  + ", ThreadPool = " +this.heathCheckMonData.threadPool +  ", Instance Name = " + this.heathCheckMonData.instanceName + ", Host = " + this.heathCheckMonData.hostName + ", Port = " + this.heathCheckMonData.port; 
 
    else if(this.heathCheckMonData.healthCheckType == "HTTP")
-      healthChkTypeString = "Url = " + this.heathCheckMonData.proxyUrl + ", User Name = " + this.heathCheckMonData.userName + ", Password = " + this.heathCheckMonData.pwd;
+      healthChkTypeString = "Url = " + this.heathCheckMonData.proxyUrl + ", User Name = " + this.heathCheckMonData.userName + ", Password = " + this.heathCheckMonData.pwd + ", Status Code = " + this.heathCheckMonData.statusCode;
      
    this.healthChkTypeNode.arguments = healthChkTypeString;
 
@@ -219,10 +196,25 @@ addMonitor()
 
   finalSubmit()
   {
-    let ping;
-    let socket;
-    let http;
+    // let ping;
+    // let socket;
+    // let http;
     console.log("method finalSubmit =", this.heathCheckMonitorData )
+    let customConfiguratons = this.heathCheckMonitorData;
+    console.log("customConfiguratons =", customConfiguratons)
+
+
+    this.heathCheckMonData =  new HealthCheckMonData();
+    let globalConfiguration = {
+      "ping": {},
+      "socket": {},
+      "http" :{},
+   }
+
+   console.log("globalConfiguration= ", globalConfiguration)
+
+
+    
     
 
     if(this.dialogRef) 
