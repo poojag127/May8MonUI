@@ -19,47 +19,37 @@
               <label>Interval</label>
             </div>
             <div class ="ui-g-3">
-              <input name="interval" type="number"  pInputText [(ngModel)]="heathCheckMonData.globalInterval"
-                       ngModel />
+              <input name="interval" type="number"  pInputText [(ngModel)]="heathCheckMonData.globalInterval" ngModel />
            </div>
           </div>
         </p-fieldset>
            
-            <p-fieldset  class = "healthChkMonCss" legend="Socket Global Settings" [toggleable]="true" collapsed="true">
-               <div class = "ui-g-12">
-                  <div class="ui-g-1">
-                    <label>Thread Pool</label>
-                  </div>
+        <p-fieldset  class = "healthChkMonCss" legend="Socket Global Settings" [toggleable]="true" collapsed="true">
+          <div class = "ui-g-12">
+            <div class="ui-g-1">
+               <label>Thread Pool</label>
+            </div>
 
-                <div class = "ui-g-3">
-                  <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.threadPool"  ngModel />
-                </div>
+            <div class = "ui-g-3">
+               <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.globalThreadPool"  ngModel />
+             </div>
 
-                  <div class = "ui-g-1" style="width:14.3333%">
-                    <label>Connection Time Out</label>
-                  </div>
+            <div class = "ui-g-1" style="width:14.3333%">
+              <label>Connection Time Out</label>
+            </div>
+            <div class ="ui-g-3">
+              <input name="connectionTimeOut" type="number"  pInputText [(ngModel)]="heathCheckMonData.globalTimeOut" ngModel />
+            </div>
+          </div>    
+        </p-fieldset>
+
+        <p-fieldset class = "healthChkMonCss" legend="HTTP Global Settings" [toggleable]="true" collapsed="true">
+          <div class= "ui-g-12">
+            <div class="ui-g-1">
+               <label>Proxy URL </label>
+            </div>
                 <div class ="ui-g-3">
-                  <input name="connectionTimeOut" type="number"  pInputText [(ngModel)]="heathCheckMonData.timeOut" 
-                  ngModel />
-                </div>
-            </div>    
-            </p-fieldset>
-
-                <!--<div class = "ui-g-1">
-                 <label>Status Code</label>
-               </div>
-               <div class ="ui-g-3">
-                  <input name="statusCode" type="text"  pInputText [(ngModel)]="heathCheckMonData.statusCode" required ngModel />
-               </div>-->
-
-
-          <p-fieldset class = "healthChkMonCss" legend="HTTP Global Settings" [toggleable]="true" collapsed="true">
-            <div class= "ui-g-12">
-                <div class="ui-g-1">
-                   <label>Proxy URL </label>
-                </div>
-                <div class ="ui-g-3">
-                  <input name="url" type="text"  pInputText [(ngModel)]="heathCheckMonData.proxyUrl" 
+                  <input name="url" type="text"  pInputText [(ngModel)]="heathCheckMonData.globalProxyUrl" 
                     required ngModel />
                 </div>
  
@@ -67,7 +57,7 @@
                   <label>User Name</label>
                 </div>
                 <div class ="ui-g-3">
-                   <input name="user" type="text"  pInputText [(ngModel)]="heathCheckMonData.userName" 
+                   <input name="user" type="text"  pInputText [(ngModel)]="heathCheckMonData.globalUserName" 
                    autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
                 </div>
  
@@ -75,7 +65,7 @@
                   <label>Password</label>
                 </div>
                 <div class ="ui-g-3">
-                   <input name="passwrd" type="password"  pInputText [(ngModel)]="heathCheckMonData.pwd" 
+                   <input name="passwrd" type="password"  pInputText [(ngModel)]="heathCheckMonData.gloabalPwd" 
                     required ngModel />
                 </div>
    
@@ -83,7 +73,7 @@
                   <label>Thread Pool</label>
                 </div>
                 <div class ="ui-g-3">
-                   <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.threadPool"
+                   <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.gloabalThrdPool"
                     ngModel />
                 </div>
  
@@ -92,17 +82,17 @@
                 </div>
                 <div class ="ui-g-3">
                    <input name="statusCode" type="text"  pInputText 
-                   [(ngModel)]="heathCheckMonData.statusCode" 
+                   [(ngModel)]="heathCheckMonData.globalStatusCode" 
                     ngModel />
                 </div>
-
+<!-- 
                 <div class = "ui-g-1">
                     <label>Instance</label>
                   </div>
                   <div class ="ui-g-3">
                      <input name="inst" type="text"  pInputText [(ngModel)]="heathCheckMonData.instanceName"
                        ngModel />
-                  </div>
+                  </div> -->
 
               </div>
           </p-fieldset>
@@ -236,7 +226,7 @@
                        ngModel />
                   </div>
 
-                  <div class = "ui-g-1" style="width:14.3333%">
+                  <div class = "ui-g-1">
                     <label>Time Out</label>
                   </div>
                 <div class ="ui-g-3">
@@ -304,10 +294,14 @@
         </p-accordion>
 
       <p-accordion class="monitor-ui-accordion">
-       <p-accordionTab header="Health Check Configuration data">
+       <p-accordionTab header="Health Check Configuration Data">
          <p-treeTable  class = "healthChk-treeTable" [value]="heathCheckMonitorData"  selectionMode="single">
            <p-column field="nodeName" header="Name"></p-column>
-           <p-column field="arguments" header="Arguments"></p-column>
+           <p-column field="arguments" header="Arguments">
+              <template  let-data="rowData" pTemplate>
+                  <p-checkbox [(ngModel)]="heathCheckMonData.enableServer"  binary="false"></p-checkbox>
+                </template>
+           </p-column>
         </p-treeTable>
       </p-accordionTab>
   </p-accordion>

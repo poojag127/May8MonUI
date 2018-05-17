@@ -192,6 +192,7 @@ export class CavMonHealthCheckComponent implements OnInit {
 
      this.heathCheckMonitorData = ImmutableArray.push(this.heathCheckMonitorData, newTierNode);
      this.messageService.successMessage("You have successfully added health check monitor");
+     this.heathCheckMonData = new HealthCheckMonData();
   }
 
   finalSubmit()

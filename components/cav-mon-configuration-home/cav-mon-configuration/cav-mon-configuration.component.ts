@@ -273,9 +273,10 @@ export class CavMonConfigurationComponent implements OnInit {
   getDataForDependentComp(dependentCompArr, idValObj) {
     let data = [];
     let that = this;
-    dependentCompArr.map(function (eachDepenComp) {
-        
-        
+    dependentCompArr.map(function (eachDepenComp) 
+    {
+      if(eachDepenComp.type == "NewLine") // skip if dependent component is a NewLine. 
+               return null; 
          data.push(that.getDataForComp(eachDepenComp, idValObj));
     })
     console.log("Method getDataForDependentComp caleed value =", data)
