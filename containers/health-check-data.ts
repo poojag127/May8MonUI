@@ -23,4 +23,15 @@ export class HealthCheckMonData
 globalPacket:number = 5;
 globalInterval:number;
 
+
+ pingPkt:number;
+ pingIntrvl:number;
+ sockeTo:number;
+ socketTP:string;
+ httpUrl:string;
+ httpUser:string;
+ httpPwd:string;
+ httpTP:number=5;
+ httpSc:string; 
+
 }

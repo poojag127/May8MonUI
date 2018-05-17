@@ -547,7 +547,6 @@ export class MonConfigurationService {
     console.log("this.saveMonitorData--", this.saveMonitorData)
   }
 
-
   /*** Send Request to Server  ****/
   sendRequestToServer(data, topoName, jsonName) {
     console.log("sendRequestToServer method called--", data)

@@ -1,5 +1,5 @@
-export class HcPingProperties
+export interface HcPingProperties
 {
-  pkt = 5;
-//   private int interval = 200; 
+  pkt:number ;
+  interval : number ;
 }

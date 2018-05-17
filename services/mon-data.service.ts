@@ -45,7 +45,7 @@ export class MonDataService {
        console.log("Method initConfiguration called "+this.getProductKey())
        try
         {
-          this.productKey = this._productConfig.$productKey;
+        this.productKey = this._productConfig.$productKey;
           /*Checking for availability of session. */
           if (this._productConfig.$userName == null) {
             // this.log.info('Session not available. Restoring session.');

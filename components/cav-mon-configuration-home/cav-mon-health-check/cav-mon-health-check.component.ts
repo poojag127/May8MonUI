@@ -10,6 +10,8 @@ import { HealthCheckTableData } from '../../../containers/health-check-tabledata
 import { ImmutableArray } from '../../../utility/immutable-array';
 import { MonDataService } from '../../../services/mon-data.service';
 import { MessageService } from '../../../services/message.service';
+import { GlobalProps} from '../../../containers/global-prop';
+import { HealthCheckParams } from '../../../containers/health-check-params';
 
 
 @Component({
@@ -40,7 +42,7 @@ export class CavMonHealthCheckComponent implements OnInit {
   
   heathCheckMonData:HealthCheckMonData;
 
-  heathCheckMonitorData:TreeNode[];
+  heathCheckMonitorData:TreeNode[]=[];
 
   tierNode:HealthCheckTableData;
 
@@ -55,6 +57,10 @@ export class CavMonHealthCheckComponent implements OnInit {
   monName:string;
   mjsonName:string;
 
+  globalProps:GlobalProps;
+
+  healthCheckParam:HealthCheckParams;
+
   constructor(private monConfServiceObj: MonConfigurationService,
               private dialogRef: MdDialogRef<CavMonHealthCheckComponent>, 
               private confirmationService: ConfirmationService,
@@ -67,13 +73,15 @@ export class CavMonHealthCheckComponent implements OnInit {
 
   ngOnInit()
   {
+    this.globalProps = new GlobalProps();
+    console.log("globalProps = ",this.globalProps)
     console.log("proifile Name = ", this.monConfServiceObj.topoName, this.monConfServiceObj.profileName, this.monDataService.userName);
     // this.healthChkMonServiceObj.readHealthMonitorJson(this.monConfServiceObj.topoName, this.monConfServiceObj.profileName,  this.monDataService.getMonMode(), this.monDataService.userName, this.monDataService.getTestRunNum());
     console.log("Method CavMonHealthCheckComponent called")
     this.heathCheckMonData =  new HealthCheckMonData();
-    // this.heathCheckMonitorData = this.healthChkMonServiceOobj.getHealthCheckTreeTableDate();
+    // this.heathCheckMonitorData = this.healthChkMonServiceObj.getHealthCheckTreeTableDate();
     //  this.healthChkMonServiceObj.getHealthCheckTreeTableData().then(files => this.heathCheckMonitorData = files);
-    this.healthChkMonServiceObj.setHealthCheckTreeTableData(this.heathCheckMonitorData);
+    // this.healthChkMonServiceObj.setHealthCheckTreeTableData(this.heathCheckMonitorData);
     this.heathCheckMonitorData = this.healthChkMonServiceObj.getHealthCheckTreeTableData();
     this.tierHeadersList = this.monConfServiceObj.getTierHeaderList();
     let tierList = [];
@@ -133,32 +141,58 @@ export class CavMonHealthCheckComponent implements OnInit {
   {
    
    console.log("Method saveData() called, savedata= ", this.heathCheckMonData)
+   console.log("Method savedtaa called = ",this.globalProps)
   
    let treeTableData = this.healthChkMonServiceObj.getHealthCheckTreeTableData();
    let id = treeTableData.length + 1;
    this.tierNode = new HealthCheckTableData();
-   this.tierNode.nodeName = this.heathCheckMonData.tierName;
-   this.tierNode.arguments = this.heathCheckMonData.enableTier ? "Active" : "Inactive";
+
+   let tierName = this.heathCheckMonData.tierName;
+   let serverName = this.heathCheckMonData.serverName;
+   let healthCheckTypeName = this.heathCheckMonData.healthCheckType;
+
+   let tierObj = _.find(treeTableData,function(each) { return each.data.nodeName == tierName});
+   console.log("tierObj = ",tierObj)
    
-   this.serverNode = new HealthCheckTableData();
-   this.serverNode.nodeName = this.heathCheckMonData.serverName;
-   this.serverNode.arguments = this.heathCheckMonData.enableServer ? "Active" :"Inactive";
+   if(tierObj == null)
+   {
+    console.log("this = ",this.tierNode)
+    let tierNode  = { "nodeName":this.heathCheckMonData.tierName,
+                     "arguments":this.heathCheckMonData.enableTier
+                   }
+    // this.tierNode.nodeName = this.heathCheckMonData.tierName;
+    // this.tierNode.arguments = this.heathCheckMonData.enableTier ? "Active" : "Inactive";
+   
+    // this.serverNode = new HealthCheckTableData();
+    // this.serverNode.nodeName = this.heathCheckMonData.serverName;
+    // this.serverNode.arguments = this.heathCheckMonData.enableServer ? "Active" :"Inactive";
+    let serverNode = { "nodeName":this.heathCheckMonData.serverName,
+                      "arguments":this.heathCheckMonData.enableServer,
+                     
+    }
 
-   console.log("serverNode = ",this.serverNode)
+    console.log("serverNode = ",this.serverNode)
 
-   this.healthChkTypeNode = new HealthCheckTableData();
-   this.healthChkTypeNode.nodeName = this.heathCheckMonData.healthCheckType;
+  //  this.healthChkTypeNode = new HealthCheckTableData();
+  //  this.healthChkTypeNode.nodeName = healthCheckTypeName;
+
    let healthChkTypeString = '';
    if(this.heathCheckMonData.healthCheckType == "Ping")
-       healthChkTypeString = "Packet = " + this.heathCheckMonData.packet + ", Host = " + this.heathCheckMonData.hostName +  ", Interval = " + this.heathCheckMonData.interval ;
+       healthChkTypeString = "Packet = " + this.heathCheckMonData.pingPkt + ", Host = " + this.heathCheckMonData.hostName +  ", Interval = " + this.heathCheckMonData.pingIntrvl ;
    
    else if(this.heathCheckMonData.healthCheckType == "Socket")
-     healthChkTypeString = "TimeOut = " + this.heathCheckMonData.timeOut  + ", ThreadPool = " +this.heathCheckMonData.threadPool +  ", Instance Name = " + this.heathCheckMonData.instanceName + ", Host = " + this.heathCheckMonData.hostName + ", Port = " + this.heathCheckMonData.port; 
+     healthChkTypeString = "TimeOut = " + this.heathCheckMonData.sockeTo  + ", ThreadPool = " +this.heathCheckMonData.socketTP +  ", Instance Name = " + this.heathCheckMonData.instanceName + ", Host = " + this.heathCheckMonData.hostName + ", Port = " + this.heathCheckMonData.port; 
 
    else if(this.heathCheckMonData.healthCheckType == "HTTP")
-      healthChkTypeString = "Url = " + this.heathCheckMonData.proxyUrl + ", User Name = " + this.heathCheckMonData.userName + ", Password = " + this.heathCheckMonData.pwd + ", Status Code = " + this.heathCheckMonData.statusCode;
+      healthChkTypeString = "Url = " + this.heathCheckMonData.httpUser + ", User Name = " + this.heathCheckMonData.httpUser + ", Password = " + this.heathCheckMonData.httpPwd + ", Status Code = " + this.heathCheckMonData.httpSc;
      
-   this.healthChkTypeNode.arguments = healthChkTypeString;
+    let arr = [];
+    arr.push(this.heathCheckMonData);
+    let healthChkTypeNode = { 
+          "nodeName":this.heathCheckMonData.healthCheckType,
+          "arguments":healthChkTypeString,
+          "instanceInfo":arr
+    }
 
    console.log("this.healthChkTypeNode = ",this.healthChkTypeNode)
    
@@ -166,7 +200,7 @@ export class CavMonHealthCheckComponent implements OnInit {
    let healthChkTypeArr = [];
    healthChkTypeArr.push({
       "id":id + ".1.1",
-      "data":this.healthChkTypeNode,
+      "data":healthChkTypeNode,
       "children":[],
       "leaf":true
    })
@@ -176,7 +210,7 @@ export class CavMonHealthCheckComponent implements OnInit {
    let that = this;
    serChildArr.push({
       "id": id + ".1",
-      "data": this.serverNode,
+      "data": serverNode,
       "children":healthChkTypeArr,
       "leaf":false
    })
@@ -184,37 +218,80 @@ export class CavMonHealthCheckComponent implements OnInit {
 
    let newTierNode = {
      "id":id,
-     "data": this.tierNode,
+     "data": tierNode,
      "leaf": false,
      "children": serChildArr
       }
      console.log("newTierNode = ",newTierNode)
 
+     console.log(" this.heathCheckMonitorData = ", this.heathCheckMonitorData)
+
      this.heathCheckMonitorData = ImmutableArray.push(this.heathCheckMonitorData, newTierNode);
      this.messageService.successMessage("You have successfully added health check monitor");
+  }
+  else {
+    //alredy tier Node is  there now checking for server Node alreday exist or not
+    if(tierObj.children.length != 0)
+    {
+      let serverArr = tierObj.children;
+      let existingServerNode = _.find(serverArr,function(each) { return each.data.nodeName == serverName});
+      if(existingServerNode != null)
+      {
+       let typeNodeArr = existingServerNode.children;
+       if(typeNodeArr.children.length != 0)
+       {
+         let healthChkTypeArr = typeNodeArr.children;
+         let healthCheckTypeObj  = _.find(healthChkTypeArr,function(each) { return each.data.nodeName == healthCheckTypeName});
+         if(healthCheckTypeObj == null)
+          this.addhealthCheckNode(existingServerNode)
+         else
+         {
+           if(healthCheckTypeName != "Socket")
+           {
+             //return n promot msg
+           }
+           else{
+
+           }
+         }
+       } 
+       else
+         this.addhealthCheckNode(existingServerNode);
+      }
+      else
+          this.addServerNode(tierObj);    
+    }
+    else
+    {
+      this.addServerNode(tierObj);
+    }
+
+  }
+}
+ 
+  addServerNode(tierObj)
+  {
+    console.log("Method addServerNode called")
+  }
+
+  addhealthCheckNode(serverNode)
+  {
+
   }
 
   finalSubmit()
   {
-    // let ping;
-    // let socket;
-    // let http;
     console.log("method finalSubmit =", this.heathCheckMonitorData )
     let customConfiguratons = this.heathCheckMonitorData;
     console.log("customConfiguratons =", customConfiguratons)
 
-
     this.heathCheckMonData =  new HealthCheckMonData();
-    let globalConfiguration = {
-      "ping": {},
-      "socket": {},
-      "http" :{},
-   }
+    console.log("globalConfiguration= ", this.globalProps)
 
-   console.log("globalConfiguration= ", globalConfiguration)
-
-
-    
+    this.healthChkMonServiceObj.savehealthCheckData(this.heathCheckMonitorData,this.globalProps)
+        .subscribe(data =>{
+      console.log("data = ",data)
+    });
     
 
     if(this.dialogRef) 

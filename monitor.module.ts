@@ -12,7 +12,7 @@ import { Logger, Options as LoggerOptions, Level as LoggerLevel } from '../../..
 
 import { AccordionModule, DataTableModule, ContextMenuModule, MultiSelectModule, 
   ConfirmDialogModule, InputTextModule, ButtonModule, DialogModule, DropdownModule, FieldsetModule, RadioButtonModule,
-  CheckboxModule, ListboxModule, InputTextareaModule, TreeTableModule,SharedModule, FileUploadModule, PaginatorModule, PanelModule, SpinnerModule,
+  CheckboxModule, InputTextareaModule, TreeTableModule,SharedModule, FileUploadModule, PaginatorModule, PanelModule, SpinnerModule,
   GrowlModule,BreadcrumbModule,MessagesModule,ToolbarModule,ConfirmationService,TreeModule
 } from 'primeng/primeng';
 
@@ -113,7 +113,6 @@ import { MonitorCompReducer } from './reducers/monitor-comp-reducer';
     InputTextModule,
     FieldsetModule,
     CheckboxModule,
-    ListboxModule,
     InputTextareaModule,
     ConfirmDialogModule,
     DialogModule,

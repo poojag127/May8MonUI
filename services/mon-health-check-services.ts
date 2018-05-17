@@ -7,6 +7,7 @@ import { RestApiService } from './rest-api.service';
 import { MonDataService } from './mon-data.service';
 import { ConfirmationService, TreeNode } from 'primeng/primeng';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { MonConfigurationService} from './mon-configuration.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui'; // Import BlockUI decorator & optional NgBlockUI type
 
 //   /* Decorator wires up blockUI instance*/
@@ -16,13 +17,15 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui'; // Import BlockUI decorator & 
 export class MonHealthCheckService {
 
 
-    healthCheckTreeTableData: TreeNode[];
+    healthCheckTreeTableData: TreeNode[] = [];
     
     private topoName: string; // to store topology name 
   
     private profileName: string; // to store profile name
   
-    constructor(private _restApi: RestApiService, private monDataService: MonDataService,private http: Http) {
+    constructor(private _restApi: RestApiService,
+      private monConfigServiceObj : MonConfigurationService,
+      private monDataService: MonDataService,private http: Http) {
  
     }
 
@@ -99,6 +102,25 @@ export class MonHealthCheckService {
     console.log("url for health Chk Mon --", url)
     return this._restApi.getDataByGetReq(url);
     }
-    
+
+
+
+    savehealthCheckData(heathCheckMonitorData,GlobalProps)
+    {
+      
+       let url = this.monDataService.getserviceURL() + URL.SAVE_HEALTH_CHECK_DATA + "?productKey=" + this.monDataService.getProductKey();
+       let params = {
+        'topoName': this.monConfigServiceObj.getTopoName(),
+        'profileName': this.monConfigServiceObj.getProfileName(),
+        'userName': this.monDataService.getUserName(),
+        'testRunNum': this.monDataService.getTestRunNum().toString(),
+        'monMode': this.monDataService.getMonMode().toString(),
+        'customConfiguratons':{"data": heathCheckMonitorData},
+        'globalConfiguration':GlobalProps,
+        'role':this.monDataService.$userRole
+      };
+  
+    return this._restApi.getDataByPostReq(url, params)
+    }    
 
 }

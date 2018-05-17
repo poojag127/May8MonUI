@@ -1,8 +1,8 @@
 
 export class HealthCheckTableData
 {
- id:number=1;
+ id:number;
  nodeName:string;
  arguments:any;
- instanceInfo:any;
+ instanceInfo:any[] =[];
 }

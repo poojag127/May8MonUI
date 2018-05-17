@@ -51,3 +51,6 @@ export const SHOW_HIDDEN_MON= "getHiddenMonitorList";
 /*Url for getting gdf list according to monitor type */
 export const GET_GDF_LIST = `getListOfGdf`;
 export const GET_HEALTH_MON_STATS = `readHealthMonJson`;
+
+
+export const SAVE_HEALTH_CHECK_DATA = `healthCheckData`;

@@ -12,14 +12,14 @@
                 <label>Packet </label>
             </div>
             <div class ="ui-g-3">
-               <input name="pckt" type="number"  pInputText [(ngModel)]="heathCheckMonData.globalPacket" autofocus  required ngModel />
+               <input name="pckt" type="number"  pInputText [(ngModel)]="globalProps.pingPkt" autofocus  required ngModel />
             </div>
 
             <div class = "ui-g-1">
               <label>Interval</label>
             </div>
             <div class ="ui-g-3">
-              <input name="interval" type="number"  pInputText [(ngModel)]="heathCheckMonData.globalInterval"
+              <input name="interval" type="number"  pInputText [(ngModel)]="globalProps.pingIntrvl"
                        ngModel />
            </div>
           </div>
@@ -32,14 +32,14 @@
                   </div>
 
                 <div class = "ui-g-3">
-                  <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.threadPool"  ngModel />
+                  <input name="threadPool" type="number"  pInputText [(ngModel)]="globalProps.socketTP"  ngModel />
                 </div>
 
                   <div class = "ui-g-1" style="width:14.3333%">
                     <label>Connection Time Out</label>
                   </div>
                 <div class ="ui-g-3">
-                  <input name="connectionTimeOut" type="number"  pInputText [(ngModel)]="heathCheckMonData.timeOut" 
+                  <input name="connectionTimeOut" type="number"  pInputText [(ngModel)]="globalProps.socketTo" 
                   ngModel />
                 </div>
             </div>    
@@ -59,7 +59,7 @@
                    <label>Proxy URL </label>
                 </div>
                 <div class ="ui-g-3">
-                  <input name="url" type="text"  pInputText [(ngModel)]="heathCheckMonData.proxyUrl" 
+                  <input name="globalUrl" type="text"  pInputText [(ngModel)]="globalProps.httpUrl" 
                     required ngModel />
                 </div>
  
@@ -67,7 +67,7 @@
                   <label>User Name</label>
                 </div>
                 <div class ="ui-g-3">
-                   <input name="user" type="text"  pInputText [(ngModel)]="heathCheckMonData.userName" 
+                   <input name="globalUser" type="text"  pInputText [(ngModel)]="globalProps.httpUser" 
                    autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
                 </div>
  
@@ -75,7 +75,7 @@
                   <label>Password</label>
                 </div>
                 <div class ="ui-g-3">
-                   <input name="passwrd" type="password"  pInputText [(ngModel)]="heathCheckMonData.pwd" 
+                   <input name="globalpasswrd" type="password"  pInputText [(ngModel)]="globalProps.httpPwd" 
                     required ngModel />
                 </div>
    
@@ -83,7 +83,8 @@
                   <label>Thread Pool</label>
                 </div>
                 <div class ="ui-g-3">
-                   <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.threadPool"
+                   <input name="globalTP" type="number"  pInputText
+                    [(ngModel)]="globalProps.httpTP"
                     ngModel />
                 </div>
  
@@ -91,18 +92,12 @@
                   <label>Status Code</label>
                 </div>
                 <div class ="ui-g-3">
-                   <input name="statusCode" type="text"  pInputText 
-                   [(ngModel)]="heathCheckMonData.statusCode" 
+                   <input name="globalStatusCode" 
+                    type="text"  pInputText 
+                   [(ngModel)]="globalProps.httpSc" 
                     ngModel />
                 </div>
 
-                <div class = "ui-g-1">
-                    <label>Instance</label>
-                  </div>
-                  <div class ="ui-g-3">
-                     <input name="inst" type="text"  pInputText [(ngModel)]="heathCheckMonData.instanceName"
-                       ngModel />
-                  </div>
 
               </div>
           </p-fieldset>
@@ -185,7 +180,7 @@
                        <label>Packet</label>
                      </div>
                    <div class = "ui-g-3">
-                     <input name="packet" type="number"  pInputText [(ngModel)]="heathCheckMonData.packet"  required ngModel />
+                     <input name="packet" type="number"  pInputText [(ngModel)]="heathCheckMonData.pingPkt"  required ngModel />
                    </div>
 
                    <div class = "ui-g-1">
@@ -199,7 +194,7 @@
                        <label>Interval</label>
                      </div>
                    <div class ="ui-g-3">
-                     <input name="interval" type="number"  pInputText [(ngModel)]="heathCheckMonData.interval"  ngModel />
+                     <input name="interval" type="number"  pInputText [(ngModel)]="heathCheckMonData.pingIntrvl"  ngModel />
                    </div>
                    
                </div>    
@@ -209,7 +204,7 @@
                     <label>Thread Pool</label>
                   </div>
                 <div class = "ui-g-3">
-                  <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.threadPool"  ngModel />
+                  <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.socketTP"  ngModel />
                 </div>
 
                 <div class = "ui-g-1">
@@ -240,7 +235,7 @@
                     <label>Time Out</label>
                   </div>
                 <div class ="ui-g-3">
-                  <input name="connectionTimeOut" type="number"  pInputText [(ngModel)]="heathCheckMonData.timeOut" 
+                  <input name="connectionTimeOut" type="number"  pInputText [(ngModel)]="heathCheckMonData.socketTo" 
                   ngModel />
                 </div>
 
@@ -253,15 +248,15 @@
                    <label>Proxy URL </label>
                 </div>
                 <div class ="ui-g-3">
-                  <input name="url" type="text"  pInputText [(ngModel)]="heathCheckMonData.proxyUrl"  required ngModel />
+                  <input name="url" type="text"  pInputText [(ngModel)]="heathCheckMonData.httpUrl"   ngModel />
                 </div>
  
                 <div class = "ui-g-1">
                   <label>User Name</label>
                 </div>
                 <div class ="ui-g-3">
-                   <input name="user" type="text"  pInputText [(ngModel)]="heathCheckMonData.userName" 
-                    required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
+                   <input name="user" type="text"  pInputText [(ngModel)]="heathCheckMonData.httpUser" 
+                     pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$"  ngModel />
                 </div>
  
                  <div class = "ui-g-1">
@@ -269,7 +264,7 @@
                 </div>
                 <div class ="ui-g-3">
                    <input name="passwrd" type="password"
-                    pInputText [(ngModel)]="heathCheckMonData.pwd" 
+                    pInputText [(ngModel)]="heathCheckMonData.httpPwd" 
                      ngModel />
                 </div>
    
@@ -277,7 +272,7 @@
                   <label>Thread Pool</label>
                 </div>
                 <div class ="ui-g-3">
-                   <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.threadPool"
+                   <input name="threadPool" type="number"  pInputText [(ngModel)]="heathCheckMonData.httpTP"
                     ngModel />
                 </div>
 
@@ -286,11 +281,9 @@
                   </div>
                   <div class ="ui-g-3">
                      <input name="statusCode" type="text"  pInputText title="Comma separated values other than 200 status code"
-                     [(ngModel)]="heathCheckMonData.statusCode" ngModel />
+                     [(ngModel)]="heathCheckMonData.httpSc" ngModel />
                   </div>
- 
               </div>
-   
             </p-accordionTab>       
           </p-accordion>   
         </div>
