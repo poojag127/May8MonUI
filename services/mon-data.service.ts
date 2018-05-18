@@ -28,7 +28,7 @@ export class MonDataService {
 
     // private serviceURL: string = "http://10.10.50.12:8002/ProductUI/productSummary/MonitorWebService/";
     // private serviceURL: string = "http://10.10.40.7:8006/ProductUI/productSummary/MonitorWebService/";
-    //   private serviceURL: string = "https://10.10.50.5/ProductUI/productSummary/MonitorWebService/";
+    // private serviceURL: string = "https://10.10.50.5:4443/ProductUI/productSummary/MonitorWebService/";
     // private serviceURL: string = "https://10.10.50.19:4440/ProductUI/productSummary/MonitorWebService/";
     private serviceURL: string = "http://10.10.60.12:8002/ProductUI/productSummary/MonitorWebService/";
 

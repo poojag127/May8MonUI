@@ -107,17 +107,20 @@ export class MonHealthCheckService {
 
     savehealthCheckData(heathCheckMonitorData,GlobalProps)
     {
-      
-       let url = this.monDataService.getserviceURL() + URL.SAVE_HEALTH_CHECK_DATA + "?productKey=" + this.monDataService.getProductKey();
+      let data = JSON.stringify(heathCheckMonitorData);
+      console.log("data = ",data)
+      // let data = JSON.stringify(J(heathCheckMonitorData);
+      console.log("data = ",data)
+       let url = this.monDataService.getserviceURL() + URL.SAVE_HEALTH_CHECK_DATA + "?productKey=" + this.monDataService.getProductKey() ;
        let params = {
         'topoName': this.monConfigServiceObj.getTopoName(),
-        'profileName': this.monConfigServiceObj.getProfileName(),
+        'jsonName': this.monConfigServiceObj.getProfileName(),
         'userName': this.monDataService.getUserName(),
-        'testRunNum': this.monDataService.getTestRunNum().toString(),
-        'monMode': this.monDataService.getMonMode().toString(),
-        'customConfiguratons':{"data": heathCheckMonitorData},
-        'globalConfiguration':GlobalProps,
-        'role':this.monDataService.$userRole
+        // 'testRunNum': this.monDataService.getTestRunNum().toString(),
+        // 'monMode': this.monDataService.getMonMode().toString(),
+        'customConfiguratons':{"data": data},
+        'globalConfiguration':GlobalProps
+        // 'role':this.monDataService.$userRole
       };
   
     return this._restApi.getDataByPostReq(url, params)

@@ -21,7 +21,6 @@ export class HealthCheckMonData
  port:number;
 
 globalPacket:number = 5;
-globalInterval:number;
 
 
  pingPkt:number;
@@ -34,4 +33,12 @@ globalInterval:number;
  httpTP:number=5;
  httpSc:string; 
 
+globalInterval:number = 200;
+globalThreadPool:number = 5;
+globalTimeOut:number = 0.2;
+globalProxyUrl:string = "NA";
+globalUserName:string;
+gloabalPwd:string;
+gloabalThrdPool:number = 10;
+globalStatusCode:string;
 }

@@ -21,6 +21,7 @@
             <div class ="ui-g-3">
               <input name="interval" type="number"  pInputText [(ngModel)]="globalProps.pingIntrvl"
                        ngModel />
+
            </div>
           </div>
         </p-fieldset>
@@ -45,19 +46,12 @@
             </div>    
             </p-fieldset>
 
-                <!--<div class = "ui-g-1">
-                 <label>Status Code</label>
-               </div>
-               <div class ="ui-g-3">
-                  <input name="statusCode" type="text"  pInputText [(ngModel)]="heathCheckMonData.statusCode" required ngModel />
-               </div>-->
 
-
-          <p-fieldset class = "healthChkMonCss" legend="HTTP Global Settings" [toggleable]="true" collapsed="true">
-            <div class= "ui-g-12">
-                <div class="ui-g-1">
-                   <label>Proxy URL </label>
-                </div>
+        <p-fieldset class = "healthChkMonCss" legend="HTTP Global Settings" [toggleable]="true" collapsed="true">
+          <div class= "ui-g-12">
+            <div class="ui-g-1">
+               <label>Proxy URL </label>
+            </div>
                 <div class ="ui-g-3">
                   <input name="globalUrl" type="text"  pInputText [(ngModel)]="globalProps.httpUrl" 
                     required ngModel />
@@ -68,6 +62,7 @@
                 </div>
                 <div class ="ui-g-3">
                    <input name="globalUser" type="text"  pInputText [(ngModel)]="globalProps.httpUser" 
+
                    autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
                 </div>
  
@@ -76,7 +71,7 @@
                 </div>
                 <div class ="ui-g-3">
                    <input name="globalpasswrd" type="password"  pInputText [(ngModel)]="globalProps.httpPwd" 
-                    required ngModel />
+
                 </div>
    
                 <div class = "ui-g-1">
@@ -85,7 +80,7 @@
                 <div class ="ui-g-3">
                    <input name="globalTP" type="number"  pInputText
                     [(ngModel)]="globalProps.httpTP"
-                    ngModel />
+
                 </div>
  
                  <div class = "ui-g-1">
@@ -98,6 +93,15 @@
                     ngModel />
                 </div>
 
+
+                <div class = "ui-g-1">
+                    <label>Instance</label>
+                  </div>
+                  <div class ="ui-g-3">
+                     <input name="inst" type="text"  pInputText [(ngModel)]="heathCheckMonData.instanceName"
+                       ngModel />
+                  </div> -->
+>>>>>>> 2b1d4271575149d0540afdb5485eb453eb4becf9
 
               </div>
           </p-fieldset>
@@ -231,7 +235,7 @@
                        ngModel />
                   </div>
 
-                  <div class = "ui-g-1" style="width:14.3333%">
+                  <div class = "ui-g-1">
                     <label>Time Out</label>
                   </div>
                 <div class ="ui-g-3">
@@ -297,10 +301,14 @@
         </p-accordion>
 
       <p-accordion class="monitor-ui-accordion">
-       <p-accordionTab header="Health Check Configuration data">
+       <p-accordionTab header="Health Check Configuration Data">
          <p-treeTable  class = "healthChk-treeTable" [value]="heathCheckMonitorData"  selectionMode="single">
            <p-column field="nodeName" header="Name"></p-column>
-           <p-column field="arguments" header="Arguments"></p-column>
+           <p-column field="arguments" header="Arguments">
+              <template  let-data="rowData" pTemplate>
+                  <p-checkbox [(ngModel)]="heathCheckMonData.enableServer"  binary="false"></p-checkbox>
+                </template>
+           </p-column>
         </p-treeTable>
       </p-accordionTab>
   </p-accordion>

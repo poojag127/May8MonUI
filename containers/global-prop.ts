@@ -4,13 +4,13 @@ import { HCHttpProperties }  from './hc-http-properties';
  
 export class GlobalProps
 {
- pingPkt:number;
- pingIntrvl:number;
- sockeTo:number;
- socketTP:string;
- httpUrl:string;
- httpUser:string;
- httpPwd:string;
+ pingPkt:number =5;
+ pingIntrvl:number =10;
+ sockeTo:number =5;
+ socketTP:string = "5";
+ httpUrl:string ="NA";
+ httpUser:string="cavisson";
+ httpPwd:string ="cavisson";
  httpTP:number=5;
- httpSc:string; 
+ httpSc:string="301,302,303"; 
 }
