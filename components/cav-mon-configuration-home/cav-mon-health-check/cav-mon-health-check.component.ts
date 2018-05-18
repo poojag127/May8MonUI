@@ -169,13 +169,13 @@ export class CavMonHealthCheckComponent implements OnInit {
    if(tierObj == null)
    {
     let arr2 = [];
-    arr2.push(this.heathCheckMonData);
+    arr2.push(this.globalProps);
     console.log("this = ",this.tierNode)
     let tierNode  = { "nodeName":this.heathCheckMonData.tierName,
-                      // "arguments":this.heathCheckMonData.enableTier ? this.activeTier = true : this.activeTier = false,
-                      "arguments":this.heathCheckMonData.enableTier,
+                      "arguments":this.heathCheckMonData.enableTier? "true":"false",
                       "leaf":false,
-                      "instanceInfo":arr2
+                      // "instanceInfo":arr2,
+                       "enabled":false
                    }
                    console.log("tierNode here = " , tierNode.arguments)
                 
@@ -186,10 +186,10 @@ export class CavMonHealthCheckComponent implements OnInit {
     // this.serverNode.nodeName = this.heathCheckMonData.serverName;
     // this.serverNode.arguments = this.heathCheckMonData.enableServer ? "Active" :"Inactive";
     let serverNode = { "nodeName":this.heathCheckMonData.serverName,
-                      // "arguments":this.heathCheckMonData.enableServer ? this.activeServer = true : this.activeServer = false,
-                      "arguments":this.heathCheckMonData.enableServer,
+                      "arguments":this.heathCheckMonData.enableServer ? "true":"false",
                        "leaf":false,
-                      "instanceInfo":arr2
+                      // "instanceInfo":arr2,
+                       "enabled":false
     }
 
     // this.addhealthCheckNode(serverNode,this.heathCheckMonData);
@@ -215,7 +215,8 @@ export class CavMonHealthCheckComponent implements OnInit {
           "nodeName":this.heathCheckMonData.healthCheckType,
           "arguments":healthChkTypeString,
           "instanceInfo":arr,
-          "leaf":true
+          "leaf":true,
+          "enabled":false
     }
     console.log("healthChkTypeString= " + healthChkTypeNode.arguments)
     console.log("healthChkTypeString =" + healthChkTypeString)
@@ -252,6 +253,8 @@ export class CavMonHealthCheckComponent implements OnInit {
 
      console.log(" this.heathCheckMonitorData = ", this.heathCheckMonitorData)
 
+      let data = JSON.stringify(newTierNode);
+
      this.heathCheckMonitorData = ImmutableArray.push(this.heathCheckMonitorData, newTierNode);
      this.messageService.successMessage("You have successfully added health check monitor");
      this.heathCheckMonData = new HealthCheckMonData();
@@ -265,28 +268,30 @@ export class CavMonHealthCheckComponent implements OnInit {
       if(existingServerNode != null)
       {
        let typeNodeArr = existingServerNode.children;
-       if(typeNodeArr.children.length != 0)
+       let healthChkTypeArr = typeNodeArr.children;
+       let healthChkNodeId = existingServerNode.id + (healthChkTypeArr.length + 1);
+       if(healthChkTypeArr.length != 0)
        {
-         let healthChkTypeArr = typeNodeArr.children;
          let healthCheckTypeObj  = _.find(healthChkTypeArr,function(each) { return each.data.nodeName == healthCheckTypeName});
          if(healthCheckTypeObj == null)
          {
-          // this.addhealthCheckNode(existingServerNode)
+           console.log("id of health Check Type Node = ",id)
+           this.addhealthCheckNode(existingServerNode,this.heathCheckMonData,healthChkNodeId)
          }
-          
          else
          {
            if(healthCheckTypeName != "Socket")
            {
-             //return n promot msg
+             this.messageService.errorMessage("This health Check type is already configured on selected tier and selected server");
+             return false;
            }
            else{
-
+             
            }
          }
        } 
-      //  else
-      //    this.addhealthCheckNode(existingServerNode);
+       else
+         this.addhealthCheckNode(existingServerNode,this.heathCheckMonData,healthChkNodeId);
       }
       else
           this.addServerNode(tierObj);    
@@ -307,7 +312,7 @@ export class CavMonHealthCheckComponent implements OnInit {
 
   addhealthCheckNode(serverNode,healthCheckDataMon,id)
   {
-  let healthChkTypeString = '';
+   let healthChkTypeString = '';
    if(this.heathCheckMonData.healthCheckType == "Ping")
        healthChkTypeString = "Packet = " + this.heathCheckMonData.pingPkt + ", Interval = " + this.heathCheckMonData.pingIntrvl ;
    
@@ -326,19 +331,12 @@ export class CavMonHealthCheckComponent implements OnInit {
           "leaf":true
     }
 
-
-   let healthChkTypeArr = [];
-   healthChkTypeArr.push({
-      "id":id ,
-      "data":healthChkTypeNode,
-      "children":[],
-      "leaf":true
-   })
-
-   serverNode.children = healthChkTypeArr;
-
-    
-
+      serverNode.children.push({
+        "id":id ,
+        "data":healthChkTypeNode,
+        "children":[],
+        "leaf":true
+      })
   }
 
   finalSubmit()

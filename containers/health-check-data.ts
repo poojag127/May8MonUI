@@ -1,5 +1,6 @@
 export class HealthCheckMonData
 {
+ prop :any= {};
  packet:number =5;
  interval:number ;
  proxyUrl:string = "NA";
@@ -22,23 +23,27 @@ export class HealthCheckMonData
 
 globalPacket:number = 5;
 
-
- pingPkt:number;
- pingIntrvl:number;
- sockeTo:number;
- socketTP:string;
- httpUrl:string;
- httpUser:string;
- httpPwd:string;
+ instName:string ="NA";
+ pingPkt:number =5;
+ pingIntrvl:number=10;
+ sockeTo:number = 5;
+ socketTP:string="5";
+ httpUrl:string = "NA";
+ httpUser:string = "NA";
+ httpPwd:string ="NA";
  httpTP:number=5;
- httpSc:string; 
+ httpSc:string ="301,302"; 
+ arguments:string = "NA";
 
-globalInterval:number = 200;
-globalThreadPool:number = 5;
-globalTimeOut:number = 0.2;
-globalProxyUrl:string = "NA";
-globalUserName:string;
-gloabalPwd:string;
-gloabalThrdPool:number = 10;
-globalStatusCode:string;
+// globalInterval:number = 200;
+// globalThreadPool:number = 5;
+// globalTimeOut:number = 0.2;
+// globalProxyUrl:string = "NA";
+// globalUserName:string;
+// gloabalPwd:string;
+// gloabalThrdPool:number = 10;
+// globalStatusCode:string;
+
+
+
 }

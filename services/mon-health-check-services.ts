@@ -107,10 +107,30 @@ export class MonHealthCheckService {
 
     savehealthCheckData(heathCheckMonitorData,GlobalProps)
     {
-      let data = JSON.stringify(heathCheckMonitorData);
-      console.log("data = ",data)
-      // let data = JSON.stringify(J(heathCheckMonitorData);
-      console.log("data = ",data)
+      // let data = JSON.stringify(heathCheckMonitorData);
+     /*  let cache = [];
+        let  data= JSON.stringify(heathCheckMonitorData, function(key, value)
+        {
+          if (typeof value === 'object' && value !== null)
+          {
+            if (cache.indexOf(value) !== -1)
+            {
+              // Circular reference found, discard key
+              return;
+            }
+            // Store value in our collection
+            cache.push(value);
+          }
+          return value;
+        });
+        */
+      //   cache = null;
+      //  downlaodAlert.baselineDataMap = dataObj;
+      //   downlaodAlert.arrRules = null;
+
+
+      console.log("data = ",heathCheckMonitorData)
+      // console.log("data = ",data)
        let url = this.monDataService.getserviceURL() + URL.SAVE_HEALTH_CHECK_DATA + "?productKey=" + this.monDataService.getProductKey() ;
        let params = {
         'topoName': this.monConfigServiceObj.getTopoName(),
@@ -118,7 +138,8 @@ export class MonHealthCheckService {
         'userName': this.monDataService.getUserName(),
         // 'testRunNum': this.monDataService.getTestRunNum().toString(),
         // 'monMode': this.monDataService.getMonMode().toString(),
-        'customConfiguratons':{"data": data},
+        // 'customConfiguratons':{"data":[{"leaf":true}]},
+         'customConfiguratons':{"data":heathCheckMonitorData},
         'globalConfiguration':GlobalProps
         // 'role':this.monDataService.$userRole
       };
