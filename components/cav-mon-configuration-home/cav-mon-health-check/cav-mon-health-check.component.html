@@ -71,7 +71,7 @@
                 </div>
                 <div class ="ui-g-3">
                    <input name="globalpasswrd" type="password"  pInputText [(ngModel)]="globalProps.httpPwd" 
-
+                    required ngModel />
                 </div>
    
                 <div class = "ui-g-1">
@@ -79,8 +79,7 @@
                 </div>
                 <div class ="ui-g-3">
                    <input name="globalTP" type="number"  pInputText
-                    [(ngModel)]="globalProps.httpTP"
-
+                    [(ngModel)]="globalProps.httpTP" />
                 </div>
  
                  <div class = "ui-g-1">
@@ -98,10 +97,9 @@
                     <label>Instance</label>
                   </div>
                   <div class ="ui-g-3">
-                     <input name="inst" type="text"  pInputText [(ngModel)]="heathCheckMonData.instanceName"
+                     <input name="inst" type="text"  pInputText [(ngModel)]="heathCheckMonData.instName"
                        ngModel />
-                  </div> -->
->>>>>>> 2b1d4271575149d0540afdb5485eb453eb4becf9
+                  </div> 
 
               </div>
           </p-fieldset>
@@ -231,7 +229,7 @@
                     <label>Instance</label>
                   </div>
                   <div class ="ui-g-3">
-                     <input name="inst" type="text"  pInputText [(ngModel)]="heathCheckMonData.instanceName"
+                     <input name="inst" type="text"  pInputText [(ngModel)]="heathCheckMonData.instName"
                        ngModel />
                   </div>
 
@@ -305,9 +303,7 @@
          <p-treeTable  class = "healthChk-treeTable" [value]="heathCheckMonitorData"  selectionMode="single">
            <p-column field="nodeName" header="Name"></p-column>
            <p-column field="arguments" header="Arguments">
-              <template  let-data="rowData" pTemplate>
-                  <p-checkbox [(ngModel)]="heathCheckMonData.enableServer"  binary="false"></p-checkbox>
-                </template>
+           
            </p-column>
         </p-treeTable>
       </p-accordionTab>
