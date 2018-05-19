@@ -279,7 +279,7 @@ export class CavMonHealthCheckComponent implements OnInit {
        console.log("typeNodeArr = ",typeNodeArr)
        let healthChkTypeArr = typeNodeArr;
        console.log("healthChkTypeArr = ",healthChkTypeArr)
-       let healthChkNodeId = existingServerNode.id + (healthChkTypeArr.length + 1);
+       let healthChkNodeId = existingServerNode.id + "." + (healthChkTypeArr.length + 1);
        if(healthChkTypeArr.length != 0)
        {
          let healthCheckTypeObj  = _.find(healthChkTypeArr,function(each) { return each.data.nodeName == healthCheckTypeName});
@@ -302,6 +302,10 @@ export class CavMonHealthCheckComponent implements OnInit {
              {
               this.messageService.errorMessage("This health Check  is already configured on tier" + tierName + " server" + serverName + "and  instance =" + this.heathCheckMonData.instName);
               return ;
+             }
+             else{
+              console.log("new instane ",healthChkNodeId)
+              this.addhealthCheckNode(existingServerNode,this.heathCheckMonData,healthChkNodeId);
              }
            }
          }
@@ -364,7 +368,7 @@ export class CavMonHealthCheckComponent implements OnInit {
        healthChkTypeString = "Packet = " + this.heathCheckMonData.pingPkt + ", Interval = " + this.heathCheckMonData.pingIntrvl ;
    
    else if(this.heathCheckMonData.healthCheckType == "Socket")
-     healthChkTypeString = "TimeOut = " + this.heathCheckMonData.sockeTo  + ", ThreadPool = " +this.heathCheckMonData.socketTP +  ", Instance Name = " + this.heathCheckMonData.instanceName ;
+     healthChkTypeString = "TimeOut = " + this.heathCheckMonData.sockeTo   +  ", Instance Name = " + this.heathCheckMonData.instanceName ;
 
    else if(this.heathCheckMonData.healthCheckType == "HTTP")
       healthChkTypeString = "Url = " + this.heathCheckMonData.httpUser + ", User Name = " + this.heathCheckMonData.httpUser + ", Password = " + this.heathCheckMonData.httpPwd + ", Status Code = " + this.heathCheckMonData.httpSc;
