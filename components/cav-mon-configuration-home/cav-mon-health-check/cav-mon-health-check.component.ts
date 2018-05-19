@@ -457,16 +457,40 @@ export class CavMonHealthCheckComponent implements OnInit {
    
          this.heathCheckMonitorData = this.heathCheckMonitorData.filter(function(val)
          {
-            console.log("Delete = ", val['children'][0]['children'])
+           
             let childNodeForDelete = val['children'][0]['children'];
-            console.log("val['children'][0]['children'] = ", childNodeForDelete)
-            childNodeForDelete.map(function(each){
-              console.log("each here = ", each)
-              return arrId.indexOf(each['data']['id']) == -1;
-            })
-          //  console.log("val= ", val)
-          //  return arrId.indexOf(val['id']) == -1;  //value to be deleted should return false
+            console.log("childNodeForDelete= ", childNodeForDelete)
+            console.log("childNodeForDelete.length = ", childNodeForDelete.length)
+            if(childNodeForDelete.length == 1)
+            {
+              console.log("one child so deleting all data")
+              childNodeForDelete.map(function(each)
+              {
+                console.log("each = ", each)
+                return arrId.indexOf(each['data']['id']) == -1;
+
+              })
+              
+            }            
          })
+
+        //  this.heathCheckMonitorData.map(function(item)
+        //  {
+        //    console.log("item = ", item)
+
+        //  })
+
+      // (childNodeForDelete.length >1)
+      //    {
+      //      console.log("childNodeForDelete = ", childNodeForDelete)
+      //      childNodeForDelete.map(function(each)
+      //      {
+      //        console.log("each = ", each)
+      //        return arrId.indexOf(each['data']['id']) == -1;
+
+      //      })
+
+      //    }
  
        },
  
