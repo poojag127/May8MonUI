@@ -158,10 +158,29 @@ export class CavMonHealthCheckComponent implements OnInit {
     this.monConfServiceObj.clearHideShowMonList();
   }
 
+
+  validateData(heathCheckMonData)
+  {
+
+   if(heathCheckMonData.healthCheckType == "Socket" ||heathCheckMonData.healthCheckType == "Http")
+   {
+     if(heathCheckMonData.instName == '')
+     {
+       this.messageService.errorMessage("Please fill Instance Name");
+       return false;
+     }
+   }
+   return true;
+  }
+
   /*this method is used to add data for the health check mon*/
   saveData()
   {
-   
+   if(!this.validateData(this.heathCheckMonData))
+   {
+     console.log("Method  saveData called returning")
+     return ;
+   }
    console.log("Method saveData() called, savedata= ", this.heathCheckMonData)
    console.log("Method savedtaa called = ",this.globalProps)
   
@@ -184,7 +203,7 @@ export class CavMonHealthCheckComponent implements OnInit {
     let arr2 = [];
     arr2.push(this.globalProps);
     console.log("this = ",this.tierNode)
-    let tierNode  = { "nodeName":this.heathCheckMonData.tierName,
+    let tierNode  = { "nodeName":tierName,
                       "arguments":this.heathCheckMonData.enableTier? "true":"false",
                       "leaf":false,
                       "instanceInfo":arr2,
@@ -198,7 +217,7 @@ export class CavMonHealthCheckComponent implements OnInit {
     // this.serverNode = new HealthCheckTableData();
     // this.serverNode.nodeName = this.heathCheckMonData.serverName;
     // this.serverNode.arguments = this.heathCheckMonData.enableServer ? "Active" :"Inactive";
-    let serverNode = { "nodeName":this.heathCheckMonData.serverName,
+    let serverNode = { "nodeName":serverName,
                       "arguments":this.heathCheckMonData.enableServer ? "true":"false",
                        "leaf":false,
                       "instanceInfo":arr2,
@@ -300,7 +319,7 @@ export class CavMonHealthCheckComponent implements OnInit {
          }
          else
          {
-           if(healthCheckTypeName != "Socket")
+           if(healthCheckTypeName == "Ping")
            {
              this.messageService.errorMessage("This health Check  is already configured on tier" + tierName + " server" + serverName );
              return false;
@@ -332,8 +351,7 @@ export class CavMonHealthCheckComponent implements OnInit {
     }
 
   }
-  // console.log("arguments finally = " , this.healthCheckTableData.arguments)
-
+   
 }
 
 

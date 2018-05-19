@@ -23,7 +23,7 @@ export class HealthCheckMonData
 
 globalPacket:number = 5;
 
- instName:string ="NA";
+ instName:string ;
  pingPkt:number =5;
  pingIntrvl:number=10;
  sockeTo:number = 10;
