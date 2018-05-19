@@ -17,9 +17,9 @@
         <label>Wait Interval</label>
       </div>
       <div class ="ui-g-2" style="margin-left: -44px">
-        <input name="interval" style="width: 80%;" type="number"  pInputText [(ngModel)]="globalProps.pingIntrvl" ngModel />
-        <span>
-            (ms)
+        <input name="intvrl" style="width: 80%;" type="number"  pInputText [(ngModel)]="globalProps.pingIntrvl" ngModel />
+        <span style="margin-left: -1px">
+            (sec)
         </span>
       </div>
 
@@ -27,7 +27,7 @@
         <label>Thread Pool Size</label>
       </div>
       <div class = "ui-g-2">
-         <input name="threadPool" style="width: 80%;" type="number"  pInputText [(ngModel)]="globalProps.pingTP"  ngModel />
+         <input name="tpSize" style="width: 80%;" type="number"  pInputText [(ngModel)]="globalProps.pingTP"  ngModel />
        </div>
      </div>
   </p-fieldset>
