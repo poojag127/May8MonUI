@@ -303,7 +303,13 @@
          <p-treeTable  class = "healthChk-treeTable" [value]="heathCheckMonitorData"  selectionMode="single">
            <p-column field="nodeName" header="Name"></p-column>
            <p-column field="arguments" header="Arguments">
-           
+              <template let-col let-data="rowData" pTemplate>
+              <p-checkbox *ngIf="data.data['arguments'] == 'false' ||data.data['arguments'] == 'true'|| data.data['arguments'] == false ||data.data['arguments'] == true" 
+               [(ngModel)]="data.data['arguments'] "
+               (click)="onCheckBoxChange(data)"  binary="false">
+              </p-checkbox>   
+                <span *ngIf="!(data.data['arguments'] == 'false' ||data.data['arguments'] == 'true' || data.data['arguments'] == false ||data.data['arguments'] == true)" >{{data.data['arguments']}}</span>
+             </template>
            </p-column>
         </p-treeTable>
       </p-accordionTab>

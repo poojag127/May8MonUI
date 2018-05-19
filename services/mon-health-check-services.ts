@@ -41,43 +41,45 @@ export class MonHealthCheckService {
     setHealthCheckTreeTableData(heathCheckMonitorData)
     {
     //  this.healthCheckTreeTableData = heathCheckMonitorData;
-     let arr = [];
-     let obj =  { "data":{  
-                  "nodeName":"Tier1",
-                  "arguments":"Active",
-                  "prop":{
-                      "host":"",
-                      "port":"",
-                     "ping":{"packet":"","proxy":""},
-                     "socket":{"packet":"","interval":""},
-                     "http":{"uName":"","pwd":""}
-                      }
-                   },
-                   "leaf":false,
-                   "children":[
-                        { "data":{  
-                          "nodeName":"Server",
-                          "arguments":"Active",
-                          "prop":{
-                            "host":"",
-                             "port":"",
-                            "ping":{"packet":"","proxy":""},
-                     "socket":{"packet":"","interval":""},
-                     "http":{"uName":"","pwd":""}
-                      }
-                   },
-                   "leaf":true
-                        }
+    //  let arr = [];
+    //  let obj =  { "data":{  
+    //               "nodeName":"Tier1",
+    //               "arguments":"Active",
+    //               "prop":{
+    //                   "host":"",
+    //                   "port":"",
+    //                  "ping":{"packet":"","proxy":""},
+    //                  "socket":{"packet":"","interval":""},
+    //                  "http":{"uName":"","pwd":""}
+    //                   }
+    //                },
+    //                "leaf":false,
+    //                "children":[
+    //                     { "data":{  
+    //                       "nodeName":"Server",
+    //                       "arguments":"Active",
+    //                       "prop":{
+    //                         "host":"",
+    //                          "port":"",
+    //                         "ping":{"packet":"","proxy":""},
+    //                  "socket":{"packet":"","interval":""},
+    //                  "http":{"uName":"","pwd":""}
+    //                   }
+    //                },
+    //                "leaf":true
+    //                     }
 
-                   ]
-                   } 
+    //                ]
+    //                } 
 
-    console.log("obj =" , obj)
-     arr.push(obj)
-     console.log("arr = ", arr)
-     let obj2 = {"data":arr};
-     console.log("obj2= ", obj2)
-     this.healthCheckTreeTableData = obj2.data;
+    // console.log("obj =" , obj)
+    //  arr.push(obj)
+    //  console.log("arr = ", arr)
+    //  let obj2 = {"data":arr};
+    //  console.log("obj2= ", obj2)
+    //  this.healthCheckTreeTableData = obj2.data;
+
+    this.healthCheckTreeTableData = heathCheckMonitorData
     }
 
     readHealthMonitorJson(topoName, profileName, mode, userName, trNum )
