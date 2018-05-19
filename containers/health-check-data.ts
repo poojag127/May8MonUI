@@ -26,14 +26,14 @@ globalPacket:number = 5;
  instName:string ="NA";
  pingPkt:number =5;
  pingIntrvl:number=10;
- sockeTo:number = 5;
+ sockeTo:number = 10;
  socketTP:string="5";
  httpUrl:string = "NA";
  httpUser:string = "NA";
  httpPwd:string ="NA";
  httpTP:number=5;
  httpSc:string ="301,302"; 
- arguments:string = "NA";
+ arguments:string = "false";
 
 // globalInterval:number = 200;
 // globalThreadPool:number = 5;

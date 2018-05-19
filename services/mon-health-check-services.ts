@@ -109,9 +109,13 @@ export class MonHealthCheckService {
 
     savehealthCheckData(heathCheckMonitorData,GlobalProps)
     {
-      // let data = JSON.stringify(heathCheckMonitorData);
-     /*  let cache = [];
-        let  data= JSON.stringify(heathCheckMonitorData, function(key, value)
+      let cache = [];
+      let data =[];
+      let returnDatap;
+      returnDatap = heathCheckMonitorData.map(function(each)
+      {
+        let data2:{};
+        data2= JSON.stringify(each, function(key, value)
         {
           if (typeof value === 'object' && value !== null)
           {
@@ -123,16 +127,30 @@ export class MonHealthCheckService {
             // Store value in our collection
             cache.push(value);
           }
+          console.log("value = ",value)
           return value;
         });
-        */
+
+        console.log("data2 = ",data2)
+         data.push(data2);
+         console.log('data==',data)
+         return data2;
+      });
+      console.log("cache = ",cache)
+     
       //   cache = null;
       //  downlaodAlert.baselineDataMap = dataObj;
       //   downlaodAlert.arrRules = null;
+       console.log("heathCheckMonitorData",heathCheckMonitorData)
 
+      let test = data.map(function(each)
+      {
+        return JSON.parse(each);
+      })
+      console.log("test = ",test)
 
       console.log("data = ",heathCheckMonitorData)
-      // console.log("data = ",data)
+      console.log("data = ",data)
        let url = this.monDataService.getserviceURL() + URL.SAVE_HEALTH_CHECK_DATA + "?productKey=" + this.monDataService.getProductKey() ;
        let params = {
         'topoName': this.monConfigServiceObj.getTopoName(),
@@ -141,7 +159,7 @@ export class MonHealthCheckService {
         // 'testRunNum': this.monDataService.getTestRunNum().toString(),
         // 'monMode': this.monDataService.getMonMode().toString(),
         // 'customConfiguratons':{"data":[{"leaf":true}]},
-         'customConfiguratons':{"data":heathCheckMonitorData},
+         'customConfiguratons':{"data":test},
         'globalConfiguration':GlobalProps
         // 'role':this.monDataService.$userRole
       };

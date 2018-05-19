@@ -204,10 +204,10 @@
                    </p-dropdown>
               </div>
 
-           <div class = "ui-g-2" [hidden] = "heathCheckMonData.healthCheckType == 'HTTP'">
+           <div class = "ui-g-2">
                <label>Host</label>
              </div>
-             <div class ="ui-g-3" [hidden] = "heathCheckMonData.healthCheckType == 'HTTP'"> 
+             <div class ="ui-g-3" > 
                 <input name="host" type="text" [disabled]="heathCheckMonData.healthCheckType == 'HTTP'" pInputText [(ngModel)]="heathCheckMonData.host" ngModel />
              </div>
              </div>
@@ -221,25 +221,6 @@
                  <input name="port" type="text" [disabled]="heathCheckMonData.healthCheckType == 'Ping' || heathCheckMonData.healthCheckType == 'HTTP' " pInputText [(ngModel)]="heathCheckMonData.port" ngModel />
               </div>
 </div>
-             
-         <!-- </div> -->
-
-          <!-- <div class = "ui-g-12">
-              <div class = "ui-g-2">
-            <label>
-                Health Check Type
-            </label>
-         </div>
-        
-         
-         <div class = "ui-g-3">
-              <p-dropdown name="healthChkList"  [style]="{'width':'120px'}"
-                [options]="healthCheckList" [(ngModel)]="heathCheckMonData.healthCheckType" >
-               </p-dropdown>
-          </div>
-        </div> -->
-      
-      
          <div class = "ui-g-12">
             <p-accordion class="monitor-ui-accordion">
                 <p-accordionTab header="Advance Settings">
@@ -341,8 +322,9 @@
    <p-column field="arguments" header="Arguments">
       <template let-col let-data="rowData" pTemplate>
               <p-checkbox *ngIf="data.data['arguments'] == 'false' ||data.data['arguments'] == 'true'|| data.data['arguments'] == false ||data.data['arguments'] == true" 
-              [(ngModel)]="data.data.enabled "
-              (click)="onCheckBoxChange(data,data.data.enabled)"  binary="false">
+               [(ngModel)]="data.data.enabled "
+               (click)="onCheckBoxChange(data,data.data.enabled)"  binary="false">
+
               </p-checkbox>   
                 <span *ngIf="!(data.data['arguments'] == 'false' ||data.data['arguments'] == 'true' || data.data['arguments'] == false ||data.data['arguments'] == true)" >{{data.data['arguments']}}</span>
       </template>
