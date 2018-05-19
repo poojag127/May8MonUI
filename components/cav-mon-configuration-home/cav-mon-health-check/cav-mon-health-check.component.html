@@ -299,39 +299,46 @@
         </p-accordion>   
       </div>
 
-      <p-accordion class="monitor-ui-accordion">
-       <p-accordionTab header="Health Check Configuration Data">
-         <p-treeTable  class = "healthChk-treeTable" [value]="heathCheckMonitorData"  selectionMode="single">
-           <p-column field="nodeName" header="Name"></p-column>
-           <p-column field="arguments" header="Arguments">
-              <template let-col let-data="rowData" pTemplate>
-              <p-checkbox *ngIf="data.data['arguments'] == 'false' ||data.data['arguments'] == 'true'|| data.data['arguments'] == false ||data.data['arguments'] == true" 
-               [(ngModel)]="data.data['arguments'] "
-               (click)="onCheckBoxChange(data)"  binary="false">
-              </p-checkbox>   
-                <span *ngIf="!(data.data['arguments'] == 'false' ||data.data['arguments'] == 'true' || data.data['arguments'] == false ||data.data['arguments'] == true)" >{{data.data['arguments']}}</span>
-             </template>
-           </p-column>
 
-          <p-column [style]="{'width':'100px'}"field="Actions" header="Actions">
-          <template  let-data="rowData" pTemplate type="body">
-          <a (click)="editHealthMonData(data)">
-              <i class="fa fa-pencil" style="color: #2572b5;cursor:pointer; margin-left: 30px" title="Edit Configured Data"></i>
-          </a>
-            <span  (click)="deleteHealthMonData(data)">
-                <i class="fa fa-trash-o" style="color: #f12a2a;cursor:pointer; margin-left: 11px" title="Delete Configured Monitor"></i>
-            </span>
-        </template>
-        </p-column>
-       </p-treeTable>
-      </p-accordionTab>
-  </p-accordion>
       <div class="ui-g-12" style="margin-top: 7px">
           <button type="submit" pButton icon="fa-check" style="width: 63px ; float: right" label="Add"></button>
         </div>
       </div>
   </p-fieldset>
   </form>
+
+<div class = "ui-g-12" style="margin-top: -33px">
+ <p-treeTable  class = "healthChk-treeTable" [value]="heathCheckMonitorData"  selectionMode="single" [(selection)]="selectedFile">
+    <!-- <p-header style="background: black">Configured Health Check Monitor Data</p-header> -->
+    <p-header class="health-check-mon-header">
+        <span >Configured Health Check Monitor Data</span>
+     </p-header>
+
+   <p-column field="nodeName" header="Name"></p-column>
+   <p-column field="arguments" header="Arguments">
+      <template let-col let-data="rowData" pTemplate>
+              <p-checkbox *ngIf="data.data['arguments'] == 'false' ||data.data['arguments'] == 'true'|| data.data['arguments'] == false ||data.data['arguments'] == true" 
+               [(ngModel)]="data.data['arguments'] "
+               (click)="onCheckBoxChange(data)"  binary="false">
+              </p-checkbox>   
+                <span *ngIf="!(data.data['arguments'] == 'false' ||data.data['arguments'] == 'true' || data.data['arguments'] == false ||data.data['arguments'] == true)" >{{data.data['arguments']}}</span>
+             </template>
+   </p-column>
+   
+   <p-column [style]="{'width':'100px'}"field="Actions" header="Actions">
+      <template  let-data="rowData" pTemplate type="body">
+          <a (click)="editHealthMonData(data)">
+              <i class="fa fa-pencil" style="color: #2572b5;cursor:pointer; margin-left: 30px" title="Edit Configured Data"></i>
+          </a>
+            <span  (click)="deleteHealthMonData(data)">
+                <i class="fa fa-trash-o" style="color: #f12a2a;cursor:pointer; margin-left: 11px" title="Delete Configured Monitor"></i>
+            </span>
+      </template>
+   </p-column>
+</p-treeTable>
+</div>
+</p-accordionTab>
+</p-accordion>
 </div>
 
 
