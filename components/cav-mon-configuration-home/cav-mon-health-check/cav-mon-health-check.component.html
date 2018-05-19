@@ -318,8 +318,8 @@
    <p-column field="arguments" header="Arguments">
       <template let-col let-data="rowData" pTemplate>
               <p-checkbox *ngIf="data.data['arguments'] == 'false' ||data.data['arguments'] == 'true'|| data.data['arguments'] == false ||data.data['arguments'] == true" 
-               [(ngModel)]="data.data['arguments'] "
-               (click)="onCheckBoxChange(data)"  binary="false">
+               [(ngModel)]="data.data.enabled "
+               (click)="onCheckBoxChange(data,data.data.enabled)"  binary="false">
               </p-checkbox>   
                 <span *ngIf="!(data.data['arguments'] == 'false' ||data.data['arguments'] == 'true' || data.data['arguments'] == false ||data.data['arguments'] == true)" >{{data.data['arguments']}}</span>
              </template>

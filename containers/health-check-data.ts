@@ -33,7 +33,7 @@ globalPacket:number = 5;
  httpPwd:string ="NA";
  httpTP:number=5;
  httpSc:string ="301,302"; 
- arguments:string = "NA";
+ arguments:string = "false";
 
 // globalInterval:number = 200;
 // globalThreadPool:number = 5;
