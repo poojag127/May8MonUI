@@ -86,5 +86,10 @@ export const INSTANCE = "instance";
 export const JOURNALD_FILE_NAME = "specificJournalType";
 
 
+export const HC_FILEPATH ="";
+export const HC_MONNAME = ""
+export const HEALTH_CHECK_FILE_EXT = ".healthcheck";
+
+
 
 

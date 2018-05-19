@@ -234,6 +234,9 @@ export class CavMonConfigurationHomeComponent implements OnInit {
    let tableDataObj:TableData;
    tableDataObj = new TableData();
    tableDataObj.appName = "default";
+   if(monName == COMPONENT.HC_MONNAME)
+      tableDataObj.options = this.monConfServiceObj.getTopoName() + "/json"+ this.monConfServiceObj.getProfileName() + ".HEALTH_CHECK_FILE_EXT";
+      
    tableDataObj.options = "";
    tableDataObj.serverName = "All Servers";
    tableDataObj.id = 0;
