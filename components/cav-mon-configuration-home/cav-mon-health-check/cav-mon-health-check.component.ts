@@ -91,8 +91,8 @@ export class CavMonHealthCheckComponent implements OnInit {
     this.tierHeadersList = this.monConfServiceObj.getTierHeaderList();
     let tierList = [];
     this.tierHeadersList.map(function(each){
-      console.log("each.name = ", each.name)
-      tierList.push(each.name)
+      if(each.name != "All Tiers")
+         tierList.push(each.name)
     })
     // tierList.unshift("--Select --");
     console.log("tierList CavMonHealthCheckComponentcalled= "+tierList)
@@ -117,21 +117,31 @@ export class CavMonHealthCheckComponent implements OnInit {
   onTierChange(tierName)
   {
     console.log("Method onTierChange called, tierName ", tierName)
-    let tierInfo = _.find(this.tierHeadersList,function(each) { return each['name'] == tierName})
+    let tierInfo
+    if(tierName != "Others") // if tier is Others that means no request to be sent to the server for getting the tierlist.
+    {
+      tierInfo = _.find(this.tierHeadersList,function(each) { return each['name'] == tierName})
+    }
+       
 
       /*** To get the server list in the dropdown ****/
-     /*** Here unshift is used to insert element at 0 position of array ****/
-     console.log("tierId- ", tierInfo.id)
-     this.utilityService.getServerList(tierInfo.id)
-     .subscribe(data => {
-                if(data != null)
-                {
-                  data["label"].unshift("All Servers");
-                  data["value"].unshift("All Servers");
-                  this.serverList = UtilityService.createListWithKeyValue(data["label"], data["value"]);
-                  // this.serverList = this.serverList.concat({ label: 'Others', value: 'Others' });
-                }
-              })
+     /*** Here unshift is used to insert element at 0 position of array 
+      *** if Others is slectede for tiername then there should not be any request send to the server for getting the serverList**/ 
+     console.log("tierInfo= ", tierInfo)
+     if(tierInfo != undefined)
+     {
+      this.utilityService.getServerList(tierInfo.id)
+      .subscribe(data => {
+                 if(data != null)
+                 {
+                  //  data["label"].unshift("All Servers");
+                  //  data["value"].unshift("All Servers");
+                   this.serverList = UtilityService.createListWithKeyValue(data["label"], data["value"]);
+                 }
+               })
+
+     }
+    
   }
 
   dialogCloseEvent($evt?: any) {
