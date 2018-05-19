@@ -45,5 +45,6 @@ globalPacket:number = 5;
 // globalStatusCode:string;
 
 useProxy:boolean= false;
+overideGlobalSettings:boolean = false;
 
 }
