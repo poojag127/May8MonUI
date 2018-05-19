@@ -91,6 +91,7 @@ export class CavMonHealthCheckComponent implements OnInit {
     this.tierHeadersList = this.monConfServiceObj.getTierHeaderList();
     let tierList = [];
     this.tierHeadersList.map(function(each){
+      console.log("each.name = ", each.name)
       tierList.push(each.name)
     })
     // tierList.unshift("--Select --");

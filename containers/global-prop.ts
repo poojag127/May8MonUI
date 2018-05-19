@@ -18,7 +18,8 @@ export class GlobalProps
  httpPwd:string ="NA";
  httpTP:number=64;
  httpSc:string= "2xx";
- httpTimeOut:number = 10;
+ httpCTO:number = 10;
+ httpRTO:number = 30;
 
   
 }

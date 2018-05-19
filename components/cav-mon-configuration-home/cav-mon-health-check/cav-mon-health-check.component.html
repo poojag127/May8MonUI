@@ -72,7 +72,7 @@
         <label>Connection Time Out</label>
       </div>
       <div class ="ui-g-2">
-        <input name="timeOut" type="number" style="width: 77%" pInputText [(ngModel)]="globalProps.httpTimeOut" ngModel/>
+        <input name="timeOut" type="number" style="width: 77%" pInputText [(ngModel)]="globalProps.httpCTO" ngModel/>
         <span>
             (sec)
         </span>
@@ -83,7 +83,7 @@
           <label>Response Time </label>
         </div>
         <div class ="ui-g-2" >
-            <input name="timeOut" type="number" style="width: 70% ; margin-left:-58px" pInputText [(ngModel)]="globalProps.httpTimeOut" ngModel/>
+            <input name="timeOut" type="number" style="width: 70% ; margin-left:-58px" pInputText [(ngModel)]="globalProps.httpRTO" ngModel/>
             <span>
                 (sec)
             </span>
@@ -98,7 +98,7 @@
     </div>
   
   <div class= "ui-g-12" style="margin-left: 5px">
-        <label>Status Code for successful Health Check</label>
+        <label>Status Code for successful health check</label>
     <span>
       <input name="globalStatusCode" style="margin-left: 29px" type="text"  pInputText    [(ngModel)]="globalProps.httpSc"  ngModel />
     </span>
@@ -129,71 +129,56 @@
           <div class = "ui-g-12" style="margin-top: 6px">
             
     <div class = "ui-g-12">
-           <div class = "ui-g-2">
-                <label>
-                 Select Tier
-                </label>  
-            </div>
+     <div class = "ui-g-2">
+        <label>
+        Select Tier
+        </label>  
+     </div>
       
-          <div class ="ui-g-3">
-            <p-dropdown [style]="{'width':'150px'}" name="list" required
-             (onChange) = "onTierChange(heathCheckMonData.tierName)"
-               [options]="tierList" placeholder= "--Select Tier--" [(ngModel)]="heathCheckMonData.tierName" >
-            </p-dropdown>
-          </div>
+    <div class ="ui-g-3" >
+      <p-dropdown [style]="{'width':'150px'}" name="list" required
+          (onChange) = "onTierChange(heathCheckMonData.tierName)"
+            [options]="tierList" placeholder= "--Select Tier--" [(ngModel)]="heathCheckMonData.tierName" >
+      </p-dropdown>
+    </div>
           
-          <div class ="ui-g-3" style="margin-left: -32px;" [hidden] ="heathCheckMonData.tierName != 'Others'" >
-            <label>
-              Tier Name
-            </label>
-              <input name="tierName" type="text" pInputText [(ngModel)]="heathCheckMonData.customTierName" title="Enter tier name" required ngModel />
-           </div>
-
-           <div class = "ui-g-2" [hidden] ="heathCheckMonData.tierName != 'Others'">
-              <label>
-                Select Server
-              </label>  
-            </div>
-    
-            <div class ="ui-g-3"  [hidden] ="heathCheckMonData.tierName != 'Others'" >
-              <p-dropdown [style]="{'width':'150px'}" name="lists" required
-                [disabled]="heathCheckMonData.tierServerType == 'custom' || heathCheckMonData.tierName == '' ||heathCheckMonData.tierName == 'Others'" placeholder= "-- Select Server--"  [options]="serverList" [(ngModel)]="heathCheckMonData.serverName" >
-              </p-dropdown>
-            </div>
-
-            <div class ="ui-g-3"  style="margin-left: -32px;">
-              <label>
-                Server Name
-              </label>
-                <input name="serverName" type="text" [disabled]="heathCheckMonData.tierName != 'Others'" pInputText [(ngModel)]="heathCheckMonData.customServerName"  title = "Enter server name" ngModel />
-             </div>
-    
+    <div class ="ui-g-3"  [hidden] ="heathCheckMonData.tierName != 'Others'" >
+        <label>
+          Tier Name
+        </label>
+      <span>
+          <input name="tierName" type="text" pInputText [(ngModel)]="heathCheckMonData.customTierName" title="Enter tier name" required ngModel />
+      </span>
+       
     </div>
 
-    <!-- <div class = "ui-g-12">
-      <div class = "ui-g-2" >
-          <label>
-             Server
-          </label>  
-        </div>
-
-        <div class ="ui-g-3" >
-          <p-dropdown [style]="{'width':'150px'}" name="lists" required
+    <div class = "ui-g-2" [hidden] ="heathCheckMonData.tierName == 'Others'" >
+      <label>
+          Select Server
+      </label>  
+    </div>
+    
+     <div class ="ui-g-3" [hidden] ="heathCheckMonData.tierName == 'Others'" >
+        <p-dropdown [style]="{'width':'150px'}" name="lists" required
             [disabled]="heathCheckMonData.tierServerType == 'custom' || heathCheckMonData.tierName == '' ||heathCheckMonData.tierName == 'Others'" placeholder= "-- Select Server--"  [options]="serverList" [(ngModel)]="heathCheckMonData.serverName" >
           </p-dropdown>
-        </div>
+      </div>
 
-        <div class ="ui-g-3"  style="margin-left: -32px;">
-            <input name="serverName" type="text" [disabled]="heathCheckMonData.tierName != 'Others'" pInputText [(ngModel)]="heathCheckMonData.customServerName"  title="Please add server name" ngModel />
-         </div>
-      </div> -->
-
-         <div class = "ui-g-12">
-            <div class = "ui-g-2">
-                <label>
-                    Health Check Type
-                </label>
-             </div>
+      <div class ="ui-g-3" [hidden] ="heathCheckMonData.tierName != 'Others'">
+        <label>
+           Server Name
+        </label>
+       <span>
+          <input name="serverName" type="text" [disabled]="heathCheckMonData.tierName != 'Others'" pInputText [(ngModel)]="heathCheckMonData.customServerName"  title = "Enter server name" ngModel /></span> 
+       </div>
+    
+    </div>
+   <div class = "ui-g-12">
+       <div class = "ui-g-2">
+           <label>
+             Health Check Type
+           </label>
+       </div>
 
              <div class = "ui-g-3" >
                   <p-dropdown name="healthChkList"  [style]="{'width':'120px'}"
@@ -356,7 +341,7 @@
   </p-fieldset>
   </form>
 
-<div class = "ui-g-12" style="margin-top: -33px">
+<div class = "ui-g-12" style="margin-top: -3px">
  <p-treeTable  class = "healthChk-treeTable" [value]="heathCheckMonitorData"  selectionMode="single" [(selection)]="selectedFile">
     <!-- <p-header style="background: black">Configured Health Check Monitor Data</p-header> -->
     <p-header class="health-check-mon-header">
