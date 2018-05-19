@@ -1,172 +1,221 @@
-
 <p-dialog class="profile-dialog monitor-dialog" [(visible)]="displayDialog"  header="Health Check Monitor Configurations" width="1000"  
-[modal]="false" (onHide)="dialogCloseEvent($event)" [resizable]="true" [responsive]="true">
+   [modal]="false" (onHide)="dialogCloseEvent($event)" [resizable]="true" [responsive]="true">
 
 <div class = "ui-g-12">
- <p-accordion class="monitor-ui-accordion">
-  <p-accordionTab header="Global Settings">
-    <div class= "ui-g-12">
-      <div class="ui-g-1">
-        <label>Packet </label>
-     </div>
-     <div class ="ui-g-3">
-        <input name="pckt" type="number"  pInputText [(ngModel)]="globalProps.pingPkt" ngModel />
-     </div>
+  <p-accordion class="monitor-ui-accordion">
+   <p-accordionTab header="Global Settings">
+    <p-fieldset  class = "healthChkMonCss" legend="Ping Health Check Settings" [toggleable]="true" collapsed="true">
+      <div class= "ui-g-12">
+        <div class="ui-g-2">
+          <label>Packet Count</label>
+       </div>
+       <div class ="ui-g-2" style="margin-left: -44px">
+         <input name="pckt" style="width: 80%;" type="number" pInputText [(ngModel)]="globalProps.pingPkt" ngModel />
+       </div>
 
-     <div class = "ui-g-1">
-       <label>Interval</label>
-     </div>
-     <div class ="ui-g-3">
-       <input name="interval" type="number"  pInputText [(ngModel)]="globalProps.pingIntrvl"
-         ngModel />
-     </div>
-
-  </div>
-
-       <div class = "ui-g-12">
-          <div class="ui-g-1">
-            <label>Thread Pool</label>
-          </div>
-
-        <div class = "ui-g-3">
-          <input name="threadPool" type="number"  pInputText [(ngModel)]="globalProps.socketTP"  ngModel />
-        </div>
-
-          <div class = "ui-g-1" >
-            <label>Time Out</label>
-          </div>
-        <div class ="ui-g-3">
-          <input name="connectionTimeOut" type="number"  pInputText [(ngModel)]="globalProps.socketTo" 
-          ngModel />
-        </div>
-    </div>    
-
-  <div class= "ui-g-12">
-    <div class="ui-g-1">
-       <label>Proxy URL </label>
-    </div>
-        <div class ="ui-g-3">
-          <input name="globalUrl" type="text"  pInputText [(ngModel)]="globalProps.httpUrl" 
-            required ngModel />
-        </div>
-        
-        <div class = "ui-g-1">
-            <label>Instance</label>
-          </div>
-          <div class ="ui-g-3">
-             <input name="inst" type="text"  pInputText [(ngModel)]="heathCheckMonData.instanceName"
-               ngModel />
-          </div> 
-    </div>
-    <div class= "ui-g-12">
-        <div class = "ui-g-1">
-          <label>User Name</label>
-        </div>
-        <div class ="ui-g-3">
-           <input name="globalUser" type="text"  pInputText [(ngModel)]="globalProps.httpUser" 
-           autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
-        </div>
-
-         <div class = "ui-g-1">
-          <label>Password</label>
-        </div>
-        <div class ="ui-g-3">
-           <input name="globalpasswrd" type="password"  pInputText [(ngModel)]="globalProps.httpPwd">
-        </div>
-    </div>
-
-    <div class= "ui-g-12">
-        <div class = "ui-g-1">
-          <label>Thread Pool</label>
-        </div>
-        <div class ="ui-g-3">
-           <input name="globalTP" type="number"  pInputText
-            [(ngModel)]="globalProps.httpTP">
-        </div>
-
-         <div class = "ui-g-1">
-          <label>Status Code</label>
-        </div>
-        <div class ="ui-g-3">
-           <input name="globalStatusCode" 
-            type="text"  pInputText 
-           [(ngModel)]="globalProps.httpSc" 
-            ngModel />
-        </div>
+      <div class = "ui-g-2">
+        <label>Wait Interval</label>
+      </div>
+      <div class ="ui-g-2" style="margin-left: -44px">
+        <input name="interval" style="width: 80%;" type="number"  pInputText [(ngModel)]="globalProps.pingIntrvl" ngModel />
+        <span>
+            (ms)
+        </span>
       </div>
 
-  </p-accordionTab>
+      <div class="ui-g-2"  style="margin-left: 21px;">
+        <label>Thread Pool Size</label>
+      </div>
+      <div class = "ui-g-2">
+         <input name="threadPool" style="width: 80%;" type="number"  pInputText [(ngModel)]="globalProps.pingTP"  ngModel />
+       </div>
+     </div>
+  </p-fieldset>
+
+<p-fieldset  class = "healthChkMonCss" legend="HTTP  Health Check Settings" [toggleable]="true" collapsed="true">
+  <div class = "ui-g-12">
+    <div class = "ui-g-2">
+       <p-checkbox [(ngModel)]="heathCheckMonData.useProxy"  name="proxy" binary=true label="Use Proxy" ></p-checkbox>
+     </div>
+   </div>
+
+  <div class= "ui-g-12" style="margin-left: 14px">
+    <div class= "ui-g-12">
+      <div class="ui-g-2">
+         <label>Proxy Host:Port </label>
+     </div>
+     <div class ="ui-g-2" style="margin-left: -47px;">
+       <input name="globalUrl" type="text" [disabled]="!heathCheckMonData.useProxy"  
+          pInputText [(ngModel)]="globalProps.httpUrl"  required ngModel />
+     </div>
+
+    <div class = "ui-g-2" style="margin-left: 46px;">
+        <label>User Name</label>
+    </div>
+    <div class ="ui-g-2" style="margin-left: -61px">
+         <input name="globalUser" type="text"  [disabled]="!heathCheckMonData.useProxy" 
+          pInputText [(ngModel)]="globalProps.httpUser" 
+         autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
+    </div>
+
+      <div class = "ui-g-2"  style="margin-left: 46px;">
+          <label>Password</label>
+        </div>
+        <div class ="ui-g-2" style="margin-left: -61px">
+           <input name="globalpasswrd" type="password"  [disabled]="!heathCheckMonData.useProxy"
+               pInputText [(ngModel)]="globalProps.httpPwd">
+        </div>
+    </div>
+
+  <div class= "ui-g-12">
+      <div class = "ui-g-2">
+        <label>Connection Time Out</label>
+      </div>
+      <div class ="ui-g-2">
+        <input name="timeOut" type="number" style="width: 77%" pInputText [(ngModel)]="globalProps.httpTimeOut" ngModel/>
+        <span>
+            (sec)
+        </span>
+      </div>
+
+            
+      <div class = "ui-g-2" style = "margin-left: -2px">
+          <label>Response Time </label>
+        </div>
+        <div class ="ui-g-2" >
+            <input name="timeOut" type="number" style="width: 70% ; margin-left:-58px" pInputText [(ngModel)]="globalProps.httpTimeOut" ngModel/>
+            <span>
+                (sec)
+            </span>
+        </div>
+
+        <div class="ui-g-2" style="margin-left: -14px">
+            <label>Thread Pool Size</label>
+          </div>
+          <div class = "ui-g-2" style="margin-left: -59px">
+             <input name="threadPool"  style="width: 70%"  type="number"  pInputText [(ngModel)]="globalProps.httpTP"  ngModel />
+           </div>
+    </div>
+  
+  <div class= "ui-g-12" style="margin-left: 5px">
+        <label>Status Code for successful Health Check</label>
+    <span>
+      <input name="globalStatusCode" style="margin-left: 29px" type="text"  pInputText    [(ngModel)]="globalProps.httpSc"  ngModel />
+    </span>
+  </div>
+  </div>
+</p-fieldset>
+
+<p-fieldset class = "healthChkMonCss" legend="Socket Health Check Settings" [toggleable]="true" collapsed="true">
+  <div class = "ui-g-12">
+    <div class = "ui-g-1" style="width:14.3333%">
+      <label>Connection Time Out</label>
+     </div>
+     <div class ="ui-g-3">
+       <input name="socketCTO" type="number" min="0"  pInputText [(ngModel)]="globalProps.socketTo" ngModel /> 
+       <span>
+          (sec)
+      </span>
+    </div>
+  </div>    
+</p-fieldset>
+</p-accordionTab>
 </p-accordion>
 
 <p-accordion class="monitor-ui-accordion" >
 <p-accordionTab header="Health Check Configuration Data" [selected]= "true">
     <form  (ngSubmit)="saveData()" #form="ngForm" ngNativeValidate >
         <p-fieldset  class = "healthChkMonCss"  legend="Configuration" [toggleable]="true"  [collapsed] = "true">
-          <div class = "ui-g-12">
+          <div class = "ui-g-12" style="margin-top: 6px">
             
     <div class = "ui-g-12">
            <div class = "ui-g-2">
                 <label>
-                   Tier
+                 Select Tier
                 </label>  
             </div>
       
-          <div class ="ui-g-3"  style="margin-left: -88px">
+          <div class ="ui-g-3">
             <p-dropdown [style]="{'width':'150px'}" name="list" required
              (onChange) = "onTierChange(heathCheckMonData.tierName)"
                [options]="tierList" placeholder= "--Select Tier--" [(ngModel)]="heathCheckMonData.tierName" >
             </p-dropdown>
           </div>
-
-          <div class ="ui-g-3" style="margin-left: -32px;">
-              <input name="tierName" type="text" [disabled]="heathCheckMonData.tierName != 'Others'"  pInputText [(ngModel)]="heathCheckMonData.customTierName" title="Please add tier name" required ngModel />
+          
+          <div class ="ui-g-3" style="margin-left: -32px;" [hidden] ="heathCheckMonData.tierName != 'Others'" >
+            <label>
+              Tier Name
+            </label>
+              <input name="tierName" type="text" pInputText [(ngModel)]="heathCheckMonData.customTierName" title="Enter tier name" required ngModel />
            </div>
+
+           <div class = "ui-g-2" [hidden] ="heathCheckMonData.tierName != 'Others'">
+              <label>
+                Select Server
+              </label>  
+            </div>
+    
+            <div class ="ui-g-3"  [hidden] ="heathCheckMonData.tierName != 'Others'" >
+              <p-dropdown [style]="{'width':'150px'}" name="lists" required
+                [disabled]="heathCheckMonData.tierServerType == 'custom' || heathCheckMonData.tierName == '' ||heathCheckMonData.tierName == 'Others'" placeholder= "-- Select Server--"  [options]="serverList" [(ngModel)]="heathCheckMonData.serverName" >
+              </p-dropdown>
+            </div>
+
+            <div class ="ui-g-3"  style="margin-left: -32px;">
+              <label>
+                Server Name
+              </label>
+                <input name="serverName" type="text" [disabled]="heathCheckMonData.tierName != 'Others'" pInputText [(ngModel)]="heathCheckMonData.customServerName"  title = "Enter server name" ngModel />
+             </div>
+    
     </div>
 
-    <div class = "ui-g-12">
+    <!-- <div class = "ui-g-12">
       <div class = "ui-g-2" >
           <label>
              Server
           </label>  
         </div>
 
-        <div class ="ui-g-3" style="margin-left: -88px">
+        <div class ="ui-g-3" >
           <p-dropdown [style]="{'width':'150px'}" name="lists" required
-            [disabled]="heathCheckMonData.tierServerType == 'custom' || heathCheckMonData.tierName == ''" placeholder= "-- Select Server--"  [options]="serverList" [(ngModel)]="heathCheckMonData.serverName" >
+            [disabled]="heathCheckMonData.tierServerType == 'custom' || heathCheckMonData.tierName == '' ||heathCheckMonData.tierName == 'Others'" placeholder= "-- Select Server--"  [options]="serverList" [(ngModel)]="heathCheckMonData.serverName" >
           </p-dropdown>
         </div>
 
         <div class ="ui-g-3"  style="margin-left: -32px;">
-            <input name="serverName" type="text" [disabled]="heathCheckMonData.serverName != 'Others'" pInputText [(ngModel)]="heathCheckMonData.customServerName"  title="Please add server name" ngModel />
+            <input name="serverName" type="text" [disabled]="heathCheckMonData.tierName != 'Others'" pInputText [(ngModel)]="heathCheckMonData.customServerName"  title="Please add server name" ngModel />
          </div>
-      </div>
+      </div> -->
 
          <div class = "ui-g-12">
-           <div class = "ui-g-2" style="width: 10.555%">
+            <div class = "ui-g-2">
+                <label>
+                    Health Check Type
+                </label>
+             </div>
+
+             <div class = "ui-g-3" >
+                  <p-dropdown name="healthChkList"  [style]="{'width':'120px'}"
+                    [options]="healthCheckList" [(ngModel)]="heathCheckMonData.healthCheckType" >
+                   </p-dropdown>
+              </div>
+
+           <div class = "ui-g-2" style="margin-left: -29px" [hidden] = "heathCheckMonData.healthCheckType == 'HTTP'">
                <label>Host</label>
              </div>
-             <div class ="ui-g-3" style="margin-left: -39px">
+             <div class ="ui-g-3" style="margin-left: -81px" [hidden] = "heathCheckMonData.healthCheckType == 'HTTP'"> 
                 <input name="host" type="text" [disabled]="heathCheckMonData.healthCheckType == 'HTTP'" pInputText [(ngModel)]="heathCheckMonData.host" ngModel />
              </div>
       
-             <div class = "ui-g-2" style="margin-left: -27px">
+             <div class = "ui-g-2" style="margin-left: -27px" [hidden] = "heathCheckMonData.healthCheckType != 'Socket'">
                 <label>Port</label>
               </div>
-              <div class = "ui-g-3" style="margin-left: -83px">
+              <div class = "ui-g-3" style="margin-left: -83px"  [hidden] = "heathCheckMonData.healthCheckType != 'Socket'">
                  <input name="port" type="text" [disabled]="heathCheckMonData.healthCheckType == 'Ping' || heathCheckMonData.healthCheckType == 'HTTP' " pInputText [(ngModel)]="heathCheckMonData.port" ngModel />
               </div>
 
-              <div class = "ui-g-2" style="margin-left: -27px">
-                  <label>
-                      Health Check Type
-                  </label>
-               </div>
-
-               <div class = "ui-g-3" style="margin-left: -18px">
-                    <p-dropdown name="healthChkList"  [style]="{'width':'120px'}"
-                      [options]="healthCheckList" [(ngModel)]="heathCheckMonData.healthCheckType" >
-                     </p-dropdown>
-                </div>
+             
          </div>
 
           <!-- <div class = "ui-g-12">
@@ -320,12 +369,13 @@
               <p-checkbox *ngIf="data.data['arguments'] == 'false' ||data.data['arguments'] == 'true'|| data.data['arguments'] == false ||data.data['arguments'] == true" 
                [(ngModel)]="data.data.enabled "
                (click)="onCheckBoxChange(data,data.data.enabled)"  binary="false">
+
               </p-checkbox>   
                 <span *ngIf="!(data.data['arguments'] == 'false' ||data.data['arguments'] == 'true' || data.data['arguments'] == false ||data.data['arguments'] == true)" >{{data.data['arguments']}}</span>
-             </template>
+      </template>
    </p-column>
    
-   <p-column [style]="{'width':'100px'}"field="Actions" header="Actions">
+   <p-column [style]="{'width':'100px'}" field="Actions" header="Actions">
       <template  let-data="rowData" pTemplate type="body">
           <a (click)="editHealthMonData(data)">
               <i class="fa fa-pencil" style="color: #2572b5;cursor:pointer; margin-left: 30px" title="Edit Configured Data"></i>
