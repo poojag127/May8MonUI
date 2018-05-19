@@ -81,10 +81,10 @@
 
             
       <div class = "ui-g-2" style = "margin-left: -2px">
-          <label>Response Time </label>
+          <label>Response Time Out </label>
         </div>
         <div class ="ui-g-2" >
-            <input name="timeOut" type="number" style="width: 70% ; margin-left:-58px" pInputText [(ngModel)]="globalProps.httpRTO" ngModel/>
+            <input name="resTimeOut" type="number" style="width: 70% ; margin-left:-58px" pInputText [(ngModel)]="globalProps.httpRTO" ngModel/>
             <span>
                 (sec)
             </span>
@@ -101,7 +101,7 @@
   <div class= "ui-g-12" style="margin-left: 5px">
         <label>Status Code for successful health check</label>
     <span>
-      <input name="globalStatusCode" style="margin-left: 29px" type="text"  pInputText    [(ngModel)]="globalProps.httpSc"  ngModel />
+      <input name="globalStatusCode" style="margin-left: 29px" type="text"  pInputText  title="Comma separated list of status code"  [(ngModel)]="globalProps.httpSc"  ngModel />
     </span>
   </div>
 
@@ -113,7 +113,7 @@
       <label>Connection Time Out</label>
      </div>
      <div class ="ui-g-3">
-       <input name="socketCTO" type="number" min="0"  pInputText [(ngModel)]="globalProps.socketTo" ngModel /> 
+       <input name="socketCTO" type="number" min="0"  pInputText [(ngModel)]="globalProps.sockeTo" ngModel /> 
        <span>
           (sec)
       </span>
@@ -208,7 +208,7 @@
                <label>Host</label>
              </div>
              <div class ="ui-g-3" > 
-                <input name="host" type="text" [disabled]="heathCheckMonData.healthCheckType == 'HTTP'" pInputText [(ngModel)]="heathCheckMonData.host" ngModel />
+                <input name="host" type="text"  pInputText [(ngModel)]="heathCheckMonData.host" ngModel />
              </div>
              </div>
 
@@ -217,8 +217,8 @@
              <div class = "ui-g-2">
                 <label>Port</label>
               </div>
-              <div class = "ui-g-3" style="margin-left: -83px">
-                 <input name="port" type="text" [disabled]="heathCheckMonData.healthCheckType == 'Ping' || heathCheckMonData.healthCheckType == 'HTTP' " pInputText [(ngModel)]="heathCheckMonData.port" ngModel />
+              <div class = "ui-g-3" >
+                 <input name="port" type="text" [disabled]="heathCheckMonData.healthCheckType == 'Ping' " pInputText [(ngModel)]="heathCheckMonData.port" ngModel />
               </div>
 </div>
          <div class = "ui-g-12">
@@ -226,7 +226,7 @@
                 <p-accordionTab header="Advance Settings">
                   <div class = "ui-g-12">
                        <p-checkbox [(ngModel)]="heathCheckMonData.overideGlobalSettings"  name="overide" 
-                        binary=true label="Override global health check settings" ></p-checkbox>
+                        binary=true label="Override global health check settings"  (click)="overrideGlobalSettings()" ></p-checkbox>
                     </div>
 
                  <div class = "ui-g-12" style= "border: 1px solid; margin-top: 10px" [hidden]='heathCheckMonData.healthCheckType != "Ping"'>
@@ -248,7 +248,7 @@
              
              <div class = "ui-g-12" style= "border: 1px solid" [hidden]='heathCheckMonData.healthCheckType != "Socket"'>
             
-              <div class = "ui-g-1">
+              <div class = "ui-g-2">
                   <label>Instance</label>
                 </div>
                 <div class ="ui-g-3">
@@ -256,12 +256,12 @@
                      ngModel />
                 </div>
       
-                <div class = "ui-g-1">
+                <div class = "ui-g-2">
                   <label>Connection Time Out</label>
                 </div>
               <div class ="ui-g-3">
-                <input name="connectionTimeOut" type="number"  pInputText [(ngModel)]="heathCheckMonData.socketTo" 
-                ngModel />
+                <input name="connectionTimeOut" type="number"  pInputText [(ngModel)]="heathCheckMonData.sockeTo" 
+                  ngModel />
               </div>
 
           </div>     
@@ -291,7 +291,7 @@
                    ngModel />
               </div>
     
-              <div class = "ui-g-2">
+              <div class = "ui-g-1">
                   <label>Status Code</label>
                 </div>
                 <div class ="ui-g-3">
@@ -326,7 +326,7 @@
                (click)="onCheckBoxChange(data,data.data.enabled)"  binary="false">
 
               </p-checkbox>   
-                <span *ngIf="!(data.data['arguments'] == 'false' ||data.data['arguments'] == 'true' || data.data['arguments'] == false ||data.data['arguments'] == true)" >{{data.data['arguments']}}</span>
+                <span *ngIf="!(data.data['arguments'] == 'false' ||data.data['arguments'] == 'true' || data.data['arguments'] == false ||data.data['arguments'] == true)" title="{{data.data['arguments']}}">{{data.data['arguments']}}</span>
       </template>
    </p-column>
    
