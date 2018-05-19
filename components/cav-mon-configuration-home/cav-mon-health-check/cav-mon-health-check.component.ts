@@ -235,7 +235,7 @@ export class CavMonHealthCheckComponent implements OnInit {
      healthChkTypeString = "TimeOut = " + this.heathCheckMonData.sockeTo  + ", ThreadPool = " +this.heathCheckMonData.socketTP +  ", Instance Name = " + this.heathCheckMonData.instName + ", Host = " + this.heathCheckMonData.hostName + ", Port = " + this.heathCheckMonData.port; 
 
    else if(this.heathCheckMonData.healthCheckType == "HTTP")
-      healthChkTypeString = "Url = " + this.heathCheckMonData.httpUser + ", User Name = " + this.heathCheckMonData.httpUser + ", Password = " + this.heathCheckMonData.httpPwd + ", Status Code = " + this.heathCheckMonData.httpSc;
+      healthChkTypeString = "Url = " + this.heathCheckMonData.httpUser + ", User Name = " + this.heathCheckMonData.httpUser + ", Password = " + this.heathCheckMonData.httpPwd + ", Status Code = " + this.heathCheckMonData.httpSc + ", Instance = " +this.heathCheckMonData.instNameHttp;
      
     let arr = [];
     arr.push(this.heathCheckMonData);
@@ -520,5 +520,6 @@ export class CavMonHealthCheckComponent implements OnInit {
    {
     console.log("Method overrideGlobalSettings =", this.globalProps)
     
+
    }
 }

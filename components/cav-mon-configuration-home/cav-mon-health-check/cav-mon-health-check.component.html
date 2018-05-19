@@ -39,12 +39,12 @@
      </div>
    </div>
 
-  <div class= "ui-g-12" style="margin-left: 14px">
+  <div class= "ui-g-12" style="margin-left: 36px">
     <div class= "ui-g-12">
       <div class="ui-g-2">
          <label>Proxy Host:Port </label>
      </div>
-     <div class ="ui-g-2" style="margin-left: -47px;">
+     <div class ="ui-g-2" style="margin-left: -47px">
        <input name="globalUrl" type="text" [disabled]="!heathCheckMonData.useProxy"  
           pInputText [(ngModel)]="globalProps.httpUrl"  required ngModel />
      </div>
@@ -80,17 +80,17 @@
       </div>
 
             
-      <div class = "ui-g-2" style = "margin-left: -2px">
+      <div class = "ui-g-2" style = "margin-left: 36px">
           <label>Response Time Out </label>
         </div>
         <div class ="ui-g-2" >
-            <input name="resTimeOut" type="number" style="width: 70% ; margin-left:-58px" pInputText [(ngModel)]="globalProps.httpRTO" ngModel/>
+            <input name="resTimeOut" type="number" style="width: 70% ; margin-left: -28px" pInputText [(ngModel)]="globalProps.httpRTO" ngModel/>
             <span>
                 (sec)
             </span>
         </div>
 
-        <div class="ui-g-2" style="margin-left: -14px">
+        <div class="ui-g-2" style="margin-left: -19px">
             <label>Thread Pool Size</label>
           </div>
           <div class = "ui-g-2" style="margin-left: -59px">
@@ -230,15 +230,15 @@
                     </div>
 
                  <div class = "ui-g-12" style= "border: 1px solid; margin-top: 10px" [hidden]='heathCheckMonData.healthCheckType != "Ping"'>
-                     <div class="ui-g-1">
-                       <label>Packet</label>
+                     <div class="ui-g-2">
+                       <label>Packet Count</label>
                      </div>
                  <div class = "ui-g-3">
                    <input name="packet" type="number"  pInputText [(ngModel)]="heathCheckMonData.pingPkt" autofocus required ngModel />
                  </div>
 
-                   <div class = "ui-g-1">
-                     <label>Interval</label>
+                   <div class = "ui-g-2">
+                     <label>Wait Interval</label>
                    </div>
                  <div class ="ui-g-3">
                    <input name="interval" type="number"  pInputText [(ngModel)]="heathCheckMonData.pingIntrvl"  ngModel />
@@ -252,7 +252,7 @@
                   <label>Instance</label>
                 </div>
                 <div class ="ui-g-3">
-                   <input name="inst" type="text"  pInputText [(ngModel)]="heathCheckMonData.instanceName"
+                   <input name="inst" type="text"  pInputText [(ngModel)]="heathCheckMonData.instName"
                      ngModel />
                 </div>
       
@@ -291,13 +291,21 @@
                    ngModel />
               </div>
     
-              <div class = "ui-g-1">
+              <div class = "ui-g-2">
                   <label>Status Code</label>
                 </div>
                 <div class ="ui-g-3">
                    <input name="statusCode" type="text"  pInputText title="Comma separated list of status code"
                    [(ngModel)]="heathCheckMonData.httpSc" ngModel />
                 </div>
+
+                <div class = "ui-g-2">
+                    <label>Instance</label>
+                  </div>
+                  <div class ="ui-g-3">
+                     <input name="inst" type="text"  pInputText [(ngModel)]="heathCheckMonData.instNameHttp"
+                       ngModel />
+                  </div>
             </div>
           </p-accordionTab>       
         </p-accordion>   
@@ -306,14 +314,13 @@
 
       <div class="ui-g-12" style="margin-top: 7px">
           <button type="submit" pButton icon="fa-check" style="width: 63px ; float: right" label="Add"></button>
-        </div>
+      </div>
     </div>
   </p-fieldset>
   </form>
 
 <div class = "ui-g-12" style="margin-top: -3px">
  <p-treeTable  class = "healthChk-treeTable" [value]="heathCheckMonitorData"  selectionMode="single" [(selection)]="selectedFile">
-    <!-- <p-header style="background: black">Configured Health Check Monitor Data</p-header> -->
     <p-header class="health-check-mon-header">
         <span >Configured Health Check Monitor Data</span>
      </p-header>
@@ -347,8 +354,8 @@
 </div>
 
 
-<div class="ui-g-12">
-<button type="button" pButton  icon="fa-check" style="float: right" (click)= "finalSubmit()" title="Done" label="Done"></button>
-<button type="button" pButton  icon="fa-close" style="float: right" (click)= "dialogCloseEvent()" label="Cancel" title="Close"></button>
-</div>
+  <div class="ui-g-12">
+    <button type="button" pButton  icon="fa-check" style="float: right" (click)= "finalSubmit()" title="Done" label="Done"></button>
+    <button type="button" pButton  icon="fa-close" style="float: right" (click)= "dialogCloseEvent()" label="Cancel" title="Close"></button>
+  </div>
 </p-dialog>
