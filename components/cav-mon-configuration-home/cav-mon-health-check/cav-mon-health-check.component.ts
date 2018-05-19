@@ -128,7 +128,7 @@ export class CavMonHealthCheckComponent implements OnInit {
                   data["label"].unshift("All Servers");
                   data["value"].unshift("All Servers");
                   this.serverList = UtilityService.createListWithKeyValue(data["label"], data["value"]);
-                  this.serverList = this.serverList.concat({ label: 'Others', value: 'Others' });
+                  // this.serverList = this.serverList.concat({ label: 'Others', value: 'Others' });
                 }
               })
   }
@@ -305,7 +305,7 @@ export class CavMonHealthCheckComponent implements OnInit {
     }
 
   }
-  console.log("arguments finally = " , this.healthCheckTableData.arguments)
+
 }
 
 
@@ -345,6 +345,7 @@ export class CavMonHealthCheckComponent implements OnInit {
 
   addhealthCheckNode(serverNode,healthCheckDataMon,id)
   {
+    console.log("addhealthCheckNode= " , id, serverNode,healthCheckDataMon) 
    let healthChkTypeString = '';
    if(this.heathCheckMonData.healthCheckType == "Ping")
        healthChkTypeString = "Packet = " + this.heathCheckMonData.pingPkt + ", Interval = " + this.heathCheckMonData.pingIntrvl ;
@@ -423,11 +424,20 @@ export class CavMonHealthCheckComponent implements OnInit {
  
          arrId.push(rowData.id) // push selected row's id 
          console.log("arrId= ", arrId)
+
+         
    
          this.heathCheckMonitorData = this.heathCheckMonitorData.filter(function(val)
          {
-           console.log("val= ", val)
-           return arrId.indexOf(val['data']['id']) == -1;  //value to be deleted should return false
+            console.log("Delete = ", val['children'][0]['children'])
+            let childNodeForDelete = val['children'][0]['children'];
+            console.log("val['children'][0]['children'] = ", childNodeForDelete)
+            childNodeForDelete.map(function(each){
+              console.log("each here = ", each)
+              return arrId.indexOf(each['data']['id']) == -1;
+            })
+          //  console.log("val= ", val)
+          //  return arrId.indexOf(val['id']) == -1;  //value to be deleted should return false
          })
  
        },

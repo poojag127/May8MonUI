@@ -9,13 +9,16 @@ export class GlobalProps
  host:string= "NA";
  arguments:string = "NA";
  pingPkt:number =5;
- pingIntrvl:number =10;
- sockeTo:number =5;
+ pingIntrvl:number = 0.2;
+ pingTP :number = 32;
+ socketTo:number = 10;
  socketTP:string = "5";
  httpUrl:string ="NA";
- httpUser:string="cavisson";
- httpPwd:string ="cavisson";
- httpTP:number=5;
- httpSc:string="301,302,303"; 
+ httpUser:string="NA";
+ httpPwd:string ="NA";
+ httpTP:number=64;
+ httpSc:string= "2xx";
+ httpTimeOut:number = 10;
+
   
 }

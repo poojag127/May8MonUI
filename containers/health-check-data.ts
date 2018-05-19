@@ -44,6 +44,6 @@ globalPacket:number = 5;
 // gloabalThrdPool:number = 10;
 // globalStatusCode:string;
 
-
+useProxy:boolean= false;
 
 }
