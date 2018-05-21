@@ -203,6 +203,7 @@ export class CavMonProfilesComponent implements OnInit {
    * This method is used to delete profile data from ui
    */
   deleteProfileData() {
+
     let arrId = []; // array to hold id of each selected profile to perform delete operation
     this.selectedProfile.map(function (each) {
       arrId.push(each.id)

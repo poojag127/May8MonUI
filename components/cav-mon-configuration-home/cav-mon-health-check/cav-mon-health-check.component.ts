@@ -67,6 +67,8 @@ export class CavMonHealthCheckComponent implements OnInit {
    selectedFile: TreeNode;
 
     uniqueKey:any[]=[];
+
+    editMode:boolean =false;
    
   constructor(private monConfServiceObj: MonConfigurationService,
               private dialogRef: MdDialogRef<CavMonHealthCheckComponent>, 
@@ -233,13 +235,12 @@ export class CavMonHealthCheckComponent implements OnInit {
     // this.serverNode.nodeName = this.heathCheckMonData.serverName;
     // this.serverNode.arguments = this.heathCheckMonData.enableServer ? "Active" :"Inactive";
     let serverNode = { "nodeName":serverName,
-                      "arguments":this.heathCheckMonData.enableServer ? "true":"false",
+                       "arguments":this.heathCheckMonData.enableServer ? "true":"false",
                        "leaf":false,
-                      "instanceInfo":arr2,
+                       "instanceInfo":arr2,
                        "enabled":true
     }
 
-    // this.addhealthCheckNode(serverNode,this.heathCheckMonData);
     
     console.log("serverNode = ",serverNode.arguments)
 
@@ -248,10 +249,10 @@ export class CavMonHealthCheckComponent implements OnInit {
 
    let healthChkTypeString = '';
    if(this.heathCheckMonData.healthCheckType == "Ping")
-       healthChkTypeString = "Host = " +this.heathCheckMonData.hostName  +"  Packet = " + this.heathCheckMonData.pingPkt + ", Interval = " + this.heathCheckMonData.pingIntrvl ;
+       healthChkTypeString = "Host = " +this.heathCheckMonData.host  +"  Packet = " + this.heathCheckMonData.pingPkt + ", Interval = " + this.heathCheckMonData.pingIntrvl ;
    
    else if(this.heathCheckMonData.healthCheckType == "Socket")
-     healthChkTypeString = "Host = " +this.heathCheckMonData.hostName  +",Port = " + this.heathCheckMonData.port + " TimeOut = " + this.heathCheckMonData.sockeTo   +  ", Instance Name = " + this.heathCheckMonData.instName + ", Host = " + this.heathCheckMonData.hostName  
+     healthChkTypeString = "Host = " +this.heathCheckMonData.host  +",Port = " + this.heathCheckMonData.port + " TimeOut = " + this.heathCheckMonData.sockeTo   +  ", Instance Name = " + this.heathCheckMonData.instName + ", Host = " + this.heathCheckMonData.host  
 
    else if(this.heathCheckMonData.healthCheckType == "HTTP")
       healthChkTypeString = "Url = " + this.heathCheckMonData.httpUser + ", User Name = " + this.heathCheckMonData.httpUser + ", Password = " + this.heathCheckMonData.httpPwd + ", Status Code = " + this.heathCheckMonData.httpSc + ", Instance = " +this.heathCheckMonData.instNameHttp;
@@ -336,8 +337,15 @@ export class CavMonHealthCheckComponent implements OnInit {
          {
            if(healthCheckTypeName == "Ping")
            {
-             this.messageService.errorMessage("This health check  is already configured on tier " + tierName + " server " + serverName );
-             return false;
+             if(!this.editMode)
+             {
+              this.messageService.errorMessage("This health check  is already configured on tier " + tierName + " server " + serverName );
+              return false;
+             }
+             else
+             {
+               this.updateHealthCheckType(healthCheckTypeObj,this.heathCheckMonData);  
+             }
            }
            else{
              
@@ -371,6 +379,7 @@ export class CavMonHealthCheckComponent implements OnInit {
 
 }
 
+ 
 
  onCheckBoxChange(data,value)
  {
@@ -388,18 +397,17 @@ export class CavMonHealthCheckComponent implements OnInit {
                            "arguments":this.heathCheckMonData.enableServer ? "true":"false",
                            "leaf":false,
                           "instanceInfo":[],
-                          "enabled":false
+                          "enabled":true
     }
-    let id = tierObj.id + (tierObj.children.length+1);
-    
+    let id = tierObj.id + "." + (tierObj.children.length+1);
     let serverNode = {
-      "id": id + ".1",
+      "id": id ,
       "data": serverNodeData,
       "children":[],
       "leaf":false
     }
     
-    let healthChkID  = serverNode.id + (serverNode.children.length + 1);
+    let healthChkID  = serverNode.id + "."+(serverNode.children.length + 1);
     console.log("healthChkID = ",healthChkID)
     this.addhealthCheckNode(serverNode,heathCheckMonData,healthChkID);
     tierObj.children.push(serverNode)
@@ -465,49 +473,103 @@ export class CavMonHealthCheckComponent implements OnInit {
   editHealthMonData(rowData)
   {
     console.log("Method editHealthMonData called, rowData=  ", rowData)
-    // this.tempId =  rowData["id"];  
+    this.heathCheckMonData = rowData.data.instanceInfo;
+    this.editMode = true;
+  }
 
-    // this.heathCheckMonData =  new HealthCheckMonData();
-    // this.heathCheckMonData = Object.assign({}, rowData)
+ deleteNode(nodeArr,idToDelete)
+ {
+  nodeArr = nodeArr.filter(function(val)
+         {
+           console.log("val['id']",val['id'])
+           console.log(idToDelete.indexOf(val['id']) == -1)
+           return  idToDelete.indexOf(val['id']) == -1;
+         })
+     
+   console.log("healthChkTypeArr",nodeArr)
+  return nodeArr;
+ }
 
-    // console.log("this.heathCheckMonData for edit --", this.heathCheckMonData)
+  deleteTierNode(selectedTierNodeId)
+  {
+   this.heathCheckMonitorData = this.deleteNode(this.heathCheckMonitorData,selectedTierNodeId);
+  }
+
+  deleteServerNode(arrSplitId,arrId)
+  {
+   let tierNodeObj =  this.getTierObj(arrSplitId);
+   tierNodeObj.children = this.deleteNode(tierNodeObj.children,arrId)
+  }
+
+  deleteHealthChkTypeNode(arrSplitId,arrId)
+  {
+    let tierNodeObj =  this.getTierObj(arrSplitId);
+    let serverNodeObj = this.getServerObj(arrSplitId,tierNodeObj.children);
+    serverNodeObj.children = this.deleteNode(serverNodeObj.children,arrId)
+  }
+
+
+  getServerObj(arrSplitId,serverNodeArr)
+  {
+    console.log("Method getServerObj called ")
+    let serverNodeObj  = _.find(serverNodeArr,function(each) {
+          let serverId = each['id'].split(".");
+          return serverId[1] ==  arrSplitId[1];
+        })
+    console.log("Slected ServerNode = ",serverNodeObj)
+    return serverNodeObj;
 
   }
-  
+
+  getTierObj(arrSplitId)
+  {
+    let tierNodeObj  = _.find(this.heathCheckMonitorData,function(each) { 
+           console.log("each = ",each['id'])
+           console.log("arrPlit = ",arrSplitId[0])
+           console.log("chk = ", each['id'] == arrSplitId[0])
+           return each['id'] == arrSplitId[0]
+          })
+    console.log("Slected TierNode = ",tierNodeObj)
+    return tierNodeObj;
+  }
+
+  getAndDeleteNodeSelected(selectedNodeId)
+  {
+    let arrId = [];
+    arrId.push(selectedNodeId) // push selected row's id 
+    let arrSplitId = selectedNodeId.split(".");
+    if(arrSplitId.length == 1)
+    {
+     this.deleteTierNode(arrId)
+    }
+    else if(arrSplitId.length == 2)
+    {
+     this.deleteServerNode(arrSplitId,arrId)
+    }
+    else if(arrSplitId.length == 3)
+    {
+     this.deleteHealthChkTypeNode(arrSplitId,arrId) 
+    }
+   }
+
    /*This method is used to delete selected rows*/
    deleteHealthMonData(rowData) 
    {
      console.log("deleteHealthMonData= ", rowData)
-     let arrSplitId = rowData.id.split(".");
+     let that = this;
      this.confirmationService.confirm({
        message: COMPONENT.DELETE_SPECIFIC_CONFIGURATION,
        header: 'Delete Confirmation',
        icon: 'fa fa-trash',
        accept: () => {
+        
          let arrId = [];
          arrId.push(rowData.id) // push selected row's id 
+         let arrSplitId = rowData.id.split(".");
+         that.getAndDeleteNodeSelected(rowData.id);
          console.log("arrId= ", arrId)
 
-         let tierNodeObj  = _.find(this.heathCheckMonitorData,function(each) { 
-           console.log("each = ",each['id'])
-           console.log("arrPlit = ",arrSplitId[0])
-           return each['id'] == arrSplitId[0]
-          })
-
-         let serverNodeArr = tierNodeObj["children"];
-         let serverNodeObj = _.find(serverNodeArr,function(each){
-           return each['id'] ==  arrSplitId[1];
-         })
-
-         let healthChkTypeArr = serverNodeObj["children"];
-         healthChkTypeArr = this.heathCheckMonitorData.filter(function(val)
-         {
-           return  arrId.indexOf(val['id']) == -1;
-         })
-
-         this.healthChkMonServiceObj.setHealthCheckTreeTableData(this.heathCheckMonitorData);
        },
- 
        reject: () => {
        }
      });
@@ -517,7 +579,18 @@ export class CavMonHealthCheckComponent implements OnInit {
    overrideGlobalSettings()
    {
     console.log("Method overrideGlobalSettings =", this.globalProps)
-    
+    console.log("this.healhChkMOnData = ",this.heathCheckMonData)
 
    }
+
+   updateHealthCheckType(healthCheckTypeNode,healthCheckMonData)
+   {
+    console.log("new healthCheckMonData = ",healthCheckMonData)
+    console.log("healthCheckTypeNode = ",healthCheckTypeNode)
+
+
+   }
+
+
+   
 }

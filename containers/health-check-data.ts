@@ -18,10 +18,10 @@ export class HealthCheckMonData
  enableTier:boolean=false;
  enableServer:boolean = false;
  instanceName:string;
- hostName:string;
+ host:string;
  port:number;
 
-globalPacket:number = 5;
+ globalPacket:number = 5;
 
  instName:string ;
  pingPkt:number =5;
