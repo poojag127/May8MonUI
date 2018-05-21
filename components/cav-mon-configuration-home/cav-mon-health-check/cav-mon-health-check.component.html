@@ -7,7 +7,7 @@
 <div class = "ui-g-12">
   <p-accordion class="monitor-ui-accordion">
    <p-accordionTab header="Global Settings">
-    <p-fieldset  class = "healthChkMonCss" legend="Ping Health Check Settings" [toggleable]="true" collapsed="true">
+    <p-fieldset  class ="healthChkMonCss" legend="Ping Health Check Settings" [toggleable]="true" collapsed="true">
       <div class= "ui-g-12">
         <div class="ui-g-2">
           <label>Packet Count</label>
@@ -286,7 +286,7 @@
                   <label>Instance</label>
                 </div>
                 <div class ="ui-g-3">
-                   <input name="inst" type="text" 
+                   <input name="inst" *ngIf='heathCheckMonData.healthCheckType != "Socket"' type="text" 
                     pInputText [(ngModel)]="heathCheckMonData.instName"
                      ngModel />
                 </div>
@@ -338,7 +338,7 @@
                     <label>Instance</label>
                   </div>
                   <div class ="ui-g-3" style="margin-left: -70px;">
-                     <input name="instnce" type="text"  pInputText [(ngModel)]="heathCheckMonData.instName"
+                     <input name="instnce" *ngIf="heathCheckMonData.healthCheckType != "HTTP""type="text"  pInputText  [(ngModel)]="heathCheckMonData.instName"
                        ngModel />
                   </div>
             </div>
@@ -348,8 +348,9 @@
 
 
       <div class="ui-g-12" style="margin-top: 7px">
-          <button type="submit" pButton icon="fa-check" style="width: 63px ; float: right" label="Add"></button>
-      </div>r
+          <button type="submit" pButton icon="fa-check" style="width: 63px ; float: right"  *ngIf="!this.editMode" label="Add"></button>
+            <button type="submit" pButton icon="fa-check" style="width: 63px ; float: right" *ngIf="this.editMode" label="Update"></button>
+      </div>
     </div>
   </p-fieldset>
   </form>

@@ -85,7 +85,7 @@ export class CavMonHealthCheckComponent implements OnInit {
     console.log("Method ngOnInit called, heathCheckMonitorData = " , this.heathCheckMonitorData +  "and global = ", this.globalProps);
     // if(this.heathChheckMonitorData != undefined && this.globalProps != undefined)
     this.globalProps = new GlobalProps();
-    this.healthChkMonServiceObj.getHealthChkMonData( this.globalProps);
+    // this.healthChkMonServiceObj.getHealthChkMonData( this.globalProps);
 
     console.log("globalProps = ",this.globalProps)
     console.log("proifile Name = ", this.monConfServiceObj.topoName, this.monConfServiceObj.profileName, this.monDataService.userName);
@@ -482,7 +482,8 @@ export class CavMonHealthCheckComponent implements OnInit {
   editHealthMonData(rowData)
   {
     console.log("Method editHealthMonData called, rowData=  ", rowData)
-    this.heathCheckMonData = rowData.data.instanceInfo;
+    this.heathCheckMonData = rowData.data.instanceInfo[0];
+    console.log(" this.heathCheckMonData  ", this.heathCheckMonData)
     this.editMode = true;
   }
 
