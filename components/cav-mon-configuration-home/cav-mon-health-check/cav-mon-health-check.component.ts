@@ -195,13 +195,31 @@ export class CavMonHealthCheckComponent implements OnInit {
      return false;
    }
 
+   console.log("heathCheckMonData.healthCheckType = " , heathCheckMonData.healthCheckType)
    if(heathCheckMonData.healthCheckType == "Http")
    {
+    if(heathCheckMonData.httpUser != '')
+    {
+      if(heathCheckMonData.httpPwd == '') 
+      {
+        this.messageService.errorMessage("Enter Password")
+        return false;
+      }
+
+      if(heathCheckMonData.httpCnfrmPwd == '')
+      {
+        this.messageService.errorMessage("Confirm Password")
+        return false;
+      }
+    }
+
     if(heathCheckMonData.httpPwd != heathCheckMonData.httpCnfrmPwd)
     {
-       this.messageService.errorMessage("Password does not match")
-       return false;
+      this.messageService.errorMessage("Password does not match")
+      return false;
     }
+ 
+
    }
 
    
@@ -637,6 +655,8 @@ export class CavMonHealthCheckComponent implements OnInit {
       this.heathCheckMonData.httpUser = this.globalProps.httpUser;
       this.heathCheckMonData.httpPwd = this.globalProps.httpPwd;
       this.heathCheckMonData.statusCode = this.globalProps.httpSc;
+      this.heathCheckMonData.httpCTO = this.globalProps.httpCTO;
+      this.heathCheckMonData.httpRTO =  this.globalProps.httpRTO;
       this.heathCheckMonData.pingIntrvl = this.globalProps.pingIntrvl;
       this.heathCheckMonData.pingPkt = this.globalProps.pingPkt;
       this.heathCheckMonData.sockeTo = this.globalProps.sockeTo;
@@ -646,8 +666,10 @@ export class CavMonHealthCheckComponent implements OnInit {
       this.heathCheckMonData.httpUrl = '';
       this.heathCheckMonData.httpUser = '';
       this.heathCheckMonData.httpPwd ='';
+      this.heathCheckMonData.httpCTO = 10;
+      this.heathCheckMonData.httpRTO = 30;
       this.heathCheckMonData.statusCode = '';
-      this.heathCheckMonData.pingIntrvl = 0.2;
+      this.heathCheckMonData.pingIntrvl = 10;
       this.heathCheckMonData.pingPkt = 5;
       this.heathCheckMonData.sockeTo = 10;
     }
@@ -659,10 +681,7 @@ export class CavMonHealthCheckComponent implements OnInit {
     console.log("new healthCheckMonData = ",healthCheckMonData)
     console.log("healthCheckTypeNode = ",healthCheckTypeNode)
     this.createArguments(healthCheckTypeNode,healthCheckMonData)
-
-    
-    
-
+    this.editMode = false;
    }
 
    createArguments(healthCheckTypeNode,healthCheckMonData)

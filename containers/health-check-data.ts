@@ -29,9 +29,9 @@ export class HealthCheckMonData
  sockeTo:number = 10;
  socketTP:string="5";
  httpUrl:string= "";
- httpUser:string ;
- httpPwd:string ;
- httpCnfrmPwd:string;
+ httpUser:string= "";
+ httpPwd:string= "";
+ httpCnfrmPwd:string = "";
  httpTP:number=5;
  httpSc:string ="301,302"; 
  arguments:string = "false";

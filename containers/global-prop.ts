@@ -11,7 +11,7 @@ export class GlobalProps
  user:string ="NA";
  pwd:string="NA";
  arguments:string = "NA";
- pingPkt:number =3;   
+ pingPkt:number =5;   
  pingIntrvl:number = 10;
  pingTP :number = 32;
  sockeTo:number = 10;
