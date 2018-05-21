@@ -85,7 +85,7 @@ export class CavMonHealthCheckComponent implements OnInit {
     console.log("Method ngOnInit called, heathCheckMonitorData = " , this.heathCheckMonitorData +  "and global = ", this.globalProps);
     // if(this.heathChheckMonitorData != undefined && this.globalProps != undefined)
     this.globalProps = new GlobalProps();
-    this.healthChkMonServiceObj.getHealthChkMonData( this.globalProps);
+    // this.healthChkMonServiceObj.getHealthChkMonData( this.globalProps);
 
     console.log("globalProps = ",this.globalProps)
     console.log("proifile Name = ", this.monConfServiceObj.topoName, this.monConfServiceObj.profileName, this.monDataService.userName);
@@ -178,6 +178,35 @@ export class CavMonHealthCheckComponent implements OnInit {
        return false;
      }
    }
+
+   /*Check for whether tier is selected or not*/
+   if(heathCheckMonData.tierName == '')
+   {
+     this.messageService.errorMessage("Please select Tier");
+     return false;
+   }
+
+   /*Check for whether server is selected or not*/
+   if(heathCheckMonData.serverName == '')
+   {
+     this.messageService.errorMessage("Please select Server");
+     return false;
+   }
+
+   /*Case when custom tier is selected then user need to provide tier name*/
+   if(heathCheckMonData.tierName == "Others" && heathCheckMonData.customTierName == '')
+   {
+     this.messageService.errorMessage("Please enter tier name");
+     return false;
+   }
+
+   /*Case when custom tier is selected then user need to provide server name*/
+   if(heathCheckMonData.tierName == "Others" && heathCheckMonData.customServerName == '')
+   {
+     this.messageService.errorMessage("Please enter server name");
+     return false;
+   }
+   
    return true;
   }
 
