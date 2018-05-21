@@ -129,9 +129,8 @@
 <p-accordion class="monitor-ui-accordion" >
 <p-accordionTab header="Health Check Configuration Data" [selected]= "true">
   <form  (ngSubmit)="saveData()" #form="ngForm" ngNativeValidate >
-    <p-fieldset  class = "healthChkMonCss"  legend="Configuration" [toggleable]="true"  [collapsed] = "true">
+    <p-fieldset  class = "healthChkMonCss"  legend="Configuration" [toggleable]="true"  [collapsed] = "false">
       <div class = "ui-g-12" style="margin-top: 6px">
-            
       <div class = "ui-g-12">
        <div class = "ui-g-1">
          <label>
@@ -236,7 +235,9 @@
         <label>URL</label>
      </div>
        <div class ="ui-g-3" style="margin-left: -82px" > 
-         <input name="url" type="text" [disabled]="heathCheckMonData.healthCheckType != 'HTTP' "  pInputText [(ngModel)]="heathCheckMonData.HttpUrl" ngModel />
+         <input name="url" type="text" [disabled]="heathCheckMonData.healthCheckType != 'HTTP' " 
+          autofocus required
+          pInputText [(ngModel)]="heathCheckMonData.url" ngModel />
      </div>
 
 
@@ -244,7 +245,10 @@
           <label>User Name</label>
     </div>
     <div class = "ui-g-3" style="margin-left: -68px">
-         <input name="usrNme" type="text" [disabled]="heathCheckMonData.healthCheckType != 'HTTP' " pInputText [(ngModel)]="heathCheckMonData.httpUserName" ngModel />
+         <input name="usrNme" type="text" 
+          autofocus required
+         [disabled]="heathCheckMonData.healthCheckType != 'HTTP' " 
+         pInputText [(ngModel)]="heathCheckMonData.user" ngModel />
     </div>
 
     
@@ -252,7 +256,8 @@
         <label>Password</label>
   </div>
   <div class = "ui-g-3" style="margin-left: -68px">
-       <input name="psswrd" type="password"  pInputText [disabled]="heathCheckMonData.healthCheckType != 'HTTP' "  [(ngModel)]="heathCheckMonData.HttpPwd" ngModel />
+       <input name="psswrd" type="password" 
+        autofocus required pInputText [disabled]="heathCheckMonData.healthCheckType != 'HTTP' "  [(ngModel)]="heathCheckMonData.pwd" ngModel />
   </div>
  </div>
 
@@ -286,7 +291,7 @@
                   <label>Instance</label>
                 </div>
                 <div class ="ui-g-3">
-                   <input name="inst" *ngIf='heathCheckMonData.healthCheckType != "Socket"' type="text" 
+                   <input name="inst" type="text" 
                     pInputText [(ngModel)]="heathCheckMonData.instName"
                      ngModel />
                 </div>
@@ -338,7 +343,7 @@
                     <label>Instance</label>
                   </div>
                   <div class ="ui-g-3" style="margin-left: -70px;">
-                     <input name="instnce" *ngIf="heathCheckMonData.healthCheckType != "HTTP""type="text"  pInputText  [(ngModel)]="heathCheckMonData.instName"
+                     <input name="instnce" type="text"  pInputText  [(ngModel)]="heathCheckMonData.instName"
                        ngModel />
                   </div>
             </div>
@@ -349,7 +354,7 @@
 
       <div class="ui-g-12" style="margin-top: 7px">
           <button type="submit" pButton icon="fa-check" style="width: 63px ; float: right"  *ngIf="!this.editMode" label="Add"></button>
-            <button type="submit" pButton icon="fa-check" style="width: 63px ; float: right" *ngIf="this.editMode" label="Update"></button>
+          <button type="submit" pButton icon="fa-check" style="width: 63px ; float: right" *ngIf="this.editMode" label="Update"></button>
       </div>
     </div>
   </p-fieldset>

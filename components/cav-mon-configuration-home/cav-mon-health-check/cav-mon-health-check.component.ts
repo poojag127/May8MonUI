@@ -178,6 +178,35 @@ export class CavMonHealthCheckComponent implements OnInit {
        return false;
      }
    }
+
+   /*Check for whether tier is selected or not*/
+   if(heathCheckMonData.tierName == '')
+   {
+     this.messageService.errorMessage("Please select Tier");
+     return false;
+   }
+
+   /*Check for whether server is selected or not*/
+   if(heathCheckMonData.serverName == '')
+   {
+     this.messageService.errorMessage("Please select Server");
+     return false;
+   }
+
+   /*Case when custom tier is selected then user need to provide tier name*/
+   if(heathCheckMonData.tierName == "Others" && heathCheckMonData.customTierName == '')
+   {
+     this.messageService.errorMessage("Please enter tier name");
+     return false;
+   }
+
+   /*Case when custom tier is selected then user need to provide server name*/
+   if(heathCheckMonData.tierName == "Others" && heathCheckMonData.customServerName == '')
+   {
+     this.messageService.errorMessage("Please enter server name");
+     return false;
+   }
+   
    return true;
   }
 
