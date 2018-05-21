@@ -185,7 +185,7 @@ export class CavMonHealthCheckComponent implements OnInit {
    console.log("Method savedtaa called = ",this.globalProps)
   
    let treeTableData = this.healthChkMonServiceObj.getHealthCheckTreeTableData();
-   let id = treeTableData.length + 1;
+   let id = treeTableData.length + 1 + "";
    this.tierNode = new HealthCheckTableData();
    
 
@@ -233,10 +233,10 @@ export class CavMonHealthCheckComponent implements OnInit {
 
    let healthChkTypeString = '';
    if(this.heathCheckMonData.healthCheckType == "Ping")
-       healthChkTypeString = "Packet = " + this.heathCheckMonData.pingPkt + ", Interval = " + this.heathCheckMonData.pingIntrvl ;
+       healthChkTypeString = "Host = " +this.heathCheckMonData.hostName  +"  Packet = " + this.heathCheckMonData.pingPkt + ", Interval = " + this.heathCheckMonData.pingIntrvl ;
    
    else if(this.heathCheckMonData.healthCheckType == "Socket")
-     healthChkTypeString = "TimeOut = " + this.heathCheckMonData.sockeTo  + ", ThreadPool = " +this.heathCheckMonData.socketTP +  ", Instance Name = " + this.heathCheckMonData.instName + ", Host = " + this.heathCheckMonData.hostName + ", Port = " + this.heathCheckMonData.port; 
+     healthChkTypeString = "Host = " +this.heathCheckMonData.hostName  +",Port = " + this.heathCheckMonData.port + " TimeOut = " + this.heathCheckMonData.sockeTo   +  ", Instance Name = " + this.heathCheckMonData.instName + ", Host = " + this.heathCheckMonData.hostName  
 
    else if(this.heathCheckMonData.healthCheckType == "HTTP")
       healthChkTypeString = "Url = " + this.heathCheckMonData.httpUser + ", User Name = " + this.heathCheckMonData.httpUser + ", Password = " + this.heathCheckMonData.httpPwd + ", Status Code = " + this.heathCheckMonData.httpSc;
@@ -461,55 +461,34 @@ export class CavMonHealthCheckComponent implements OnInit {
    deleteHealthMonData(rowData) 
    {
      console.log("deleteHealthMonData= ", rowData)
+     let arrSplitId = rowData.id.split(".");
      this.confirmationService.confirm({
        message: COMPONENT.DELETE_SPECIFIC_CONFIGURATION,
        header: 'Delete Confirmation',
        icon: 'fa fa-trash',
        accept: () => {
          let arrId = [];
- 
          arrId.push(rowData.id) // push selected row's id 
          console.log("arrId= ", arrId)
 
-         
-   
-         this.heathCheckMonitorData = this.heathCheckMonitorData.filter(function(val)
-         {
-           
-            let childNodeForDelete = val['children'][0]['children'];
-            console.log("childNodeForDelete= ", childNodeForDelete)
-            console.log("childNodeForDelete.length = ", childNodeForDelete.length)
-            if(childNodeForDelete.length == 1)
-            {
-              console.log("one child so deleting all data")
-              childNodeForDelete.map(function(each)
-              {
-                console.log("each = ", each)
-                return arrId.indexOf(each['data']['id']) == -1;
+         let tierNodeObj  = _.find(this.heathCheckMonitorData,function(each) { 
+           console.log("each = ",each['id'])
+           console.log("arrPlit = ",arrSplitId[0])
+           return each['id'] == arrSplitId[0]
+          })
 
-              })
-              
-            }            
+         let serverNodeArr = tierNodeObj["children"];
+         let serverNodeObj = _.find(serverNodeArr,function(each){
+           return each['id'] ==  arrSplitId[1];
          })
 
-        //  this.heathCheckMonitorData.map(function(item)
-        //  {
-        //    console.log("item = ", item)
+         let healthChkTypeArr = serverNodeObj["children"];
+         healthChkTypeArr = this.heathCheckMonitorData.filter(function(val)
+         {
+           return  arrId.indexOf(val['id']) == -1;
+         })
 
-        //  })
-
-      // (childNodeForDelete.length >1)
-      //    {
-      //      console.log("childNodeForDelete = ", childNodeForDelete)
-      //      childNodeForDelete.map(function(each)
-      //      {
-      //        console.log("each = ", each)
-      //        return arrId.indexOf(each['data']['id']) == -1;
-
-      //      })
-
-      //    }
- 
+         this.healthChkMonServiceObj.setHealthCheckTreeTableData(this.heathCheckMonitorData);
        },
  
        reject: () => {
