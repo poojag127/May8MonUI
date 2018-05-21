@@ -189,18 +189,19 @@ export class CavMonHealthCheckComponent implements OnInit {
    }
 
    /*Check for whether server is selected or not*/
-   if(heathCheckMonData.serverName == '')
+   if(heathCheckMonData.tierName != "Others" && heathCheckMonData.serverName == '' )
    {
      this.messageService.errorMessage("Please select Server");
      return false;
    }
 
-   console.log("heathCheckMonData.httpCnfrmPwd= ", heathCheckMonData.httpCnfrmPwd)
-   console.log("heathCheckMonData.httpPwd = ", heathCheckMonData.httpPwd)
-   if(heathCheckMonData.httpPwd != heathCheckMonData.httpCnfrmPwd)
+   if(heathCheckMonData.healthCheckType == "Http")
    {
-      this.messageService.errorMessage("Password does not match")
-      return false;
+    if(heathCheckMonData.httpPwd != heathCheckMonData.httpCnfrmPwd)
+    {
+       this.messageService.errorMessage("Password does not match")
+       return false;
+    }
    }
 
    
