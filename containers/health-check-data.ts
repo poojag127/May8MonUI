@@ -42,7 +42,7 @@ overideGlobalSettings:boolean = false;
 instNameHttp:string;
 enableHealthCheckMon:boolean = false;
 
-url:string;
+url:string='';
 user:string;
 
 }
