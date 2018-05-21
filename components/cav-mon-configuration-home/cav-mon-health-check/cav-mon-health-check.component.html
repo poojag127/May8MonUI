@@ -140,6 +140,7 @@
       
      <div class ="ui-g-2" >
        <p-dropdown [style]="{'width':'120px'}" name="list" required
+           [disabled] = "editMode"
           (onChange) = "onTierChange(heathCheckMonData.tierName)"
             [options]="tierList" placeholder= "--Select Tier--" [(ngModel)]="heathCheckMonData.tierName" >
        </p-dropdown>
@@ -151,7 +152,7 @@
       </label>
     </div> -->
     <div class ="ui-g-2" >
-         <input name="tierName" [disabled]="heathCheckMonData.tierName != 'Others'" type="text" pInputText [(ngModel)]="heathCheckMonData.customTierName" title="Enter tier name" required ngModel />
+         <input name="tierName" [disabled]="heathCheckMonData.tierName != 'Others'||editMode" type="text" pInputText [(ngModel)]="heathCheckMonData.customTierName" title="Enter tier name" required ngModel />
     </div>
        
 
@@ -164,12 +165,12 @@
     
      <div class ="ui-g-2" >
         <p-dropdown [style]="{'width':'120px'}" name="lists" required
-            [disabled]="heathCheckMonData.tierName == '' ||heathCheckMonData.tierName == 'Others'" placeholder= "-- Select Server--"  [options]="serverList" [(ngModel)]="heathCheckMonData.serverName" >
+            [disabled]="heathCheckMonData.tierName == '' ||heathCheckMonData.tierName == 'Others'||editMode" placeholder= "-- Select Server--"  [options]="serverList" [(ngModel)]="heathCheckMonData.serverName" >
           </p-dropdown>
       </div>
 
       <div class ="ui-g-2">
-          <input name="serverName" type="text" [disabled]="heathCheckMonData.tierName != 'Others'"
+          <input name="serverName" type="text" [disabled]="heathCheckMonData.tierName != 'Others' ||editMode"
            pInputText [(ngModel)]="heathCheckMonData.customServerName"  title = "Enter server name" ngModel />
       </div>
 </div>
@@ -208,6 +209,7 @@
        
              <div class = "ui-g-3" style="margin-left: -38px">
                   <p-dropdown name="healthChkList"  [style]="{'width':'120px'}"
+                    [disabled]="editMode"
                     [options]="healthCheckList" [(ngModel)]="heathCheckMonData.healthCheckType" >
                    </p-dropdown>
               </div>
