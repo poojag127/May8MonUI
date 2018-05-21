@@ -5,7 +5,7 @@ export class HealthCheckMonData
  interval:number ;
  proxyUrl:string = "NA";
  userName:string = "cavisson";
- pwd:string ="NA";
+ pwd:string;
  statusCode:string;
  threadPool:number;
  timeOut:number;
@@ -29,8 +29,8 @@ export class HealthCheckMonData
  sockeTo:number = 10;
  socketTP:string="5";
  httpUrl:string= "";
- httpUser:string = "NA";
- httpPwd:string ="NA";
+ httpUser:string ;
+ httpPwd:string ;
  httpCnfrmPwd:string;
  httpTP:number=5;
  httpSc:string ="301,302"; 
@@ -45,4 +45,6 @@ enableHealthCheckMon:boolean = false;
 url:string='';
 user:string;
 
+httpCTO:number = 10;
+httpRTO:number = 30;
 }
