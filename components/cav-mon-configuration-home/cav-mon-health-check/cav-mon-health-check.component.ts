@@ -193,19 +193,14 @@ export class CavMonHealthCheckComponent implements OnInit {
      return false;
    }
 
-   /*Case when custom tier is selected then user need to provide tier name*/
-   if(heathCheckMonData.tierName == "Others" && heathCheckMonData.customTierName == '')
+   console.log("heathCheckMonData.httpCnfrmPwd= ", heathCheckMonData.httpCnfrmPwd)
+   console.log("heathCheckMonData.httpPwd = ", heathCheckMonData.httpPwd)
+   if(heathCheckMonData.httpPwd != heathCheckMonData.httpCnfrmPwd)
    {
-     this.messageService.errorMessage("Please enter tier name");
-     return false;
+      this.messageService.errorMessage("Password does not match")
+      return false;
    }
 
-   /*Case when custom tier is selected then user need to provide server name*/
-   if(heathCheckMonData.tierName == "Others" && heathCheckMonData.customServerName == '')
-   {
-     this.messageService.errorMessage("Please enter server name");
-     return false;
-   }
    
    return true;
   }
@@ -293,7 +288,7 @@ export class CavMonHealthCheckComponent implements OnInit {
    else if(this.heathCheckMonData.healthCheckType == "Http")
       healthChkTypeString = "Host = " +this.heathCheckMonData.host  + ",Port = " + this.heathCheckMonData.port + 
                             ", Url = " + this.heathCheckMonData.url + ", User Name = " +  this.heathCheckMonData.user + 
-                            ", Password = " + this.heathCheckMonData.httpPwd + this.heathCheckMonData.pwd + 
+                            ", Password = " +  this.heathCheckMonData.pwd + 
                             ", Status Code = " + this.heathCheckMonData.httpSc + ", Instance = " +this.heathCheckMonData.instName;
      
     let arr = [];

@@ -11,7 +11,7 @@ export class HealthCheckMonData
  timeOut:number;
  tierServerType:string = "";
  tierName:string = "";
- serverName:string;
+ serverName:string = "";
  healthCheckType:string = "Ping";
  customTierName:string;
  customServerName:string;
@@ -28,7 +28,7 @@ export class HealthCheckMonData
  pingIntrvl:number=10;
  sockeTo:number = 10;
  socketTP:string="5";
- httpUrl:string = "NA";
+ httpUrl:string= "";
  httpUser:string = "NA";
  httpPwd:string ="NA";
  httpCnfrmPwd:string;
