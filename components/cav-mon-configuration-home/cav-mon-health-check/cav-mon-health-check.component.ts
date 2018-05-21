@@ -80,7 +80,11 @@ export class CavMonHealthCheckComponent implements OnInit {
 
   ngOnInit()
   {
+    console.log("Method ngOnInit called, heathCheckMonitorData = " , this.heathCheckMonitorData +  "and global = ", this.globalProps);
+    // if(this.heathChheckMonitorData != undefined && this.globalProps != undefined)
     this.globalProps = new GlobalProps();
+    this.healthChkMonServiceObj.getHealthChkMonData( this.globalProps);
+
     console.log("globalProps = ",this.globalProps)
     console.log("proifile Name = ", this.monConfServiceObj.topoName, this.monConfServiceObj.profileName, this.monDataService.userName);
     // this.healthChkMonServiceObj.readHealthMonitorJson(this.monConfServiceObj.topoName, this.monConfServiceObj.profileName,  this.monDataService.getMonMode(), this.monDataService.userName, this.monDataService.getTestRunNum());
@@ -107,6 +111,8 @@ export class CavMonHealthCheckComponent implements OnInit {
     let healthChkLabel = ['Ping', 'HTTP', 'Socket'];
     let healthCheckVal = ['Ping', 'HTTP', 'Socket'];
     this.healthCheckList = UtilityService.createListWithKeyValue(healthChkLabel, healthCheckVal);
+
+    
     
   }
   
@@ -248,13 +254,17 @@ export class CavMonHealthCheckComponent implements OnInit {
 
    let healthChkTypeString = '';
    if(this.heathCheckMonData.healthCheckType == "Ping")
-       healthChkTypeString = "Host = " +this.heathCheckMonData.hostName  +"  Packet = " + this.heathCheckMonData.pingPkt + ", Interval = " + this.heathCheckMonData.pingIntrvl ;
+       healthChkTypeString = "Host = " +this.heathCheckMonData.hostName  +", Packet Count = " + this.heathCheckMonData.pingPkt + ", Wait Interval = " + this.heathCheckMonData.pingIntrvl ;
    
    else if(this.heathCheckMonData.healthCheckType == "Socket")
-     healthChkTypeString = "Host = " +this.heathCheckMonData.hostName  +",Port = " + this.heathCheckMonData.port + " TimeOut = " + this.heathCheckMonData.sockeTo   +  ", Instance Name = " + this.heathCheckMonData.instName + ", Host = " + this.heathCheckMonData.hostName  
+     healthChkTypeString = "Host = " +this.heathCheckMonData.hostName  +",Port = " + this.heathCheckMonData.port + " TimeOut = " + this.heathCheckMonData.sockeTo   +  ", Instance Name = " + this.heathCheckMonData.instName;
 
    else if(this.heathCheckMonData.healthCheckType == "HTTP")
-      healthChkTypeString = "Url = " + this.heathCheckMonData.httpUser + ", User Name = " + this.heathCheckMonData.httpUser + ", Password = " + this.heathCheckMonData.httpPwd + ", Status Code = " + this.heathCheckMonData.httpSc + ", Instance = " +this.heathCheckMonData.instNameHttp;
+      healthChkTypeString = "Host = " +this.heathCheckMonData.hostName  + ",Port = " + this.heathCheckMonData.port + 
+                            ", Url = " + this.heathCheckMonData.HttpUrl + ", User Name = " +  this.heathCheckMonData.httpUserName + 
+                            ", Password = " + this.heathCheckMonData.httpPwd + ", Proxy Url = " + this.heathCheckMonData.httpUser + 
+                            ",Proxy User Name = " + this.heathCheckMonData.httpUser + ", Proxy Password = " + this.heathCheckMonData.httpPwd + 
+                            ", Status Code = " + this.heathCheckMonData.httpSc + ", Instance = " +this.heathCheckMonData.instNameHttp;
      
     let arr = [];
     arr.push(this.heathCheckMonData);
@@ -464,14 +474,9 @@ export class CavMonHealthCheckComponent implements OnInit {
 
   editHealthMonData(rowData)
   {
-    console.log("Method editHealthMonData called, rowData=  ", rowData)
-    // this.tempId =  rowData["id"];  
+    console.log("Method editHealthMonData called, rowData=  ", rowData);
 
-    // this.heathCheckMonData =  new HealthCheckMonData();
-    // this.heathCheckMonData = Object.assign({}, rowData)
-
-    // console.log("this.heathCheckMonData for edit --", this.heathCheckMonData)
-
+    
   }
   
    /*This method is used to delete selected rows*/

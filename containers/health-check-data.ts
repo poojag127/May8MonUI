@@ -47,5 +47,10 @@ globalPacket:number = 5;
 useProxy:boolean= false;
 overideGlobalSettings:boolean = false;
 instNameHttp:string;
+enableHealthCheckMon:boolean = false;
+
+HttpUrl:string;
+httpUserName:string;
+HttpPwd:string;
 
 }

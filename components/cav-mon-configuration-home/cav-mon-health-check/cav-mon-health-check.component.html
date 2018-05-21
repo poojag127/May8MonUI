@@ -1,5 +1,8 @@
 <p-dialog class="profile-dialog monitor-dialog" [(visible)]="displayDialog"  header="Health Check Monitor Configurations" width="1000"  
    [modal]="false" (onHide)="dialogCloseEvent($event)" [resizable]="true" [responsive]="true">
+   <div class = "ui-g-12">
+      <p-checkbox [(ngModel)]="heathCheckMonData.enableHealthCheckMon" name="enableChkMon" binary=true label="Enable Health Check Monitor" ></p-checkbox>
+   </div>
 
 <div class = "ui-g-12">
   <p-accordion class="monitor-ui-accordion">
@@ -125,49 +128,54 @@
 
 <p-accordion class="monitor-ui-accordion" >
 <p-accordionTab header="Health Check Configuration Data" [selected]= "true">
-    <form  (ngSubmit)="saveData()" #form="ngForm" ngNativeValidate >
-        <p-fieldset  class = "healthChkMonCss"  legend="Configuration" [toggleable]="true"  [collapsed] = "true">
-          <div class = "ui-g-12" style="margin-top: 6px">
+  <form  (ngSubmit)="saveData()" #form="ngForm" ngNativeValidate >
+    <p-fieldset  class = "healthChkMonCss"  legend="Configuration" [toggleable]="true"  [collapsed] = "true">
+      <div class = "ui-g-12" style="margin-top: 6px">
             
-    <div class = "ui-g-12">
-     <div class = "ui-g-2">
-        <label>
-          Tier
-        </label>  
-     </div>
+      <div class = "ui-g-12">
+       <div class = "ui-g-1">
+         <label>
+           Tier
+         </label>  
+      </div>
       
-    <div class ="ui-g-3" >
-      <p-dropdown [style]="{'width':'150px'}" name="list" required
+     <div class ="ui-g-2" >
+       <p-dropdown [style]="{'width':'120px'}" name="list" required
           (onChange) = "onTierChange(heathCheckMonData.tierName)"
             [options]="tierList" placeholder= "--Select Tier--" [(ngModel)]="heathCheckMonData.tierName" >
-      </p-dropdown>
-    </div>
+       </p-dropdown>
+     </div>
           
     <!-- <div class ="ui-g-2" style="width: 10%; margin-left: -26px" [hidden] ="heathCheckMonData.tierName != 'Others'">
       <label>
         Tier Name
       </label>
     </div> -->
-    <!-- <div class ="ui-g-3" [hidden] ="heathCheckMonData.tierName != 'Others'">
-         <input name="tierName" type="text" pInputText [(ngModel)]="heathCheckMonData.customTierName" title="Enter tier name" required ngModel />
-    </div> -->
+    <div class ="ui-g-2" >
+         <input name="tierName" [disabled]="heathCheckMonData.tierName != 'Others'" type="text" pInputText [(ngModel)]="heathCheckMonData.customTierName" title="Enter tier name" required ngModel />
+    </div>
        
 
 
-    <div class = "ui-g-2">
+    <div class = "ui-g-1" style="margin-left: 73px">
       <label>
         Server
       </label>  
     </div>
     
-     <div class ="ui-g-3" >
-        <p-dropdown [style]="{'width':'150px'}" name="lists" required
-            [disabled]="heathCheckMonData.tierServerType == 'custom' || heathCheckMonData.tierName == '' ||heathCheckMonData.tierName == 'Others'" placeholder= "-- Select Server--"  [options]="serverList" [(ngModel)]="heathCheckMonData.serverName" >
+     <div class ="ui-g-2" >
+        <p-dropdown [style]="{'width':'120px'}" name="lists" required
+            [disabled]="heathCheckMonData.tierName == '' ||heathCheckMonData.tierName == 'Others'" placeholder= "-- Select Server--"  [options]="serverList" [(ngModel)]="heathCheckMonData.serverName" >
           </p-dropdown>
+      </div>
+
+      <div class ="ui-g-2">
+          <input name="serverName" type="text" [disabled]="heathCheckMonData.tierName != 'Others'"
+           pInputText [(ngModel)]="heathCheckMonData.customServerName"  title = "Enter server name" ngModel />
       </div>
 </div>
 
-
+<!-- 
  <div class = "ui-g-12">
     <div class ="ui-g-2">
       <label>
@@ -189,7 +197,7 @@
            pInputText [(ngModel)]="heathCheckMonData.customServerName"  title = "Enter server name" ngModel />
         </div>
 
-  </div> 
+  </div>  -->
     
    <div class = "ui-g-12">
        <div class = "ui-g-2">
@@ -198,42 +206,68 @@
            </label>
        </div>
 
-             <div class = "ui-g-3" >
+       
+             <div class = "ui-g-3" style="margin-left: -38px">
                   <p-dropdown name="healthChkList"  [style]="{'width':'120px'}"
                     [options]="healthCheckList" [(ngModel)]="heathCheckMonData.healthCheckType" >
                    </p-dropdown>
               </div>
-
-           <div class = "ui-g-2">
-               <label>Host</label>
-             </div>
-             <div class ="ui-g-3" > 
-                <input name="host" type="text"  pInputText [(ngModel)]="heathCheckMonData.host" ngModel />
-             </div>
-             </div>
-
-      
+   </div>
    <div class = "ui-g-12">
-             <div class = "ui-g-2">
-                <label>Port</label>
-              </div>
-              <div class = "ui-g-3" >
-                 <input name="port" type="text" [disabled]="heathCheckMonData.healthCheckType == 'Ping' " pInputText [(ngModel)]="heathCheckMonData.port" ngModel />
-              </div>
-</div>
-         <div class = "ui-g-12">
-            <p-accordion class="monitor-ui-accordion">
-                <p-accordionTab header="Advance Settings">
-                  <div class = "ui-g-12">
-                       <p-checkbox [(ngModel)]="heathCheckMonData.overideGlobalSettings"  name="overide" 
-                        binary=true label="Override global health check settings"  (click)="overrideGlobalSettings()" ></p-checkbox>
-                    </div>
+    <div class = "ui-g-2">
+        <label>Host</label>
+     </div>
+       <div class ="ui-g-3" style="margin-left: -82px"> 
+         <input name="host" type="text"  pInputText [(ngModel)]="heathCheckMonData.hostName"  autofocus required ngModel />
+     </div>
 
-                 <div class = "ui-g-12" style= "border: 1px solid; margin-top: 10px" [hidden]='heathCheckMonData.healthCheckType != "Ping"'>
-                     <div class="ui-g-2">
-                       <label>Packet Count</label>
-                     </div>
-                 <div class = "ui-g-3">
+
+    <div class = "ui-g-2">
+          <label>Port</label>
+    </div>
+    <div class = "ui-g-3" style="margin-left: -68px" >
+         <input name="port" type="text" [disabled]="heathCheckMonData.healthCheckType == 'Ping' "
+         autofocus required pInputText [(ngModel)]="heathCheckMonData.port" ngModel />
+    </div>
+ </div>
+
+ <div class = "ui-g-12">
+    <div class = "ui-g-2">
+        <label>URL</label>
+     </div>
+       <div class ="ui-g-3" style="margin-left: -82px" > 
+         <input name="url" type="text" [disabled]="heathCheckMonData.healthCheckType != 'HTTP' "  pInputText [(ngModel)]="heathCheckMonData.HttpUrl" ngModel />
+     </div>
+
+
+    <div class = "ui-g-2">
+          <label>User Name</label>
+    </div>
+    <div class = "ui-g-3" style="margin-left: -68px">
+         <input name="usrNme" type="text" [disabled]="heathCheckMonData.healthCheckType != 'HTTP' " pInputText [(ngModel)]="heathCheckMonData.httpUserName" ngModel />
+    </div>
+
+    
+    <div class = "ui-g-2">
+        <label>Password</label>
+  </div>
+  <div class = "ui-g-3" style="margin-left: -68px">
+       <input name="psswrd" type="password"  pInputText [disabled]="heathCheckMonData.healthCheckType != 'HTTP' "  [(ngModel)]="heathCheckMonData.HttpPwd" ngModel />
+  </div>
+ </div>
+
+  <div class = "ui-g-12">
+    <p-accordion class="monitor-ui-accordion">
+      <p-accordionTab header="Advance Settings">
+         <div class = "ui-g-12">
+              <p-checkbox [(ngModel)]="heathCheckMonData.overideGlobalSettings"  name="overide" 
+                 binary=true label="Override global health check settings"  (click)="overrideGlobalSettings()" ></p-checkbox>
+          </div>
+          <div class = "ui-g-12" style= "border: 1px solid; margin-top: 10px" [hidden]='heathCheckMonData.healthCheckType != "Ping"'>
+              <div class="ui-g-2">
+                 <label>Packet Count</label>
+             </div>
+          <div class = "ui-g-3">
                    <input name="packet" type="number"  pInputText [(ngModel)]="heathCheckMonData.pingPkt" autofocus required ngModel />
                  </div>
 
@@ -279,7 +313,7 @@
                 <label>User Name</label>
               </div>
               <div class ="ui-g-3">
-                 <input name="user" type="text"  pInputText [(ngModel)]="heathCheckMonData.httpUser" 
+                 <input name="usrname" type="text"  pInputText [(ngModel)]="heathCheckMonData.httpUser" 
                    pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$"  ngModel />
               </div>
       
@@ -287,7 +321,7 @@
                 <label>Password</label>
               </div>
               <div class ="ui-g-3">
-                 <input name="passwrd" type="password"
+                 <input name="pswrd" type="password"
                   pInputText [(ngModel)]="heathCheckMonData.httpPwd" 
                    ngModel />
               </div>
@@ -295,7 +329,7 @@
               <div class = "ui-g-2">
                   <label>Status Code</label>
                 </div>
-                <div class ="ui-g-3">
+                <div class ="ui-g-3" style="margin-left: -70px;">
                    <input name="statusCode" type="text"  pInputText title="Comma separated list of status code"
                    [(ngModel)]="heathCheckMonData.httpSc" ngModel />
                 </div>
@@ -303,8 +337,8 @@
                 <div class = "ui-g-2">
                     <label>Instance</label>
                   </div>
-                  <div class ="ui-g-3">
-                     <input name="inst" type="text"  pInputText [(ngModel)]="heathCheckMonData.instNameHttp"
+                  <div class ="ui-g-3" style="margin-left: -70px;">
+                     <input name="instnce" type="text"  pInputText [(ngModel)]="heathCheckMonData.instNameHttp"
                        ngModel />
                   </div>
             </div>
