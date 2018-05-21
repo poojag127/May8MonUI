@@ -227,7 +227,7 @@
           <label>Port</label>
     </div>
     <div class = "ui-g-3" style="margin-left: -68px" >
-         <input name="port" type="text" [disabled]="heathCheckMonData.healthCheckType == 'Ping' "
+         <input name="port" type="number" [disabled]="heathCheckMonData.healthCheckType == 'Ping' "
          autofocus required pInputText [(ngModel)]="heathCheckMonData.port" ngModel />
     </div>
  </div>
@@ -357,6 +357,24 @@
                   <div class ="ui-g-3" style="margin-left: -70px">
                      <input name="instnce" type="text"  pInputText  [(ngModel)]="heathCheckMonData.instName"
                        ngModel />
+                </div>
+
+                <div class= "ui-g-12" style="margin-left: -6px;">
+                    <div class = "ui-g-2">
+                        <label>Connection Time Out</label>
+                      </div>
+                      <div class ="ui-g-2" style="margin-left: -22px">
+                         <input name="cto" type="number"  pInputText style="width: 132px"
+                         [(ngModel)]="heathCheckMonData.httpCTO" ngModel />
+                      </div>
+      
+                      <div class = "ui-g-2" style=" margin-left: 15px">
+                          <label>Response Time Out</label>
+                        </div>
+                        <div class ="ui-g-3" >
+                           <input name="rto" style="width: 118px; margin-left: -23px;" type="number"  pInputText  [(ngModel)]="heathCheckMonData.httpRTO"
+                             ngModel />
+                      </div>
                 </div>
           </div>
           </p-accordionTab>       
