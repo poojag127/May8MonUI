@@ -107,7 +107,7 @@ export class MonHealthCheckService {
 
 
 
-    savehealthCheckData(heathCheckMonitorData,GlobalProps)
+    savehealthCheckData(heathCheckMonitorData,globalProps,enableHealthCheckMon)
     {
       let cache = [];
       let data =[];
@@ -137,17 +137,11 @@ export class MonHealthCheckService {
          return data2;
       });
       console.log("cache = ",cache)
-     
-      //   cache = null;
-      //  downlaodAlert.baselineDataMap = dataObj;
-      //   downlaodAlert.arrRules = null;
-       console.log("heathCheckMonitorData",heathCheckMonitorData)
-
+      console.log("heathCheckMonitorData",heathCheckMonitorData)
       let test = data.map(function(each)
       {
         return JSON.parse(each);
       })
-      console.log("test = ",test)
 
       console.log("data = ",heathCheckMonitorData)
       console.log("data = ",data)
@@ -156,11 +150,9 @@ export class MonHealthCheckService {
         'topoName': this.monConfigServiceObj.getTopoName(),
         'jsonName': this.monConfigServiceObj.getProfileName(),
         'userName': this.monDataService.getUserName(),
-        // 'testRunNum': this.monDataService.getTestRunNum().toString(),
-        // 'monMode': this.monDataService.getMonMode().toString(),
-        // 'customConfiguratons':{"data":[{"leaf":true}]},
-         'customConfiguratons':{"data":test},
-        'globalConfiguration':GlobalProps
+        'customConfiguratons':{"data":test},
+        'globalConfiguration':globalProps,
+        'enabled':enableHealthCheckMon
       };
   
     return this._restApi.getDataByPostReq(url, params)

@@ -500,7 +500,7 @@ export class CavMonHealthCheckComponent implements OnInit {
     console.log("globalConfiguration= ", this.globalProps)
 
     // let configuredData =  JSON.parse(JSON.stringify(this.heathCheckMonitorData));
-    this.healthChkMonServiceObj.savehealthCheckData(this.heathCheckMonitorData,this.globalProps)
+    this.healthChkMonServiceObj.savehealthCheckData(this.heathCheckMonitorData,this.globalProps,this.heathCheckMonData.enableHealthCheckMon)
         .subscribe(data =>{
       console.log("data = ",data)
     });
