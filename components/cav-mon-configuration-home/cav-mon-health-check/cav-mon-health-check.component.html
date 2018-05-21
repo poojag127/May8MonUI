@@ -237,7 +237,7 @@
         <label>URL</label>
      </div>
        <div class ="ui-g-3" style="margin-left: -82px" > 
-         <input name="url" type="text" [disabled]="heathCheckMonData.healthCheckType != 'HTTP' " 
+         <input name="url" type="text" [disabled]="heathCheckMonData.healthCheckType != 'Http' " 
           autofocus required
           pInputText [(ngModel)]="heathCheckMonData.url" ngModel />
      </div>
@@ -249,7 +249,7 @@
     <div class = "ui-g-3" style="margin-left: -68px">
          <input name="usrNme" type="text" 
           autofocus required
-         [disabled]="heathCheckMonData.healthCheckType != 'HTTP' " 
+         [disabled]="heathCheckMonData.healthCheckType != 'Http' " 
          pInputText [(ngModel)]="heathCheckMonData.user" ngModel />
     </div>
 
@@ -259,7 +259,7 @@
   </div>
   <div class = "ui-g-3" style="margin-left: -68px">
        <input name="psswrd" type="password" 
-        autofocus required pInputText [disabled]="heathCheckMonData.healthCheckType != 'HTTP' "  [(ngModel)]="heathCheckMonData.pwd" ngModel />
+        autofocus required pInputText [disabled]="heathCheckMonData.healthCheckType != 'Http' "  [(ngModel)]="heathCheckMonData.pwd" ngModel />
   </div>
  </div>
 
@@ -308,47 +308,57 @@
 
           </div>     
       
-          <div class= "ui-g-12" style= "border: 1px solid" [hidden]='heathCheckMonData.healthCheckType != "HTTP"'>
-              <div class="ui-g-1">
+          <div class= "ui-g-12" style= "border: 1px solid" [hidden]='heathCheckMonData.healthCheckType != "Http"'>
+              <div class="ui-g-2">
                  <label>Proxy URL </label>
               </div>
-              <div class ="ui-g-3">
+              <div class ="ui-g-2" style="margin-left: -43px">
                 <input name="url" type="text"  pInputText [(ngModel)]="heathCheckMonData.httpUrl"   ngModel />
               </div>
       
-              <div class = "ui-g-1">
+              <div class = "ui-g-2" style="margin-left: 31px">
                 <label>User Name</label>
               </div>
-              <div class ="ui-g-3">
+              <div class ="ui-g-2" style="margin-left: -58px">
                  <input name="usrname" type="text"  pInputText [(ngModel)]="heathCheckMonData.httpUser" 
                    pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$"  ngModel />
               </div>
       
-               <div class = "ui-g-1">
+               <div class = "ui-g-2" style="margin-left: 33px">
                 <label>Password</label>
               </div>
-              <div class ="ui-g-3">
+              <div class ="ui-g-2" style="margin-left: -70px">
                  <input name="pswrd" type="password"
                   pInputText [(ngModel)]="heathCheckMonData.httpPwd" 
                    ngModel />
               </div>
-    
-              <div class = "ui-g-2">
+
+              <div class = "ui-g-2" >
+                  <label>Confirm Password</label>
+                </div>
+                <div class ="ui-g-2" style="margin-left: -43px">
+                   <input name="pssword" type="password"
+                    pInputText [(ngModel)]="heathCheckMonData.httpCnfrmPwd" 
+                     ngModel />
+                </div>
+        
+  
+              <div class = "ui-g-2"  style="margin-left: 31px">
                   <label>Status Code</label>
                 </div>
-                <div class ="ui-g-3" style="margin-left: -70px;">
+                <div class ="ui-g-2" style="margin-left: -58px">
                    <input name="statusCode" type="text"  pInputText title="Comma separated list of status code"
                    [(ngModel)]="heathCheckMonData.httpSc" ngModel />
                 </div>
 
-                <div class = "ui-g-2">
+                <div class = "ui-g-2" style="margin-left: 33px">
                     <label>Instance</label>
                   </div>
-                  <div class ="ui-g-3" style="margin-left: -70px;">
+                  <div class ="ui-g-3" style="margin-left: -70px">
                      <input name="instnce" type="text"  pInputText  [(ngModel)]="heathCheckMonData.instName"
                        ngModel />
-                  </div>
-            </div>
+                </div>
+          </div>
           </p-accordionTab>       
         </p-accordion>   
       </div>

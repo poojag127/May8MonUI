@@ -31,6 +31,7 @@ export class HealthCheckMonData
  httpUrl:string = "NA";
  httpUser:string = "NA";
  httpPwd:string ="NA";
+ httpCnfrmPwd:string;
  httpTP:number=5;
  httpSc:string ="301,302"; 
  arguments:string = "false";

@@ -85,7 +85,7 @@ export class CavMonHealthCheckComponent implements OnInit {
     console.log("Method ngOnInit called, heathCheckMonitorData = " , this.heathCheckMonitorData +  "and global = ", this.globalProps);
     // if(this.heathChheckMonitorData != undefined && this.globalProps != undefined)
     this.globalProps = new GlobalProps();
-    // this.healthChkMonServiceObj.getHealthChkMonData( this.globalProps);
+    // this.healthChkMonServiceObj.getHealthChkMonData(this.globalProps);
 
     console.log("globalProps = ",this.globalProps)
     console.log("proifile Name = ", this.monConfServiceObj.topoName, this.monConfServiceObj.profileName, this.monDataService.userName);
@@ -111,7 +111,7 @@ export class CavMonHealthCheckComponent implements OnInit {
 
     //creating dropdown list for health check type
     let healthChkLabel = ['Ping', 'HTTP', 'Socket'];
-    let healthCheckVal = ['Ping', 'HTTP', 'Socket'];
+    let healthCheckVal = ['Ping', 'Http', 'Socket'];
     this.healthCheckList = UtilityService.createListWithKeyValue(healthChkLabel, healthCheckVal);
 
     
@@ -169,7 +169,7 @@ export class CavMonHealthCheckComponent implements OnInit {
 
   validateData(heathCheckMonData)
   {
-
+   console.log("Method validateData= ", heathCheckMonData)
    if(heathCheckMonData.healthCheckType == "Socket" ||heathCheckMonData.healthCheckType == "Http")
    {
      if(heathCheckMonData.instName == '')
@@ -289,7 +289,7 @@ export class CavMonHealthCheckComponent implements OnInit {
    else if(this.heathCheckMonData.healthCheckType == "Socket")
      healthChkTypeString = "Host = " +this.heathCheckMonData.host  +",Port = " + this.heathCheckMonData.port + " TimeOut = " + this.heathCheckMonData.sockeTo   +  ", Instance Name = " + this.heathCheckMonData.instName;
 
-   else if(this.heathCheckMonData.healthCheckType == "HTTP")
+   else if(this.heathCheckMonData.healthCheckType == "Http")
       healthChkTypeString = "Host = " +this.heathCheckMonData.host  + ",Port = " + this.heathCheckMonData.port + 
                             ", Url = " + this.heathCheckMonData.url + ", User Name = " +  this.heathCheckMonData.user + 
                             ", Password = " + this.heathCheckMonData.httpPwd + this.heathCheckMonData.pwd + 
@@ -472,7 +472,7 @@ export class CavMonHealthCheckComponent implements OnInit {
    else if(this.heathCheckMonData.healthCheckType == "Socket")
      healthChkTypeString = "TimeOut = " + this.heathCheckMonData.sockeTo   +  ", Instance Name = " + this.heathCheckMonData.instanceName ;
 
-   else if(this.heathCheckMonData.healthCheckType == "HTTP")
+   else if(this.heathCheckMonData.healthCheckType == "Http")
       healthChkTypeString = "Url = " + this.heathCheckMonData.httpUser + ", User Name = " + this.heathCheckMonData.httpUser + ", Password = " + this.heathCheckMonData.httpPwd + ", Status Code = " + this.heathCheckMonData.httpSc;
      
     let arr = [];
