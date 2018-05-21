@@ -46,5 +46,6 @@ globalPacket:number = 5;
 
 useProxy:boolean= false;
 overideGlobalSettings:boolean = false;
+instNameHttp:string;
 
 }

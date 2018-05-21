@@ -188,10 +188,25 @@ export class CavMonHealthCheckComponent implements OnInit {
    let id = treeTableData.length + 1 + "";
    this.tierNode = new HealthCheckTableData();
    
+   let tierName;
+   if(this.heathCheckMonData.tierName != "Others")
+    tierName  = this.heathCheckMonData.tierName;
+   else
+    tierName  = this.heathCheckMonData.customTierName;
 
-   let tierName = this.heathCheckMonData.tierName;
+      console.log("tierName = " , tierName)
+
+  //  let tierName = this.heathCheckMonData.tierName;
    console.log("this.heathCheckMonData.tierName = " , this.heathCheckMonData.tierName)
-   let serverName = this.heathCheckMonData.serverName;
+   let serverName;
+   if(this.heathCheckMonData.tierName != "Others")
+    serverName  = this.heathCheckMonData.serverName;
+   else
+    serverName  = this.heathCheckMonData.customServerName;
+
+
+    //let  serverName = this.heathCheckMonData.serverName;
+    console.log("serverName= ", serverName)
    console.log("this.heathCheckMonData.serverName = " , this.heathCheckMonData.serverName)
    let healthCheckTypeName = this.heathCheckMonData.healthCheckType;
 
@@ -203,7 +218,7 @@ export class CavMonHealthCheckComponent implements OnInit {
     let arr2 = [];
     arr2.push(this.globalProps);
     console.log("this = ",this.tierNode)
-    let tierNode  = { "nodeName":tierName,
+    let tierNode  = { "nodeName": tierName,
                       "arguments":this.heathCheckMonData.enableTier? "true":"false",
                       "leaf":false,
                       "instanceInfo":arr2,
@@ -239,7 +254,7 @@ export class CavMonHealthCheckComponent implements OnInit {
      healthChkTypeString = "Host = " +this.heathCheckMonData.hostName  +",Port = " + this.heathCheckMonData.port + " TimeOut = " + this.heathCheckMonData.sockeTo   +  ", Instance Name = " + this.heathCheckMonData.instName + ", Host = " + this.heathCheckMonData.hostName  
 
    else if(this.heathCheckMonData.healthCheckType == "HTTP")
-      healthChkTypeString = "Url = " + this.heathCheckMonData.httpUser + ", User Name = " + this.heathCheckMonData.httpUser + ", Password = " + this.heathCheckMonData.httpPwd + ", Status Code = " + this.heathCheckMonData.httpSc;
+      healthChkTypeString = "Url = " + this.heathCheckMonData.httpUser + ", User Name = " + this.heathCheckMonData.httpUser + ", Password = " + this.heathCheckMonData.httpPwd + ", Status Code = " + this.heathCheckMonData.httpSc + ", Instance = " +this.heathCheckMonData.instNameHttp;
      
     let arr = [];
     arr.push(this.heathCheckMonData);
@@ -292,7 +307,7 @@ export class CavMonHealthCheckComponent implements OnInit {
    
      this.heathCheckMonitorData = ImmutableArray.push(this.heathCheckMonitorData, newTierNode);
      console.log(" this.heathCheckMonitorData = ", this.heathCheckMonitorData)
-     this.messageService.successMessage("You have successfully added health check monitor");
+    
      this.healthChkMonServiceObj.setHealthCheckTreeTableData( this.heathCheckMonitorData );
      this.heathCheckMonData = new HealthCheckMonData();
   }
@@ -321,7 +336,7 @@ export class CavMonHealthCheckComponent implements OnInit {
          {
            if(healthCheckTypeName == "Ping")
            {
-             this.messageService.errorMessage("This health Check  is already configured on tier" + tierName + " server" + serverName );
+             this.messageService.errorMessage("This health check  is already configured on tier " + tierName + " server " + serverName );
              return false;
            }
            else{
@@ -329,7 +344,7 @@ export class CavMonHealthCheckComponent implements OnInit {
              let key = tierName+serverName+this.heathCheckMonData.instName;
              if(this.uniqueKey.indexOf(key) != -1)
              {
-              this.messageService.errorMessage("This health Check  is already configured on tier" + tierName + " server" + serverName + "and  instance =" + this.heathCheckMonData.instName);
+              this.messageService.errorMessage("This health check  is already configured on tier " + tierName + " server " + serverName + "and  instance " + this.heathCheckMonData.instName);
               return ;
              }
              else{
@@ -351,7 +366,9 @@ export class CavMonHealthCheckComponent implements OnInit {
     }
 
   }
-   
+  // console.log("arguments finally = " , this.healthCheckTableData.arguments)
+  this.messageService.successMessage("You have successfully added health check monitor");
+
 }
 
 
@@ -495,5 +512,12 @@ export class CavMonHealthCheckComponent implements OnInit {
        }
      });
  
+   }
+
+   overrideGlobalSettings()
+   {
+    console.log("Method overrideGlobalSettings =", this.globalProps)
+    
+
    }
 }

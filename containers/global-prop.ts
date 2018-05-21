@@ -8,10 +8,10 @@ export class GlobalProps
  instName:string = "NA";
  host:string= "NA";
  arguments:string = "NA";
- pingPkt:number =5;
- pingIntrvl:number = 0.2;
+ pingPkt:number =3;
+ pingIntrvl:number = 10;
  pingTP :number = 32;
- socketTo:number = 10;
+ sockeTo:number = 10;
  socketTP:string = "5";
  httpUrl:string ="NA";
  httpUser:string="NA";
