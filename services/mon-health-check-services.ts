@@ -161,23 +161,23 @@ export class MonHealthCheckService {
         // 'customConfiguratons':{"data":[{"leaf":true}]},
          'customConfiguratons':{"data":test},
         'globalConfiguration':GlobalProps
-        // 'role':this.monDataService.$userRole
       };
   
     return this._restApi.getDataByPostReq(url, params)
     }    
 
-    getHealthChkMonData(GlobalProp)
+    getHealthChkMonData(globalProp)
     {
        let url = this.monDataService.getserviceURL() + URL.GET_HEALTH_CHECK_DATA + "?productKey=" + this.monDataService.getProductKey();
+       console.log("Method getHealthChkMonData calleed ",url)
        let params = {
         'topoName': this.monConfigServiceObj.getTopoName(),
         'jsonName': this.monConfigServiceObj.getProfileName(),
         'userName': this.monDataService.getUserName(),
         'customConfiguratons':{'data':[]},
-        'globalConfiguration':GlobalProp
-    
+        'globalConfiguration':globalProp
       };
-         return this._restApi.getDataByPostReq(url, params)
+       return this._restApi.getDataByPostReq(url, params)
       }
+     
   }

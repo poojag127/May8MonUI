@@ -85,7 +85,9 @@ export class CavMonHealthCheckComponent implements OnInit {
     console.log("Method ngOnInit called, heathCheckMonitorData = " , this.heathCheckMonitorData +  "and global = ", this.globalProps);
     // if(this.heathChheckMonitorData != undefined && this.globalProps != undefined)
     this.globalProps = new GlobalProps();
-    // this.healthChkMonServiceObj.getHealthChkMonData(this.globalProps);
+    this.healthChkMonServiceObj.getHealthChkMonData(this.globalProps).subscribe(data =>{
+      console.log("data = ",data)
+    })
 
     console.log("globalProps = ",this.globalProps)
     console.log("proifile Name = ", this.monConfServiceObj.topoName, this.monConfServiceObj.profileName, this.monDataService.userName);
@@ -675,11 +677,12 @@ export class CavMonHealthCheckComponent implements OnInit {
     else if(this.heathCheckMonData.healthCheckType == "Socket")
      healthChkTypeString = "Host = " +this.heathCheckMonData.host  +",Port = " + this.heathCheckMonData.port + " TimeOut = " + this.heathCheckMonData.sockeTo   +  ", Instance Name = " + this.heathCheckMonData.instName;
 
-    else if(this.heathCheckMonData.healthCheckType == "HTTP")
+    else if(this.heathCheckMonData.healthCheckType == "Http")
       healthChkTypeString = "Host = " +this.heathCheckMonData.host  + ",Port = " + this.heathCheckMonData.port + 
                             ", Url = " + this.heathCheckMonData.url + ", User Name = " +  this.heathCheckMonData.user + 
-                            ", Password = " + this.heathCheckMonData.httpPwd + this.heathCheckMonData.pwd + 
-                            ", Status Code = " + this.heathCheckMonData.httpSc + ", Instance = " +this.heathCheckMonData.instName;
+                            ", Password = " + this.heathCheckMonData.pwd + 
+                            ", Status Code = " + this.heathCheckMonData.httpSc + ", Instance = " +this.heathCheckMonData.instName
+                            ",Connection TimeOut ="+ this.heathCheckMonData.httpCTO + " ,Response TimeOut = "+ this.heathCheckMonData.httpRTO;
 
   
      healthCheckTypeNode.data.arguments = healthChkTypeString;

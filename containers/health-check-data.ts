@@ -45,4 +45,6 @@ enableHealthCheckMon:boolean = false;
 url:string='';
 user:string;
 
+httpCTO:number = 10;
+httpRTO:number = 30;
 }
