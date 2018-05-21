@@ -35,17 +35,13 @@ export class HealthCheckMonData
  httpSc:string ="301,302"; 
  arguments:string = "false";
 
-// globalInterval:number = 200;
-// globalThreadPool:number = 5;
-// globalTimeOut:number = 0.2;
-// globalProxyUrl:string = "NA";
-// globalUserName:string;
-// gloabalPwd:string;
-// gloabalThrdPool:number = 10;
-// globalStatusCode:string;
 
 useProxy:boolean= false;
 overideGlobalSettings:boolean = false;
 instNameHttp:string;
+enableHealthCheckMon:boolean = false;
+
+url:string;
+user:string;
 
 }

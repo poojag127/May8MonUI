@@ -167,4 +167,73 @@ export class MonHealthCheckService {
     return this._restApi.getDataByPostReq(url, params)
     }    
 
-}
+    // getHealthChkMonData()
+    // {
+    //   console.log("Method getHealthChkMonData called, heathCheckMonitorData = " + heathCheckMonitorData + "and GlobalProps =" , GlobalProps) 
+    //   let url = this.monDataService.getserviceURL() + URL.GET_HEALTH_CHECK_DATA + "?productKey=" + this.monDataService.getProductKey() + "&customConfiguratons=" + heathCheckMonitorData + "&globalConfiguration="+ GlobalProps;
+    //   console.log("url for getHealthChkMonData health Chk Mon --", url)
+    //   return this._restApi.getDataByGetReq(url);
+
+    // }
+
+    getHealthChkMonData(GlobalProp): Promise<any>
+    {
+      // let cache = [];
+      // let data =[];
+      // let returnDatap;
+      // returnDatap = heathCheckMonitorData.map(function(each)
+      // {
+      //   let data2:{};
+      //   data2= JSON.stringify(each, function(key, value)
+      //   {
+      //     if (typeof value === 'object' && value !== null)
+      //     {
+      //       if (cache.indexOf(value) !== -1)
+      //       {
+      //         // Circular reference found, discard key
+      //         return;
+      //       }
+      //       // Store value in our collection
+      //       cache.push(value);
+      //     }
+      //     console.log("value = ",value)
+      //     return value;
+      //   });
+
+      //   console.log("data2 = ",data2)
+      //    data.push(data2);
+      //    console.log('data==',data)
+      //    return data2;
+      // });
+      // console.log("cache = ",cache)
+
+      //  console.log("heathCheckMonitorData",heathCheckMonitorData)
+
+      // let test = data.map(function(each)
+      // {
+      //   return JSON.parse(each);
+      // })
+      // console.log("test = ",test)
+
+      // console.log("data = ",heathCheckMonitorData)
+      // console.log("data = ",data)
+      console.log("this.monConfigServiceObj.getTopoName()) =" , this.monConfigServiceObj.getTopoName())
+       let url = this.monDataService.getserviceURL() + URL.GET_HEALTH_CHECK_DATA + "?productKey=" + this.monDataService.getProductKey();;
+       let params: URLSearchParams = new URLSearchParams();
+       params.set('topoName', this.monConfigServiceObj.getTopoName());
+       params.set('jsonName', this.monConfigServiceObj.getProfileName());
+       params.set('userName', this.monDataService.getUserName());
+       params.set('customConfiguratons', "{'data':[]}");
+       params.set('globalConfiguration', GlobalProp)
+       params.set('productKey', this.monDataService.getProductKey());
+
+       console.log("params = " + params)
+       console.log("url =  ", url)
+       return this.http.get(url, { search: params }).map(res => res.json())
+       .toPromise()
+       .then(res => {
+     
+       }).
+       catch(this.handleError);
+   }
+  }
