@@ -684,7 +684,7 @@ export class CavMonHealthCheckComponent implements OnInit {
   
      healthCheckTypeNode.data.arguments = healthChkTypeString;
      let arr = [];
-     arr.push(healthCheckTypeNode);
+     arr.push(healthCheckMonData);
      healthCheckTypeNode.data.instanceInfo = arr;
    }
 
