@@ -39,7 +39,7 @@
      </div>
    </div>
 
-  <div class= "ui-g-12" style="margin-left: 36px">
+  <div class= "ui-g-12" style=" margin-left: 13px">
     <div class= "ui-g-12">
       <div class="ui-g-2">
          <label>Proxy Host:Port </label>
@@ -72,7 +72,7 @@
       <div class = "ui-g-2">
         <label>Connection Time Out</label>
       </div>
-      <div class ="ui-g-2">
+      <div class ="ui-g-2" style="margin-left: -31px">
         <input name="timeOut" type="number" style="width: 77%" pInputText [(ngModel)]="globalProps.httpCTO" ngModel/>
         <span>
             (sec)
@@ -80,7 +80,7 @@
       </div>
 
             
-      <div class = "ui-g-2" style = "margin-left: 36px">
+      <div class = "ui-g-2" style = "margin-left: 9px">
           <label>Response Time Out </label>
         </div>
         <div class ="ui-g-2" >
@@ -90,10 +90,10 @@
             </span>
         </div>
 
-        <div class="ui-g-2" style="margin-left: -19px">
+        <div class="ui-g-2" style="margin-left: -11px">
             <label>Thread Pool Size</label>
           </div>
-          <div class = "ui-g-2" style="margin-left: -59px">
+          <div class = "ui-g-2" style="margin-left: -34px">
              <input name="threadPool"  style="width: 70%"  type="number"  pInputText [(ngModel)]="globalProps.httpTP"  ngModel />
            </div>
     </div>
@@ -208,13 +208,7 @@
                <label>Host</label>
              </div>
              <div class ="ui-g-3" > 
-<<<<<<< HEAD
-                <input name="host" type="text" [disabled]="heathCheckMonData.healthCheckType == 'HTTP'" 
-                autofocus
-                required pInputText [(ngModel)]="heathCheckMonData.host" ngModel />
-=======
                 <input name="host" type="text"  pInputText [(ngModel)]="heathCheckMonData.host" ngModel />
->>>>>>> 18567371ed83271113f66dd0a8dbae6d871eb534
              </div>
              </div>
 
@@ -223,15 +217,8 @@
              <div class = "ui-g-2">
                 <label>Port</label>
               </div>
-<<<<<<< HEAD
-              <div class = "ui-g-3" style="margin-left: -83px">
-                 <input name="port" type="text" 
-                 [disabled]="heathCheckMonData.healthCheckType == 'Ping' || heathCheckMonData.healthCheckType == 'HTTP' " pInputText 
-                 [(ngModel)]="heathCheckMonData.port" ngModel />
-=======
               <div class = "ui-g-3" >
                  <input name="port" type="text" [disabled]="heathCheckMonData.healthCheckType == 'Ping' " pInputText [(ngModel)]="heathCheckMonData.port" ngModel />
->>>>>>> 18567371ed83271113f66dd0a8dbae6d871eb534
               </div>
 </div>
          <div class = "ui-g-12">
