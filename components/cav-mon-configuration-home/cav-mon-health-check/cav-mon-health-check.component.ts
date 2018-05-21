@@ -226,7 +226,7 @@ export class CavMonHealthCheckComponent implements OnInit {
    else
     tierName  = this.heathCheckMonData.customTierName;
 
-      console.log("tierName = " , tierName)
+    console.log("tierName = " , tierName)
 
   //  let tierName = this.heathCheckMonData.tierName;
    console.log("this.heathCheckMonData.tierName = " , this.heathCheckMonData.tierName)
@@ -624,10 +624,30 @@ export class CavMonHealthCheckComponent implements OnInit {
  
    }
 
-   overrideGlobalSettings()
+   overrideGlobalSettings(value)
    {
     console.log("Method overrideGlobalSettings =", this.globalProps)
     console.log("this.healhChkMOnData = ",this.heathCheckMonData)
+    if(value)
+    {
+      this.heathCheckMonData.httpUrl = this.globalProps.httpUrl;
+      this.heathCheckMonData.httpUser = this.globalProps.httpUser;
+      this.heathCheckMonData.httpPwd = this.globalProps.httpPwd;
+      this.heathCheckMonData.statusCode = this.globalProps.httpSc;
+      this.heathCheckMonData.pingIntrvl = this.globalProps.pingIntrvl;
+      this.heathCheckMonData.pingPkt = this.globalProps.pingPkt;
+      this.heathCheckMonData.sockeTo = this.globalProps.sockeTo;
+    }
+    else
+    {
+      this.heathCheckMonData.httpUrl = '';
+      this.heathCheckMonData.httpUser = '';
+      this.heathCheckMonData.httpPwd ='';
+      this.heathCheckMonData.statusCode = '';
+      this.heathCheckMonData.pingIntrvl = 0.2;
+      this.heathCheckMonData.pingPkt = 5;
+      this.heathCheckMonData.sockeTo = 10;
+    }
 
    }
 
