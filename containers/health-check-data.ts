@@ -33,7 +33,7 @@ export class HealthCheckMonData
  httpPwd:string= "";
  httpCnfrmPwd:string = "";
  httpTP:number=5;
- httpSc:string ="301,302"; 
+ httpSc:string ="2xx"; 
  arguments:string = "false";
 
 

@@ -387,6 +387,7 @@
       <div class="ui-g-12" style="margin-top: 7px">
           <button type="submit" pButton icon="fa-check" style="width: 63px ; float: right"  *ngIf="!editMode" label="Add"></button>
           <button type="submit" pButton icon="fa-check" style="width: 63px ; float: right" *ngIf="editMode" label="Update"></button>
+          <button type="button" pButton icon="fa-close" style="width: 93px ; float: right" (click)="closeConfiguration()"  *ngIf="editMode" label="Cancel"></button>
       </div>
     </div>
   </p-fieldset>
