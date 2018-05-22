@@ -318,8 +318,7 @@ export class CavMonHealthCheckComponent implements OnInit {
      healthChkTypeString = "Host = " +this.heathCheckMonData.host  +",Port = " + this.heathCheckMonData.port + " TimeOut = " + this.heathCheckMonData.sockeTo   +  ", Instance Name = " + this.heathCheckMonData.instName;
 
    else if(this.heathCheckMonData.healthCheckType == "Http")
-      healthChkTypeString = "Host = " +this.heathCheckMonData.host  + ",Port = " + this.heathCheckMonData.port + 
-                            ", Url = " + this.heathCheckMonData.url + ", User Name = " +  this.heathCheckMonData.user + 
+      healthChkTypeString = "Url = " + this.heathCheckMonData.url + ", User Name = " +  this.heathCheckMonData.user + 
                             ", Password = " +  this.heathCheckMonData.pwd + 
                             ", Status Code = " + this.heathCheckMonData.httpSc + ", Instance = " +this.heathCheckMonData.instName;
      
@@ -525,6 +524,12 @@ export class CavMonHealthCheckComponent implements OnInit {
     console.log("method finalSubmit =", this.heathCheckMonitorData )
     let customConfiguratons = this.heathCheckMonitorData;
     console.log("customConfiguratons =", customConfiguratons)
+
+    if(customConfiguratons.length == 0)
+    {
+      this.messageService.errorMessage("Server Health monitor is not configured");
+      return ;
+    }
      
     this.heathCheckMonData =  new HealthCheckMonData();
     console.log("globalConfiguration= ", this.globalProps)
@@ -705,8 +710,7 @@ export class CavMonHealthCheckComponent implements OnInit {
      healthChkTypeString = "Host = " +this.heathCheckMonData.host  +",Port = " + this.heathCheckMonData.port + " TimeOut = " + this.heathCheckMonData.sockeTo   +  ", Instance Name = " + this.heathCheckMonData.instName;
 
     else if(this.heathCheckMonData.healthCheckType == "Http")
-      healthChkTypeString = "Host = " +this.heathCheckMonData.host  + ",Port = " + this.heathCheckMonData.port + 
-                            ", Url = " + this.heathCheckMonData.url + ", User Name = " +  this.heathCheckMonData.user + 
+      healthChkTypeString =  " Url = " + this.heathCheckMonData.url + ", User Name = " +  this.heathCheckMonData.user + 
                             ", Password = " + this.heathCheckMonData.pwd + 
                             ", Status Code = " + this.heathCheckMonData.httpSc + ", Instance = " +this.heathCheckMonData.instName
                             ",Connection TimeOut ="+ this.heathCheckMonData.httpCTO + " ,Response TimeOut = "+ this.heathCheckMonData.httpRTO;

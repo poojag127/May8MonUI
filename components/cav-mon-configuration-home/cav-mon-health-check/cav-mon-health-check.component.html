@@ -219,7 +219,9 @@
         <label>Host</label>
      </div>
        <div class ="ui-g-3" style="margin-left: -82px"> 
-         <input name="host" type="text"  pInputText [(ngModel)]="heathCheckMonData.host"  autofocus required ngModel />
+         <input name="host"
+          [disabled]="heathCheckMonData.healthCheckType == 'Http' "
+          type="text"  pInputText [(ngModel)]="heathCheckMonData.host"  autofocus required ngModel />
      </div>
 
 
@@ -227,7 +229,7 @@
           <label>Port</label>
     </div>
     <div class = "ui-g-3" style="margin-left: -68px" >
-         <input name="port" type="number" [disabled]="heathCheckMonData.healthCheckType == 'Ping' "
+         <input name="port" type="number" [disabled]="heathCheckMonData.healthCheckType != 'Socket' "
          autofocus required pInputText [(ngModel)]="heathCheckMonData.port" ngModel />
     </div>
  </div>
