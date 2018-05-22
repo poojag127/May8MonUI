@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-
 @Component({
   selector: 'app-cav-mon-dynamic-components',
   templateUrl: './cav-mon-dynamic-components.component.html',

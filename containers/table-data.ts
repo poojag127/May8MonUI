@@ -44,9 +44,6 @@
   specificJournalType:string;
   gdfDetails:GdfTableData[]=[];
   groupId:number=-1;
-
-
- 
  }
 
 

@@ -101,18 +101,16 @@ export class MonHealthCheckService {
         return JSON.parse(each);
       })
 
-      console.log("data = ",heathCheckMonitorData)
-      console.log("data = ",data)
        let url = this.monDataService.getserviceURL() + URL.SAVE_HEALTH_CHECK_DATA + "?productKey=" + this.monDataService.getProductKey() ;
        let params = {
         'topoName': this.monConfigServiceObj.getTopoName(),
         'jsonName': this.monConfigServiceObj.getProfileName(),
         'userName': this.monDataService.getUserName(),
+		    'testRunNum': this.monDataService.getTestRunNum().toString(),
+        'monMode': this.monDataService.getMonMode().toString(),
         'customConfiguratons':{"data":test},
         'globalConfiguration':globalProps,
         'enabled':enableHealthCheckMon,
-        'testRunNum': this.monDataService.getTestRunNum().toString(),
-        'monMode': this.monDataService.getMonMode().toString(),
         'role':this.monDataService.$userRole        
       };
   
