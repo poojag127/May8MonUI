@@ -22,8 +22,6 @@ import * as COMPONENT from '../../../constants/mon-component-constants';
 
 export class CavMonHealthCheckComponent implements OnInit {
 
-
- enableHealthCheckMon:boolean = false;
   /* Available Tree nodes. */
   nodes: TreeNode[];
 
@@ -209,34 +207,6 @@ export class CavMonHealthCheckComponent implements OnInit {
      this.messageService.errorMessage("Please select Server");
      return false;
    }
-
-   console.log("heathCheckMonData.healthCheckType = " , heathCheckMonData.healthCheckType)
-   if(heathCheckMonData.healthCheckType == "Http")
-   {
-    if(heathCheckMonData.httpUser != '')
-    {
-      if(heathCheckMonData.httpPwd == '') 
-      {
-        this.messageService.errorMessage("Enter Password")
-        return false;
-      }
-
-      if(heathCheckMonData.httpCnfrmPwd == '')
-      {
-        this.messageService.errorMessage("Confirm Password")
-        return false;
-      }
-    }
-
-    if(heathCheckMonData.httpPwd != heathCheckMonData.httpCnfrmPwd)
-    {
-      this.messageService.errorMessage("Password does not match")
-      return false;
-    }
- 
-
-   }
-
    
    return true;
   }
