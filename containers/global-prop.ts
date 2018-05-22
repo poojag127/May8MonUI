@@ -1,6 +1,3 @@
-import { HcPingProperties } from './hc-ping-properties';
-import { HCSocketProperties } from './hc-socket-properties';
-import { HCHttpProperties }  from './hc-http-properties';
  
 export class GlobalProps
 {

@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 //import { MdDialog } from '@angular/material';
 import { MaterialModule } from '@angular/material';
+// import { FileExplorer } from '../file-explorer/components/file-explorer/file-explorer.component';
 
 import { Md2Module } from 'md2';
 import { Logger, Options as LoggerOptions, Level as LoggerLevel } from '../../../vendors/angular2-logger/core';
@@ -144,6 +145,7 @@ import { MonitorCompReducer } from './reducers/monitor-comp-reducer';
     CavMonStatsComponent,
     CavMonHideShowComponent,
     CavMonHealthCheckComponent
+    // FileExplorer
   ],
 
   exports: [

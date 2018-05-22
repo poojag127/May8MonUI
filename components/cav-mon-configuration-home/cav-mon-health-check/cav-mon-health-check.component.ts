@@ -85,19 +85,30 @@ export class CavMonHealthCheckComponent implements OnInit {
     console.log("Method ngOnInit called, heathCheckMonitorData = " , this.heathCheckMonitorData +  "and global = ", this.globalProps);
     // if(this.heathChheckMonitorData != undefined && this.globalProps != undefined)
     this.globalProps = new GlobalProps();
+    let that = this;
     this.healthChkMonServiceObj.getHealthChkMonData(this.globalProps).subscribe(data =>{
       console.log("data = ",data)
+      if(data['customConfiguratons'] != null)
+      {
+         that.healthChkMonServiceObj.setHealthCheckTreeTableData(data['customConfiguratons']['data']);
+         that.heathCheckMonitorData = data['customConfiguratons']['data'];
+      }
+
+      if(data['globalConfiguration'] != null)
+         that.globalProps = data['globalConfiguration'] 
     })
 
     console.log("globalProps = ",this.globalProps)
-    console.log("proifile Name = ", this.monConfServiceObj.topoName, this.monConfServiceObj.profileName, this.monDataService.userName);
     // this.healthChkMonServiceObj.readHealthMonitorJson(this.monConfServiceObj.topoName, this.monConfServiceObj.profileName,  this.monDataService.getMonMode(), this.monDataService.userName, this.monDataService.getTestRunNum());
     console.log("Method CavMonHealthCheckComponent called")
     this.heathCheckMonData =  new HealthCheckMonData();
-    // this.heathCheckMonitorData = this.healthChkMonServiceObj.getHealthCheckTreeTableDate();
-    //  this.healthChkMonServiceObj.getHealthCheckTreeTableData().then(files => this.heathCheckMonitorData = files);
-    // this.healthChkMonServiceObj.setHealthCheckTreeTableData(this.heathCheckMonitorData);
-    this.heathCheckMonitorData = this.healthChkMonServiceObj.getHealthCheckTreeTableData();
+    // this.heathCheckMonitorData = this.healthChkMonServiceObj.getHealthCheckTreeTableData();
+    // console.log("this.heathCheckMonitorData",this.heathCheckMonitorData)
+    // if(this.heathCheckMonitorData == null)
+    // {
+    //   this.heathCheckMonitorData = [];
+    // }
+    
     this.tierHeadersList = this.monConfServiceObj.getTierHeaderList();
     let tierList = [];
     this.tierHeadersList.map(function(each){
@@ -307,8 +318,7 @@ export class CavMonHealthCheckComponent implements OnInit {
      healthChkTypeString = "Host = " +this.heathCheckMonData.host  +",Port = " + this.heathCheckMonData.port + " TimeOut = " + this.heathCheckMonData.sockeTo   +  ", Instance Name = " + this.heathCheckMonData.instName;
 
    else if(this.heathCheckMonData.healthCheckType == "Http")
-      healthChkTypeString = "Host = " +this.heathCheckMonData.host  + ",Port = " + this.heathCheckMonData.port + 
-                            ", Url = " + this.heathCheckMonData.url + ", User Name = " +  this.heathCheckMonData.user + 
+      healthChkTypeString = "Url = " + this.heathCheckMonData.url + ", User Name = " +  this.heathCheckMonData.user + 
                             ", Password = " +  this.heathCheckMonData.pwd + 
                             ", Status Code = " + this.heathCheckMonData.httpSc + ", Instance = " +this.heathCheckMonData.instName;
      
@@ -514,6 +524,12 @@ export class CavMonHealthCheckComponent implements OnInit {
     console.log("method finalSubmit =", this.heathCheckMonitorData )
     let customConfiguratons = this.heathCheckMonitorData;
     console.log("customConfiguratons =", customConfiguratons)
+
+    if(customConfiguratons.length == 0)
+    {
+      this.messageService.errorMessage("Server Health monitor is not configured");
+      return ;
+    }
      
     this.heathCheckMonData =  new HealthCheckMonData();
     console.log("globalConfiguration= ", this.globalProps)
@@ -694,8 +710,7 @@ export class CavMonHealthCheckComponent implements OnInit {
      healthChkTypeString = "Host = " +this.heathCheckMonData.host  +",Port = " + this.heathCheckMonData.port + " TimeOut = " + this.heathCheckMonData.sockeTo   +  ", Instance Name = " + this.heathCheckMonData.instName;
 
     else if(this.heathCheckMonData.healthCheckType == "Http")
-      healthChkTypeString = "Host = " +this.heathCheckMonData.host  + ",Port = " + this.heathCheckMonData.port + 
-                            ", Url = " + this.heathCheckMonData.url + ", User Name = " +  this.heathCheckMonData.user + 
+      healthChkTypeString =  " Url = " + this.heathCheckMonData.url + ", User Name = " +  this.heathCheckMonData.user + 
                             ", Password = " + this.heathCheckMonData.pwd + 
                             ", Status Code = " + this.heathCheckMonData.httpSc + ", Instance = " +this.heathCheckMonData.instName
                             ",Connection TimeOut ="+ this.heathCheckMonData.httpCTO + " ,Response TimeOut = "+ this.heathCheckMonData.httpRTO;
