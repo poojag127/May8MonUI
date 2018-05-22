@@ -22,6 +22,8 @@ import * as COMPONENT from '../../../constants/mon-component-constants';
 
 export class CavMonHealthCheckComponent implements OnInit {
 
+
+ enableHealthCheckMon:boolean = false;
   /* Available Tree nodes. */
   nodes: TreeNode[];
 
@@ -495,14 +497,19 @@ export class CavMonHealthCheckComponent implements OnInit {
   {
     console.log("addhealthCheckNode= " , id, serverNode,healthCheckDataMon) 
    let healthChkTypeString = '';
+  
    if(this.heathCheckMonData.healthCheckType == "Ping")
-       healthChkTypeString = "Packet = " + this.heathCheckMonData.pingPkt + ", Interval = " + this.heathCheckMonData.pingIntrvl ;
+       healthChkTypeString = "Host = " +this.heathCheckMonData.host  +
+                             ", Packet Count = " + this.heathCheckMonData.pingPkt + 
+                             ", Wait Interval = " + this.heathCheckMonData.pingIntrvl ;
    
    else if(this.heathCheckMonData.healthCheckType == "Socket")
-     healthChkTypeString = "TimeOut = " + this.heathCheckMonData.sockeTo   +  ", Instance Name = " + this.heathCheckMonData.instanceName ;
+     healthChkTypeString = "Host = " +this.heathCheckMonData.host  +",Port = " + this.heathCheckMonData.port + " TimeOut = " + this.heathCheckMonData.sockeTo   +  ", Instance Name = " + this.heathCheckMonData.instName;
 
    else if(this.heathCheckMonData.healthCheckType == "Http")
-      healthChkTypeString = "Url = " + this.heathCheckMonData.httpUser + ", User Name = " + this.heathCheckMonData.httpUser + ", Password = " + this.heathCheckMonData.httpPwd + ", Status Code = " + this.heathCheckMonData.httpSc;
+     healthChkTypeString = "Url = " + this.heathCheckMonData.url + ", User Name = " +  this.heathCheckMonData.user + 
+                            ", Password = " +  this.heathCheckMonData.pwd + 
+                            ", Status Code = " + this.heathCheckMonData.httpSc + ", Instance = " +this.heathCheckMonData.instName;
      
     let arr = [];
     arr.push(this.heathCheckMonData);

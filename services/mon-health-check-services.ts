@@ -101,8 +101,6 @@ export class MonHealthCheckService {
         return JSON.parse(each);
       })
 
-      console.log("data = ",heathCheckMonitorData)
-      console.log("data = ",data)
        let url = this.monDataService.getserviceURL() + URL.SAVE_HEALTH_CHECK_DATA + "?productKey=" + this.monDataService.getProductKey() ;
        let params = {
         'topoName': this.monConfigServiceObj.getTopoName(),
@@ -113,7 +111,7 @@ export class MonHealthCheckService {
         'customConfiguratons':{"data":test},
         'globalConfiguration':globalProps,
         'enabled':enableHealthCheckMon,
-		    'role':this.monDataService.$userRole
+        'role':this.monDataService.$userRole        
       };
   
     return this._restApi.getDataByPostReq(url, params)
@@ -128,7 +126,8 @@ export class MonHealthCheckService {
         'jsonName': this.monConfigServiceObj.getProfileName(),
         'userName': this.monDataService.getUserName(),
         'customConfiguratons':{'data':[]},
-        'globalConfiguration':globalProp
+        'globalConfiguration':globalProp,
+        
       };
        return this._restApi.getDataByPostReq(url, params)
       }
