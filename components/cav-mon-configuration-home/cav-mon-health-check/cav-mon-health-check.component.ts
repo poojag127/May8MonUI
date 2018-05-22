@@ -23,7 +23,6 @@ import * as COMPONENT from '../../../constants/mon-component-constants';
 export class CavMonHealthCheckComponent implements OnInit {
 
 
- enableHealthCheckMon:boolean = false;
   /* Available Tree nodes. */
   nodes: TreeNode[];
 
