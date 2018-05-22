@@ -23,7 +23,7 @@ export class HealthCheckMonData
 
  globalPacket:number = 5;
 
- instName:string ;
+ instName:string ='';
  pingPkt:number =5;
  pingIntrvl:number=10;
  sockeTo:number = 10;
@@ -40,7 +40,7 @@ export class HealthCheckMonData
 useProxy:boolean= false;
 overideGlobalSettings:boolean = false;
 instNameHttp:string;
-enableHealthCheckMon:boolean = false;
+enableHealthCheckMon:boolean;
 
 url:string='';
 user:string;

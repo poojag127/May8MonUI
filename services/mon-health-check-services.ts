@@ -110,7 +110,10 @@ export class MonHealthCheckService {
         'userName': this.monDataService.getUserName(),
         'customConfiguratons':{"data":test},
         'globalConfiguration':globalProps,
-        'enabled':enableHealthCheckMon
+        'enabled':enableHealthCheckMon,
+        'testRunNum': this.monDataService.getTestRunNum().toString(),
+        'monMode': this.monDataService.getMonMode().toString(),
+        'role':this.monDataService.$userRole        
       };
   
     return this._restApi.getDataByPostReq(url, params)
@@ -125,7 +128,8 @@ export class MonHealthCheckService {
         'jsonName': this.monConfigServiceObj.getProfileName(),
         'userName': this.monDataService.getUserName(),
         'customConfiguratons':{'data':[]},
-        'globalConfiguration':globalProp
+        'globalConfiguration':globalProp,
+        
       };
        return this._restApi.getDataByPostReq(url, params)
       }
