@@ -71,6 +71,8 @@ export class CavMonHealthCheckComponent implements OnInit {
     uniqueKey:any[]=[];
 
     editMode:boolean =false;
+
+    enableHealthCheckMon:boolean =false;
    
   constructor(private monConfServiceObj: MonConfigurationService,
               private dialogRef: MdDialogRef<CavMonHealthCheckComponent>, 
@@ -747,6 +749,15 @@ export class CavMonHealthCheckComponent implements OnInit {
    this.editMode = false; 
   } 
 
+
+ /*This method is called when user clicks on cancel button to close the configuration without making any changes.
+ * This method shows a new form to perform ADD operation.
+ */
+  closeConfiguration()
+ {
+   this.heathCheckMonData = new HealthCheckMonData(); // for clearing form fields.
+   this.editMode = true; 
+ }
 
    
 }
