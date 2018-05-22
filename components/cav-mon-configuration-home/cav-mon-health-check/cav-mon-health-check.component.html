@@ -13,14 +13,14 @@
           <label>Packet Count</label>
        </div>
        <div class ="ui-g-2" style="margin-left: -44px">
-         <input name="pckt" style="width: 80%;" type="number" pInputText [(ngModel)]="globalProps.pingPkt" ngModel />
+         <input name="pckt" style="width: 80%;" type="number" max="100" pInputText [(ngModel)]="globalProps.pingPkt" ngModel />
        </div>
 
       <div class = "ui-g-2">
         <label>Wait Interval in sec(s)</label>
       </div>
       <div class ="ui-g-2" style="margin-left: -44px">
-        <input name="intvrl" style="width: 80%;" type="number"  pInputText [(ngModel)]="globalProps.pingIntrvl" ngModel />
+        <input name="intvrl" style="width: 80%;" type="number" max="1" pInputText [(ngModel)]="globalProps.pingIntrvl" ngModel />
         <!-- <span style="margin-left: -1px">
             (sec)
         </span> -->
@@ -334,16 +334,6 @@
                    ngModel />
               </div>
 
-              <div class = "ui-g-2" >
-                  <label>Confirm Password</label>
-                </div>
-                <div class ="ui-g-2" style="margin-left: -43px">
-                   <input name="pssword" type="password"
-                    pInputText [(ngModel)]="heathCheckMonData.httpCnfrmPwd" 
-                     ngModel />
-                </div>
-        
-  
               <div class = "ui-g-2"  style="margin-left: 31px">
                   <label>Status Code</label>
                 </div>
