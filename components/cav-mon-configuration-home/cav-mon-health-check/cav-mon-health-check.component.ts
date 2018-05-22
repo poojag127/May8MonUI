@@ -69,6 +69,8 @@ export class CavMonHealthCheckComponent implements OnInit {
     uniqueKey:any[]=[];
 
     editMode:boolean =false;
+
+    enableHealthCheckMon:boolean =false;
    
   constructor(private monConfServiceObj: MonConfigurationService,
               private dialogRef: MdDialogRef<CavMonHealthCheckComponent>, 
@@ -535,7 +537,7 @@ export class CavMonHealthCheckComponent implements OnInit {
     console.log("globalConfiguration= ", this.globalProps)
 
     // let configuredData =  JSON.parse(JSON.stringify(this.heathCheckMonitorData));
-    this.healthChkMonServiceObj.savehealthCheckData(this.heathCheckMonitorData,this.globalProps,this.heathCheckMonData.enableHealthCheckMon)
+    this.healthChkMonServiceObj.savehealthCheckData(this.heathCheckMonitorData,this.globalProps,this.enableHealthCheckMon)
         .subscribe(data =>{
       console.log("data = ",data)
     });
@@ -722,6 +724,15 @@ export class CavMonHealthCheckComponent implements OnInit {
      healthCheckTypeNode.data.instanceInfo = arr;
    }
 
+
+ /*This method is called when user clicks on cancel button to close the configuration without making any changes.
+ * This method shows a new form to perform ADD operation.
+ */
+  closeConfiguration()
+ {
+   this.heathCheckMonData = new HealthCheckMonData(); // for clearing form fields.
+   this.editMode = true; 
+ }
 
    
 }

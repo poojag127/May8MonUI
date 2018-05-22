@@ -23,7 +23,7 @@ export class HealthCheckMonData
 
  globalPacket:number = 5;
 
- instName:string ;
+ instName:string = "";
  pingPkt:number =5;
  pingIntrvl:number=10;
  sockeTo:number = 10;
@@ -33,14 +33,14 @@ export class HealthCheckMonData
  httpPwd:string= "";
  httpCnfrmPwd:string = "";
  httpTP:number=5;
- httpSc:string ="301,302"; 
+ httpSc:string ="2xx"; 
  arguments:string = "false";
 
 
 useProxy:boolean= false;
 overideGlobalSettings:boolean = false;
 instNameHttp:string;
-enableHealthCheckMon:boolean = false;
+
 
 url:string='';
 user:string;

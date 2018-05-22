@@ -1,7 +1,7 @@
 <p-dialog class="profile-dialog monitor-dialog" [(visible)]="displayDialog"  header="Health Check Monitor Configurations" width="1000"  
    [modal]="false" (onHide)="dialogCloseEvent($event)" [resizable]="true" [responsive]="true">
    <div class = "ui-g-12">
-      <p-checkbox [(ngModel)]="heathCheckMonData.enableHealthCheckMon" name="enableChkMon" binary=true label="Enable Health Check Monitor" ></p-checkbox>
+      <p-checkbox [(ngModel)]="enableHealthCheckMon" name="enableChkMon" binary="true" label="Enable Health Check Monitor" ></p-checkbox>
    </div>
 
 <div class = "ui-g-12">
@@ -17,13 +17,13 @@
        </div>
 
       <div class = "ui-g-2">
-        <label>Wait Interval</label>
+        <label>Wait Interval in sec(s)</label>
       </div>
       <div class ="ui-g-2" style="margin-left: -44px">
         <input name="intvrl" style="width: 80%;" type="number"  pInputText [(ngModel)]="globalProps.pingIntrvl" ngModel />
-        <span style="margin-left: -1px">
+        <!-- <span style="margin-left: -1px">
             (sec)
-        </span>
+        </span> -->
       </div>
 
       <div class="ui-g-2"  style="margin-left: 21px;">
@@ -73,24 +73,24 @@
 
   <div class= "ui-g-12">
       <div class = "ui-g-2">
-        <label>Connection Time Out</label>
+        <label>Connection Time Out in sec</label>
       </div>
       <div class ="ui-g-2" style="margin-left: -31px">
         <input name="timeOut" type="number" style="width: 77%" pInputText [(ngModel)]="globalProps.httpCTO" ngModel/>
-        <span>
+        <!-- <span>
             (sec)
-        </span>
+        </span> -->
       </div>
 
             
       <div class = "ui-g-2" style = "margin-left: 9px">
-          <label>Response Time Out </label>
+          <label>Response Time Out in sec(s)</label>
         </div>
         <div class ="ui-g-2" >
             <input name="resTimeOut" type="number" style="width: 70% ; margin-left: -28px" pInputText [(ngModel)]="globalProps.httpRTO" ngModel/>
-            <span>
+            <!-- <span>
                 (sec)
-            </span>
+            </span> -->
         </div>
 
         <div class="ui-g-2" style="margin-left: -11px">
@@ -113,13 +113,13 @@
 <p-fieldset class = "healthChkMonCss" legend="Socket Health Check Settings" [toggleable]="true" collapsed="true">
   <div class = "ui-g-12">
     <div class = "ui-g-1" style="width:14.3333%">
-      <label>Connection Time Out</label>
+      <label>Connection Time Out in sec(s)</label>
      </div>
      <div class ="ui-g-3">
        <input name="socketCTO" type="number" min="0"  pInputText [(ngModel)]="globalProps.sockeTo" ngModel /> 
-       <span>
+       <!-- <span>
           (sec)
-      </span>
+      </span> -->
     </div>
   </div>    
 </p-fieldset>
@@ -250,7 +250,6 @@
     </div>
     <div class = "ui-g-3" style="margin-left: -68px">
          <input name="usrNme" type="text" 
-          autofocus required
          [disabled]="heathCheckMonData.healthCheckType != 'Http' " 
          pInputText [(ngModel)]="heathCheckMonData.user" ngModel />
     </div>
@@ -261,13 +260,13 @@
   </div>
   <div class = "ui-g-3" style="margin-left: -68px">
        <input name="psswrd" type="password" 
-        autofocus required pInputText [disabled]="heathCheckMonData.healthCheckType != 'Http' "  [(ngModel)]="heathCheckMonData.pwd" ngModel />
+       pInputText [disabled]="heathCheckMonData.healthCheckType != 'Http' "  [(ngModel)]="heathCheckMonData.pwd" ngModel />
   </div>
  </div>
 
   <div class = "ui-g-12">
     <p-accordion class="monitor-ui-accordion">
-      <p-accordionTab header="Advance Settings">
+      <p-accordionTab header="Advanced Settings">
          <div class = "ui-g-12">
               <p-checkbox [(ngModel)]="heathCheckMonData.overideGlobalSettings"  name="overide" 
                  binary=true label="Override global health check settings"  (click)="overrideGlobalSettings(heathCheckMonData.overideGlobalSettings)" ></p-checkbox>
@@ -281,7 +280,7 @@
                  </div>
 
                    <div class = "ui-g-2">
-                     <label>Wait Interval</label>
+                     <label>Wait Interval in sec(s)</label>
                    </div>
                  <div class ="ui-g-3">
                    <input name="interval" type="number"  pInputText [(ngModel)]="heathCheckMonData.pingIntrvl"  ngModel />
@@ -301,7 +300,7 @@
                 </div>
       
                 <div class = "ui-g-2">
-                  <label>Connection Time Out</label>
+                  <label>Connection Time Out in sec(s)</label>
                 </div>
               <div class ="ui-g-3">
                 <input name="connectionTimeOut" type="number"  pInputText [(ngModel)]="heathCheckMonData.sockeTo" 
@@ -363,7 +362,7 @@
 
                 <div class= "ui-g-12" style="margin-left: -6px;">
                     <div class = "ui-g-2">
-                        <label>Connection Time Out</label>
+                        <label>Connection Time Out in sec(s)</label>
                       </div>
                       <div class ="ui-g-2" style="margin-left: -22px">
                          <input name="cto" type="number"  pInputText style="width: 132px"
@@ -371,7 +370,7 @@
                       </div>
       
                       <div class = "ui-g-2" style=" margin-left: 15px">
-                          <label>Response Time Out</label>
+                          <label>Response Time Out in sec(s)</label>
                         </div>
                         <div class ="ui-g-3" >
                            <input name="rto" style="width: 118px; margin-left: -23px;" type="number"  pInputText  [(ngModel)]="heathCheckMonData.httpRTO"
@@ -387,6 +386,7 @@
       <div class="ui-g-12" style="margin-top: 7px">
           <button type="submit" pButton icon="fa-check" style="width: 63px ; float: right"  *ngIf="!editMode" label="Add"></button>
           <button type="submit" pButton icon="fa-check" style="width: 63px ; float: right" *ngIf="editMode" label="Update"></button>
+          <button type="button" pButton icon="fa-close" style="width: 93px ; float: right" (click)="closeConfiguration()"  *ngIf="editMode" label="Cancel"></button>
       </div>
     </div>
   </p-fieldset>
