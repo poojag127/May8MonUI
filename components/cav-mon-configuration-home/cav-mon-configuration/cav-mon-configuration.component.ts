@@ -843,7 +843,8 @@ export class CavMonConfigurationComponent implements OnInit {
       key = key.replace(" ", "_");
     }
 
-    this.gdfNameArr = this.monConfigurationService.getGDFNameList();
+    // this.gdfNameArr = this.monConfigurationService.getGDFNameList();
+    this.gdfNameArr = [];
 
     if(operation == "edit")
     {
@@ -1460,7 +1461,7 @@ export class CavMonConfigurationComponent implements OnInit {
             return selectedMonGroupName.indexOf(item) ==  -1;
           })
            
-           this.monConfigurationService.setGDFNameList(this.gdfNameArr);
+          //  this.monConfigurationService.setGDFNameList(this.gdfNameArr);
 
          /*Case when edit and delete operation are performed simultaneously*/
          let that = this;
@@ -1519,7 +1520,7 @@ export class CavMonConfigurationComponent implements OnInit {
             return selectedMonGroupName.indexOf(item) == -1;
           })
 
-          this.monConfigurationService.setGDFNameList(this.gdfNameArr);
+          // this.monConfigurationService.setGDFNameList(this.gdfNameArr);
 
           /* Case when user is editing a row and 
            * wants to delete that row without performing edit operation, then at edit time as we are

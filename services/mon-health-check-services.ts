@@ -150,9 +150,12 @@ export class MonHealthCheckService {
         'topoName': this.monConfigServiceObj.getTopoName(),
         'jsonName': this.monConfigServiceObj.getProfileName(),
         'userName': this.monDataService.getUserName(),
+		    'testRunNum': this.monDataService.getTestRunNum().toString(),
+        'monMode': this.monDataService.getMonMode().toString(),
         'customConfiguratons':{"data":test},
         'globalConfiguration':globalProps,
-        'enabled':enableHealthCheckMon
+        'enabled':enableHealthCheckMon,
+		    'role':this.monDataService.$userRole
       };
   
     return this._restApi.getDataByPostReq(url, params)

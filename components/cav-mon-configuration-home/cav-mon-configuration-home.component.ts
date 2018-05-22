@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { ConfirmationService,TreeNode } from 'primeng/primeng';
 import { MonConfigurationService } from '../../services/mon-configuration.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -53,12 +53,12 @@ export class CavMonConfigurationHomeComponent implements OnInit {
    modeStatus: boolean = false; 
    _dialogFileRef: MdDialogRef<CavMonStatsComponent>;
    _dialogForShowMon: MdDialogRef<CavMonHideShowComponent>;
-
    _dialogForHealthCheckMon:MdDialogRef<CavMonHealthCheckComponent>;
    
    disableShowHiddenMon:boolean = false;
 
    selectedFile: TreeNode;
+   getLogFileGDFData:any[] = [];
 
    /*This variable is used to show the color code meaning for each monitor*/
    colorCodeInfo:string;
@@ -70,9 +70,9 @@ export class CavMonConfigurationHomeComponent implements OnInit {
 
    logParserGdfList:any[] = [];
 
-   getLogFileGDFData:any[] = [];
    
    serverConfData:ServerConfigData;
+   @ViewChild('treeRef') treeRef: ElementRef;
 
   constructor(private monConfServiceObj: MonConfigurationService,
               private router:Router,
@@ -82,33 +82,30 @@ export class CavMonConfigurationHomeComponent implements OnInit {
               private dataService : MonDataService,
               private _dialog: MdDialog,
               private confirmationService: ConfirmationService,
-              private _cavLaoutService : CavLayoutService
+              private _cavLaoutService : CavLayoutService,
+              private renderer: Renderer2
    ) { }
 
   ngOnInit() 
   {
 
     console.log("profileName--",this.monConfServiceObj.getProfileName())
-
-    this.monConfServiceObj.restoreVariableFromSession();
+   
+    /*this.monConfServiceObj.restoreVariableFromSession();
 
     let txSession = JSON.parse(localStorage.getItem('monitorGUI'));
     if(txSession != null) {
-      console.log("txSession=", txSession)
       this.monConfServiceObj.setVariableInSession(1);
       localStorage.removeItem('monitorGUI');
     }else if(this._cavLaoutService.getProfileName() != undefined) {
-      console.log("txSession else part =", txSession)
       this.monConfServiceObj.setVariableInSession(2);
     }
-
+    */
 
 
     this.modeStatus = this.dataService.monModeStatus()
     this.profileName = this.monConfServiceObj.getProfileName();
-    console.log("profileName = ", this.profileName);
     this.topoName = this.monConfServiceObj.getTopoName();
-    console.log("topoName = ", this.topoName);
 
     if (this.monConfServiceObj.getTierHeaderList() == null)
     {
@@ -124,15 +121,26 @@ export class CavMonConfigurationHomeComponent implements OnInit {
       this.compData = this.monConfServiceObj.getMonTierTableData();
       console.log("this.compData--",this.compData)
     }
+    window.addEventListener('scroll', this.scroll, true); // added for scroll in the treetable
   }
 
+  /*Method for scroll in the treetable*/
+  scroll = (): void => 
+  {
+    let referer: ElementRef = this.treeRef['el'];
+    var elm = document.getElementById("mainDiv");
+    let scrollTop = elm.scrollTop;
+    var translate = "translate(0," + scrollTop + "px)";
+    this.renderer.setStyle(referer.nativeElement.querySelector('thead'), 'transform', translate);
+  }
+  
   /***Function used to create header list array for treetable component *****/
   createHeadersList(tierList) {
     if (tierList != null) {
       console.log("tierList--", tierList)
       let that = this;
       tierList.forEach((function (val) {
-        that.cols.push({ field: val.id, header: val.name })
+        that.cols.push({ field: val.id, header: val.name, tooltip: val.tierGroupDef })
       }));
     }
   }
@@ -234,11 +242,7 @@ export class CavMonConfigurationHomeComponent implements OnInit {
    let tableDataObj:TableData;
    tableDataObj = new TableData();
    tableDataObj.appName = "default";
-   if(monName == COMPONENT.HC_MONNAME)
-      tableDataObj.options = this.monConfServiceObj.getTopoName() + "/json"+ this.monConfServiceObj.getProfileName();
-   else   
-      tableDataObj.options = "";
-      
+   tableDataObj.options = "";
    tableDataObj.serverName = "All Servers";
    tableDataObj.id = 0;
    tableDataObj.arguments = "";
@@ -339,8 +343,6 @@ export class CavMonConfigurationHomeComponent implements OnInit {
        {
          this.monConfServiceObj.getMonitorConfiguartion(currNode['drivenJsonName'], monName, tierName).then(data => {
             this.router.navigate([URL.MON_CONFIGURATION,this.profileName,this.topoName,monName,tierId,tierName],{ relativeTo: this.route });
-            if (monName == COMPONENT.LOG_PATTERN_MONITOR || monName == COMPONENT.GET_LOG_FILE)
-              this.monConfServiceObj.getLogMonGDF(monName);
          })
        }
        else {
@@ -949,6 +951,10 @@ removeSpecificChildNode(obj)
       this.showTitleForChildNodes = "";
   }
 
+  ngOnDestroy() 
+  {
+    window.removeEventListener('scroll', this.scroll, true);
+  }
 
   openHealthCheckMonitorDialog()
   {
@@ -959,5 +965,4 @@ removeSpecificChildNode(obj)
            console.log("Dialog closed for Health Check monitors UI")
       }); 
   }
-
 }

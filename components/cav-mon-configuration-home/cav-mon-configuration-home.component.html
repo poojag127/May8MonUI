@@ -11,7 +11,7 @@
       <!-- <button pButton type="button" title="Audit log"  [disabled]="modeStatus" icon="fa fa-history"></button> -->
       <button pButton type="button" pButton  icon="fa fa-eye-slash" (click)="hideMonitors()" title= "Please select monitor(s) to hide.&#013; You can hide category as well as subcategory monitor(s)."  label="Hide"></button>
       <button pButton type="button" pButton  icon="fa-check" (click)="showHiddenMonitors()"  title="Show list of hidden monitors"  label="Show"></button>
-      <button pButton type="button" pButton  icon="fa fa-h-square" (click)="openHealthCheckMonitorDialog()"  title="Health Check Monitors"  label="Health Check Monitor"></button>
+      <button pButton type="button" pButton  icon="fa fa-h-square" (click)="openHealthCheckMonitorDialog()"  title="Health Check Monitor"  label="Health Check Monitor"></button>
     </div>
 
     <div class="treeTableToolbar">
@@ -22,7 +22,8 @@
    </p-toolbar>
   
   <p-panel>
-    <p-treeTable class="mon-ui configTreeTable" selectionMode="single"  [(selection)]="selectedFile" (onNodeExpand)="loadNode($event)" [value]="compData" [style]="{'max-height':'530px', 'overflow':'auto'}">
+   <div style='overflow:auto' id='mainDiv'>
+    <p-treeTable  #treeRef class="mon-ui configTreeTable" selectionMode="single"  [(selection)]="selectedFile" (onNodeExpand)="loadNode($event)" [value]="compData" [style]="{'max-height':'530px'}">
       <!-- <div class="ui-g-12" id="top-div"> -->
   
       <p-column [style]="{'width':'230px'}" field="monitor" header="Monitor(s)">
@@ -34,7 +35,10 @@
   
       <p-column [style]="{'width':'38px','cursor':'pointer'}" *ngFor="let col of cols" [field]="col.field">
         <template pTemplate="header">
-          <span title={{col.header}}>{{col.header}}</span>
+          <span title={{col.tooltip}} style="cursor:default"> <a *ngIf="col.field < -1">
+            <i class="fa fa-object-group"></i>
+          </a>{{col.header}}</span>
+
         </template>
         <template  let-data="rowData" pTemplate="body">
           <div [style.background]="data.data[col.header]['colorName']" (mouseover)="showColorCodeDesc(data.data[col.header]['color'])"  title = "{{colorCodeInfo}}" >
@@ -53,5 +57,6 @@
       <p-column field="type" header="Type"></p-column>-->
       <!-- </div> -->
     </p-treeTable>
+   </div>
   </p-panel>
 </div>

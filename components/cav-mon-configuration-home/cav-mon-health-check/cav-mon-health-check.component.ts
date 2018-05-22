@@ -85,19 +85,30 @@ export class CavMonHealthCheckComponent implements OnInit {
     console.log("Method ngOnInit called, heathCheckMonitorData = " , this.heathCheckMonitorData +  "and global = ", this.globalProps);
     // if(this.heathChheckMonitorData != undefined && this.globalProps != undefined)
     this.globalProps = new GlobalProps();
+    let that = this;
     this.healthChkMonServiceObj.getHealthChkMonData(this.globalProps).subscribe(data =>{
       console.log("data = ",data)
+      if(data['customConfiguratons'] != null)
+      {
+         that.healthChkMonServiceObj.setHealthCheckTreeTableData(data['customConfiguratons']['data']);
+         that.heathCheckMonitorData = data['customConfiguratons']['data'];
+      }
+
+      if(data['globalConfiguration'] != null)
+         that.globalProps = data['globalConfiguration'] 
     })
 
     console.log("globalProps = ",this.globalProps)
-    console.log("proifile Name = ", this.monConfServiceObj.topoName, this.monConfServiceObj.profileName, this.monDataService.userName);
     // this.healthChkMonServiceObj.readHealthMonitorJson(this.monConfServiceObj.topoName, this.monConfServiceObj.profileName,  this.monDataService.getMonMode(), this.monDataService.userName, this.monDataService.getTestRunNum());
     console.log("Method CavMonHealthCheckComponent called")
     this.heathCheckMonData =  new HealthCheckMonData();
-    // this.heathCheckMonitorData = this.healthChkMonServiceObj.getHealthCheckTreeTableDate();
-    //  this.healthChkMonServiceObj.getHealthCheckTreeTableData().then(files => this.heathCheckMonitorData = files);
-    // this.healthChkMonServiceObj.setHealthCheckTreeTableData(this.heathCheckMonitorData);
-    this.heathCheckMonitorData = this.healthChkMonServiceObj.getHealthCheckTreeTableData();
+    // this.heathCheckMonitorData = this.healthChkMonServiceObj.getHealthCheckTreeTableData();
+    // console.log("this.heathCheckMonitorData",this.heathCheckMonitorData)
+    // if(this.heathCheckMonitorData == null)
+    // {
+    //   this.heathCheckMonitorData = [];
+    // }
+    
     this.tierHeadersList = this.monConfServiceObj.getTierHeaderList();
     let tierList = [];
     this.tierHeadersList.map(function(each){

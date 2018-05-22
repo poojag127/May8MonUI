@@ -23,9 +23,9 @@ import { HideShowMonitorData } from '../containers/hide-show-monitor-data';
 @Injectable()
 export class MonConfigurationService {
 
-  public topoName: string = "mosaic_stress_as1";
+  private topoName: string = "mosaic_stress_as1";
 
-  public profileName: string = "test";
+  private profileName: string = "test";
   private profileDesc: string = 'NA';
 
   monTierTreeTableData: any[] = null;
@@ -59,9 +59,6 @@ export class MonConfigurationService {
    
    /*This flag is used for add functionality in show hidden monitor case */
    isFromAdd:boolean = false;
-
-   /*This variable is used to store the list of gdf file names*/
-   gdfNameList:any[]=[];
 
   constructor(private http: Http, private _restApi: RestApiService,
     private monDataService: MonDataService,
@@ -102,9 +99,8 @@ export class MonConfigurationService {
       }).
       catch(this.handleError);
   }
-  
 
-  
+
    /**
   *
   * @param calledFrom     this.monConfServiceObj.clearData();
@@ -123,7 +119,6 @@ export class MonConfigurationService {
     public restoreVariableFromSession() {
 
    if(sessionStorage.getItem('profileName') != null) {
-       console.log("profileName = " , this.profileName)
        this.profileName = sessionStorage.getItem('profileName').toString();
      }
 
@@ -145,16 +140,13 @@ export class MonConfigurationService {
 
   public setVariableInSession(calledFrom) {
     this.clearSessionVariable();
-    console.log("calledFrom = ",  calledFrom)
+
    if(calledFrom == 0) { // Edit
-      console.log("1=")
        sessionStorage.setItem('profileName', this.profileName);
        sessionStorage.setItem('topoName', this.topoName);
        sessionStorage.setItem('profDesc', this.profileDesc);
        sessionStorage.setItem('monMode', this.monDataService.getMonMode().toString())
    }else if(calledFrom == 2) {
-    console.log("2 =")
-    console.log("this.cavLayoutService.getProfileName()=", this.cavLayoutService.getProfileName())
     sessionStorage.setItem('profileName', this.cavLayoutService.getProfileName());
      sessionStorage.setItem('topoName', this.cavLayoutService.getTopologyName());
    // sessionStorage.setItem('profDesc', this.cavLayoutService.get); need to set the profile description of profile
@@ -167,7 +159,6 @@ export class MonConfigurationService {
         sessionStorage.setItem('monMode', txSession['monMode']);
       }
       if(txSession['profileName'] !== null && txSession['profileName'] !== undefined) {
-        console.log("txSession['profileName']= ", txSession['profileName'])
           sessionStorage.setItem('profileName',txSession['profileName'] );
         }
 
@@ -546,6 +537,7 @@ export class MonConfigurationService {
     }
     console.log("this.saveMonitorData--", this.saveMonitorData)
   }
+
 
   /*** Send Request to Server  ****/
   sendRequestToServer(data, topoName, jsonName) {
@@ -939,30 +931,6 @@ export class MonConfigurationService {
     this.hideShowMonList = [];
   }
 
-  setGDFNameList(data){
-    this.gdfNameList = data;
-  }
-  
-  getGDFNameList(){
-    return this.gdfNameList;
-  }
-  
-  /*This method is called to get the list of gdf names according to the type of the log monitor*/
-  getLogMonGDF(monName) 
-  {
-    this.blockUI.start();
-    let url = this.monDataService.getserviceURL() + URL.GET_GDF_LIST;
-    let params: URLSearchParams = new URLSearchParams();
-    params.set('monName', monName);
-    params.set('productKey', this.monDataService.getProductKey());
 
-    return this.http.get(url, { search: params }).map(res => res.json())
-      .toPromise()
-      .then(res => {
-        this.blockUI.stop();
-        this.gdfNameList = res;
-      }).
-      catch(this.handleError);
-  }
   
 }
