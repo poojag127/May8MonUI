@@ -73,7 +73,7 @@
 
   <div class= "ui-g-12">
       <div class = "ui-g-2">
-        <label>Connection Time Out in sec</label>
+        <label>Connection Timeout in sec(s)</label>
       </div>
       <div class ="ui-g-2" style="margin-left: -31px">
         <input name="timeOut" type="number" style="width: 77%" pInputText [(ngModel)]="globalProps.httpCTO" ngModel/>
@@ -84,7 +84,7 @@
 
             
       <div class = "ui-g-2" style = "margin-left: 9px">
-          <label>Response Time Out in sec(s)</label>
+          <label>Response Timeout in sec(s)</label>
         </div>
         <div class ="ui-g-2" >
             <input name="resTimeOut" type="number" style="width: 70% ; margin-left: -28px" pInputText [(ngModel)]="globalProps.httpRTO" ngModel/>
@@ -102,7 +102,7 @@
     </div>
   
   <div class= "ui-g-12" style="margin-left: 5px">
-        <label>Status Code for successful health check</label>
+        <label>Status code for successful health check</label>
     <span>
       <input name="globalStatusCode" style="margin-left: 29px" type="text"  pInputText  title="Comma separated list of status code"  [(ngModel)]="globalProps.httpSc"  ngModel />
     </span>
@@ -113,7 +113,7 @@
 <p-fieldset class = "healthChkMonCss" legend="Socket Health Check Settings" [toggleable]="true" collapsed="true">
   <div class = "ui-g-12">
     <div class = "ui-g-1" style="width:14.3333%">
-      <label>Connection Time Out in sec(s)</label>
+      <label>Connection Timeout in sec(s)</label>
      </div>
      <div class ="ui-g-3">
        <input name="socketCTO" type="number" min="0"  pInputText [(ngModel)]="globalProps.sockeTo" ngModel /> 
@@ -322,7 +322,7 @@
                 </div> -->
       
                 <div class = "ui-g-2">
-                  <label>Connection Time Out in sec(s)</label>
+                  <label>Connection Timeout in sec(s)</label>
                 </div>
               <div class ="ui-g-3">
                 <input name="connectionTimeOut" type="number"  pInputText [(ngModel)]="heathCheckMonData.sockeTo" 
@@ -368,7 +368,7 @@
               
                 <div class= "ui-g-12">
                     <div class = "ui-g-2" style="width: 25%">
-                      <label>Connection Time Out in sec(s)</label>
+                      <label>Connection Timeout in sec(s)</label>
                     </div>
                     <div class ="ui-g-2" style="margin-left: -31px">
                         <input name="cto" type="number"  pInputText style="width: 132px"
@@ -380,7 +380,7 @@
               
                           
                     <div class = "ui-g-2"  style="margin-left: -26px; width: 24%;">
-                        <label>Response Time Out in sec(s)</label>
+                        <label>Response Timeout in sec(s)</label>
                       </div>
                       <div class ="ui-g-2" >
                           <input name="rto" style="width: 118px; margin-left: -23px;" type="number"  pInputText  [(ngModel)]="heathCheckMonData.httpRTO"
@@ -396,7 +396,7 @@
                   </div>
                 
                 <div class= "ui-g-12" style="margin-left: 5px">
-                      <label>Status Code for successful health check</label>
+                      <label>Status code for successful health check</label>
                   <span>
                       <input name="statusCode" type="text"  pInputText title="Comma separated list of status code"
                       [(ngModel)]="heathCheckMonData.httpSc" ngModel />
