@@ -24,16 +24,16 @@ export class HealthCheckMonData
  globalPacket:number = 5;
 
  instName:string ='';
- pingPkt:number =5;
- pingIntrvl:number=10;
- sockeTo:number = 10;
- socketTP:string="5";
+ pingPkt:number ;
+ pingIntrvl:number;
+ sockeTo:number;
+ socketTP:string;
  httpUrl:string= "";
  httpUser:string= "";
  httpPwd:string= "";
  httpCnfrmPwd:string = "";
- httpTP:number=5;
- httpSc:string ="2xx"; 
+ httpTP:number;
+ httpSc:string; 
  arguments:string = "false";
 
 
@@ -45,6 +45,6 @@ enableHealthCheckMon:boolean;
 url:string='';
 user:string;
 
-httpCTO:number = 10;
-httpRTO:number = 30;
+httpCTO:number;
+httpRTO:number;
 }

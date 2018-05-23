@@ -277,19 +277,9 @@ export class CavMonHealthCheckComponent implements OnInit {
    this.healthChkTypeNode = new HealthCheckTableData();
    this.healthChkTypeNode.nodeName = healthCheckTypeName;
 
-   let healthChkTypeString = '';
-   console.log("this.heathCheckMonData.healthCheckType",this.heathCheckMonData.healthCheckType)
-   if(this.heathCheckMonData.healthCheckType == "Ping")
-       healthChkTypeString = "Host = " +this.heathCheckMonData.host  +", Packet Count = " + this.heathCheckMonData.pingPkt + ", Wait Interval = " + this.heathCheckMonData.pingIntrvl ;
-   
-   else if(this.heathCheckMonData.healthCheckType == "Socket")
-     healthChkTypeString = "Host = " +this.heathCheckMonData.host  +",Port = " + this.heathCheckMonData.port + " TimeOut = " + this.heathCheckMonData.sockeTo   +  ", Instance Name = " + this.heathCheckMonData.instName;
-
-   else if(this.heathCheckMonData.healthCheckType == "Http")
-      healthChkTypeString = "Url = " + this.heathCheckMonData.url + ", User Name = " +  this.heathCheckMonData.user + 
-                            ", Password = " +  this.heathCheckMonData.pwd + 
-                            ", Status Code = " + this.heathCheckMonData.httpSc + ", Instance = " +this.heathCheckMonData.instName;
-     
+   let healthChkTypeString = this.createHealthTypeString(this.heathCheckMonData);
+   console.log("this.heathCheckMonData.healthCheckType",healthChkTypeString)
+       
     let arr = [];
     arr.push(this.heathCheckMonData);
     let healthChkTypeNode = { 
@@ -463,17 +453,40 @@ export class CavMonHealthCheckComponent implements OnInit {
    let healthChkTypeString = '';
   
    if(this.heathCheckMonData.healthCheckType == "Ping")
-       healthChkTypeString = "Host = " +this.heathCheckMonData.host  +
-                             ", Packet Count = " + this.heathCheckMonData.pingPkt + 
-                             ", Wait Interval = " + this.heathCheckMonData.pingIntrvl ;
-   
-   else if(this.heathCheckMonData.healthCheckType == "Socket")
-     healthChkTypeString = "Host = " +this.heathCheckMonData.host  +",Port = " + this.heathCheckMonData.port + " TimeOut = " + this.heathCheckMonData.sockeTo   +  ", Instance Name = " + this.heathCheckMonData.instName;
+   {
+       healthChkTypeString = "Host = " +this.heathCheckMonData.host ;
 
+       if(this.heathCheckMonData.pingPkt != null)
+       {
+         healthChkTypeString =   ", Packet Count = " + this.heathCheckMonData.pingPkt ;
+       }
+       if(this.heathCheckMonData.pingIntrvl != null)
+       {
+         healthChkTypeString =   ", Wait Interval = " + this.heathCheckMonData.pingIntrvl ;
+       }                 
+   }
+   else if(this.heathCheckMonData.healthCheckType == "Socket")
+   {
+     healthChkTypeString = "Host = " +this.heathCheckMonData.host  +",Port = " + this.heathCheckMonData.port  +  ", Instance Name = " + this.heathCheckMonData.instName;
+     if(this.heathCheckMonData.sockeTo  != null)
+        healthChkTypeString + " TimeOut = " + this.heathCheckMonData.sockeTo ; 
+   }
    else if(this.heathCheckMonData.healthCheckType == "Http")
-     healthChkTypeString = "Url = " + this.heathCheckMonData.url + ", User Name = " +  this.heathCheckMonData.user + 
-                            ", Password = " +  this.heathCheckMonData.pwd + 
-                            ", Status Code = " + this.heathCheckMonData.httpSc + ", Instance = " +this.heathCheckMonData.instName;
+   {
+     healthChkTypeString = "Url = " + this.heathCheckMonData.url + + ", Instance = " +this.heathCheckMonData.instName ;
+     if( this.heathCheckMonData.user != null)
+     {
+       healthChkTypeString = healthChkTypeString +", User Name = " +  this.heathCheckMonData.user;
+     }
+     if( this.heathCheckMonData.pwd  != null)
+     {
+      healthChkTypeString = healthChkTypeString + ", Password = " +  this.heathCheckMonData.pwd ;
+     }
+     if(this.heathCheckMonData.sockeTo != null)
+     {
+       healthChkTypeString = healthChkTypeString + ", Status Code = " +  this.heathCheckMonData.httpSc ;
+     }
+   }
      
     let arr = [];
     arr.push(this.heathCheckMonData);
@@ -690,26 +703,53 @@ export class CavMonHealthCheckComponent implements OnInit {
 
    createArguments(healthCheckTypeNode,healthCheckMonData)
    {
-    let healthChkTypeString = '';
-    if(this.heathCheckMonData.healthCheckType == "Ping")
-       healthChkTypeString = "Host = " +this.heathCheckMonData.host  +", Packet Count = " + this.heathCheckMonData.pingPkt + ", Wait Interval = " + this.heathCheckMonData.pingIntrvl ;
-   
-    else if(this.heathCheckMonData.healthCheckType == "Socket")
-     healthChkTypeString = "Host = " +this.heathCheckMonData.host  +",Port = " + this.heathCheckMonData.port + " TimeOut = " + this.heathCheckMonData.sockeTo   +  ", Instance Name = " + this.heathCheckMonData.instName;
-
-    else if(this.heathCheckMonData.healthCheckType == "Http")
-      healthChkTypeString =  " Url = " + this.heathCheckMonData.url + ", User Name = " +  this.heathCheckMonData.user + 
-                            ", Password = " + this.heathCheckMonData.pwd + 
-                            ", Status Code = " + this.heathCheckMonData.httpSc + ", Instance = " +this.heathCheckMonData.instName
-                            ",Connection TimeOut ="+ this.heathCheckMonData.httpCTO + " ,Response TimeOut = "+ this.heathCheckMonData.httpRTO;
-
-  
+     let healthChkTypeString = this.createHealthTypeString(healthCheckMonData);
      healthCheckTypeNode.data.arguments = healthChkTypeString;
      let arr = [];
      arr.push(healthCheckMonData);
      healthCheckTypeNode.data.instanceInfo = arr;
    }
+   
+  createHealthTypeString(healthCheckMonData) 
+  {
+   let healthChkTypeString = '';
+    if(this.heathCheckMonData.healthCheckType == "Ping")
+    {
+       healthChkTypeString = "Host = " +this.heathCheckMonData.host ;
+       if(this.heathCheckMonData.pingPkt != null)
+         healthChkTypeString =   ", Packet Count = " + this.heathCheckMonData.pingPkt ;
 
+       if(this.heathCheckMonData.pingIntrvl != null)
+         healthChkTypeString =   ", Wait Interval = " + this.heathCheckMonData.pingIntrvl ;
+    }
+    else if(this.heathCheckMonData.healthCheckType == "Socket")
+    {
+     healthChkTypeString = "Host = " +this.heathCheckMonData.host  +",Port = " + this.heathCheckMonData.port  +  ", Instance Name = " + this.heathCheckMonData.instName;
+     if(this.heathCheckMonData.sockeTo  != null)
+        healthChkTypeString + " TimeOut = " + this.heathCheckMonData.sockeTo ; 
+    }
+    else if(this.heathCheckMonData.healthCheckType == "Http")
+    {
+     healthChkTypeString = "Url = " + this.heathCheckMonData.url + + ", Instance = " +this.heathCheckMonData.instName ;
+     if( this.heathCheckMonData.user != null)
+     {
+       healthChkTypeString = healthChkTypeString +", User Name = " +  this.heathCheckMonData.user;
+     }
+     if( this.heathCheckMonData.pwd  != null)
+     {
+      healthChkTypeString = healthChkTypeString + ", Password = " +  this.heathCheckMonData.pwd ;
+     }
+     if(this.heathCheckMonData.httpCTO != null)
+     {
+       healthChkTypeString = healthChkTypeString + ",Connection TimeOut ="+ this.heathCheckMonData.httpCTO ; " ,Response TimeOut = "+ this.heathCheckMonData.httpRTO;
+     }
+     if(this.heathCheckMonData.httpRTO != null)
+     {
+        healthChkTypeString = healthChkTypeString + ",Response TimeOut = "+ this.heathCheckMonData.httpRTO;
+     }
+   }
+   return healthChkTypeString;
+}
  
 
 
