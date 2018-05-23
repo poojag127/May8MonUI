@@ -271,7 +271,8 @@
               <p-checkbox [(ngModel)]="heathCheckMonData.overideGlobalSettings"  name="overide" 
                  binary=true label="Override global health check settings"  (click)="overrideGlobalSettings(heathCheckMonData.overideGlobalSettings)" ></p-checkbox>
           </div>
-          <div class = "ui-g-12" style= "border: 1px solid; margin-top: 10px"  *ngIf='heathCheckMonData.healthCheckType == "Ping"'>
+
+          <div class = "ui-g-12" style= "border: 1px solid; margin-top: 10px"  *ngIf='heathCheckMonData.overideGlobalSettings && heathCheckMonData.healthCheckType == "Ping"'>
               <div class="ui-g-2">
                  <label>Packet Count</label>
              </div>
@@ -288,7 +289,7 @@
                  
              </div>    
              
-             <div class = "ui-g-12" style= "border: 1px solid" [hidden]='heathCheckMonData.healthCheckType != "Socket"'>
+             <div class = "ui-g-12" style= "border: 1px solid" *ngIf='heathCheckMonData.overideGlobalSettings &&heathCheckMonData.healthCheckType == "Socket"'>
             
               <div class = "ui-g-2">
                   <label>Instance</label>
@@ -309,7 +310,7 @@
 
           </div>     
       
-          <div class= "ui-g-12" style= "border: 1px solid" [hidden]='heathCheckMonData.healthCheckType != "Http"'>
+          <div class= "ui-g-12" style= "border: 1px solid" *ngIf='heathCheckMonData.overideGlobalSettings &&heathCheckMonData.healthCheckType == "Http"'>
               <div class="ui-g-2">
                  <label>Proxy URL </label>
               </div>
