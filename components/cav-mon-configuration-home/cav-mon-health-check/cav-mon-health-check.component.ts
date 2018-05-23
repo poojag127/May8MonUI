@@ -473,7 +473,7 @@ export class CavMonHealthCheckComponent implements OnInit {
    }
    else if(this.heathCheckMonData.healthCheckType == "Http")
    {
-     healthChkTypeString = "Url = " + this.heathCheckMonData.url + + ", Instance = " +this.heathCheckMonData.instName ;
+     healthChkTypeString = "Url = " + this.heathCheckMonData.url + ", Instance = " +this.heathCheckMonData.instName ;
      if( this.heathCheckMonData.user != null)
      {
        healthChkTypeString = healthChkTypeString +", User Name = " +  this.heathCheckMonData.user;
@@ -666,31 +666,15 @@ export class CavMonHealthCheckComponent implements OnInit {
    {
     console.log("Method overrideGlobalSettings =", this.globalProps)
     console.log("this.healhChkMOnData = ",this.heathCheckMonData)
-    if(value)
-    {
-      this.heathCheckMonData.httpUrl = this.globalProps.httpUrl;
-      this.heathCheckMonData.httpUser = this.globalProps.httpUser;
-      this.heathCheckMonData.httpPwd = this.globalProps.httpPwd;
-      this.heathCheckMonData.statusCode = this.globalProps.httpSc;
-      this.heathCheckMonData.httpCTO = this.globalProps.httpCTO;
-      this.heathCheckMonData.httpRTO =  this.globalProps.httpRTO;
-      this.heathCheckMonData.pingIntrvl = this.globalProps.pingIntrvl;
-      this.heathCheckMonData.pingPkt = this.globalProps.pingPkt;
-      this.heathCheckMonData.sockeTo = this.globalProps.sockeTo;
-    }
-    else
-    {
       this.heathCheckMonData.httpUrl = '';
       this.heathCheckMonData.httpUser = '';
       this.heathCheckMonData.httpPwd ='';
-      this.heathCheckMonData.httpCTO = 10;
-      this.heathCheckMonData.httpRTO = 30;
+      this.heathCheckMonData.httpCTO = -1;
+      this.heathCheckMonData.httpRTO = -1;
       this.heathCheckMonData.statusCode = '';
-      this.heathCheckMonData.pingIntrvl = 10;
-      this.heathCheckMonData.pingPkt = 5;
-      this.heathCheckMonData.sockeTo = 10;
-    }
-
+      this.heathCheckMonData.pingIntrvl = -1;
+      this.heathCheckMonData.pingPkt = -1;
+      this.heathCheckMonData.sockeTo = -1;
    }
 
    updateHealthCheckType(healthCheckTypeNode,healthCheckMonData)
