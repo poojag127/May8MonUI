@@ -3,7 +3,7 @@
 
 <p-tabView  class="monitor-ui-tab">
  <p-tabPanel header="Health Check Settings">
-  <p-fieldset  class ="healthChkMonCss" legend="Ping Health Check Settings" [toggleable]="true" collapsed="true">
+  <p-fieldset  class ="healthChkMonCss" legend="Ping Health Check Settings" [toggleable]="true" [collapsed] = "false">
    <div class= "ui-g-12">
      <div class="ui-g-2" style="margin-top: 2px;">
        <label>Packet Count</label>
@@ -36,70 +36,68 @@
           <p-checkbox [(ngModel)]="globalProps.useProxy"  name="proxy" binary=true label="Use Proxy" ></p-checkbox>
       </div>
     </div>
+
+  <div class= "ui-g-12" *ngIf = "globalProps.useProxy" style="margin-left: 13px;">
+    <div class="ui-g-2" style="margin-top: 2px;">
+      <label>Proxy Host:Port </label>
+    </div>
+    <div class ="ui-g-2" style="margin-left: -47px">
+      <input name="globalUrl" type="text" [disabled]="!globalProps.useProxy"  
+            pInputText [(ngModel)]="globalProps.httpUrl"  autofocus required ngModel />
+    </div>
         
-    <div class= "ui-g-12" style="margin-left: 13px;">
-      <div class= "ui-g-12">
-        <div class="ui-g-2" style="margin-top: 2px;">
-          <label>Proxy Host:Port </label>
+    <div class = "ui-g-2" style="margin-left: 46px; margin-top: 2px">
+      <label>User Name</label>
+    </div>
+    <div class ="ui-g-2" style="margin-left: -61px">
+       <input name="globalUser" type="text"  [disabled]="!globalProps.useProxy" 
+            pInputText [(ngModel)]="globalProps.httpUser" 
+            autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
+    </div>
+        
+    <div class = "ui-g-2"  style="margin-left: 46px;margin-top: 2px">
+       <label>Password</label>
+     </div>
+      <div class ="ui-g-2" style="margin-left: -61px">
+        <input name="globalpasswrd" type="password"  [disabled]="!globalProps.useProxy"
+          pInputText [(ngModel)]="globalProps.httpPwd">
+      </div>
+    </div>
+        
+    <div class= "ui-g-12">
+        <div class = "ui-g-2" style="width: 20%; margin-top: 2px">
+          <label>Connection Timeout in sec(s)</label>
         </div>
-        <div class ="ui-g-2" style="margin-left: -47px">
-            <input name="globalUrl" type="text" [disabled]="!globalProps.useProxy"  
-                  pInputText [(ngModel)]="globalProps.httpUrl"  autofocus required ngModel />
-         </div>
-        
-        <div class = "ui-g-2" style="margin-left: 46px; margin-top: 2px">
-            <label>User Name</label>
-        </div>
-        <div class ="ui-g-2" style="margin-left: -61px">
-               <input name="globalUser" type="text"  [disabled]="!globalProps.useProxy" 
-                   pInputText [(ngModel)]="globalProps.httpUser" 
-                 autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
-            </div>
-        
-              <div class = "ui-g-2"  style="margin-left: 46px;margin-top: 2px">
-                  <label>Password</label>
-                </div>
-                <div class ="ui-g-2" style="margin-left: -61px">
-                   <input name="globalpasswrd" type="password"  [disabled]="!globalProps.useProxy"
-                       pInputText [(ngModel)]="globalProps.httpPwd">
-                </div>
-            </div>
-        </div>
-        
-          <div class= "ui-g-12">
-              <div class = "ui-g-2" style="width: 20%; margin-top: 2px">
-                <label>Connection Timeout in sec(s)</label>
-              </div>
-              <div class ="ui-g-2" style="margin-left: -13px;">
-                <input name="timeOut" type="number" style="width: 55px" pInputText autofocus required
+        <div class ="ui-g-2" style="margin-left: -13px;">
+            <input name="timeOut" type="number" style="width: 55px" pInputText autofocus required
                 [(ngModel)]="globalProps.httpCTO" ngModel/>
-              </div>
+        </div>
         
                     
-              <div class = "ui-g-2" style = "margin-left: 9px; margin-top: 2px">
-                  <label>Response Timeout in sec(s)</label>
-                </div>
-                <div class ="ui-g-2" style="margin-left: 29px">
-                    <input name="resTimeOut" type="number" style="width: 55px" autofocus required
+        <div class = "ui-g-2" style = "margin-left: 9px; margin-top: 2px">
+          <label>Response Timeout in sec(s)</label>
+        </div>
+        <div class ="ui-g-2" style="margin-left: 29px">
+            <input name="resTimeOut" type="number" style="width: 55px" autofocus required
                      pInputText [(ngModel)]="globalProps.httpRTO" ngModel/>
-                </div>
+        </div>
         
-                <div class="ui-g-2" style="margin-left: -58px; margin-top: 2px">
-                    <label>Thread Pool Size</label>
-                  </div>
-                  <div class = "ui-g-2" style="margin-left: -34px">
-                     <input name="threadPool"  style="width: 55px;" type="number"  autofocus required
-                     pInputText [(ngModel)]="globalProps.httpTP"  ngModel />
-                   </div>
-            </div>
-          
-          <div class= "ui-g-12" style="margin-left: 5px">
-                <label>Status code for successful health check</label>
-            <span>
-              <input name="globalStatusCode" style="margin-left: 29px" autofocus required
-              type="text"  pInputText  title="Comma separated list of status code"  [(ngModel)]="globalProps.httpSc"  ngModel />
-            </span>
+        <div class="ui-g-2" style="margin-left: -58px; margin-top: 2px">
+          <label>Thread Pool Size</label>
+        </div>
+        <div class = "ui-g-2" style="margin-left: -34px">
+          <input name="threadPool"  style="width: 55px;" type="number"  autofocus required
+              pInputText [(ngModel)]="globalProps.httpTP"  ngModel />
           </div>
+       </div>
+          
+       <div class= "ui-g-12" style="margin-left: 5px">
+          <label>Status code for successful health check</label>
+        <span>
+          <input name="globalStatusCode" style="margin-left: 29px" autofocus required
+              type="text"  pInputText  title="Comma separated list of status code"  [(ngModel)]="globalProps.httpSc"  ngModel />
+        </span>
+        </div>
         
         </p-fieldset>
         
@@ -162,7 +160,7 @@
           
               <div class = "ui-g-1" style="margin-left: 73px; margin-top: 2px">
                 <label>
-                  Server
+                  Server Display Name
                 </label>  
               </div>
               
@@ -275,32 +273,34 @@
                <p-checkbox [(ngModel)]="heathCheckMonData.useProxy"  name="proxy" binary=true label="Use Proxy" ></p-checkbox>
              </div>
         </div>
-         <div class= "ui-g-12" style=" margin-left: 13px">
-           <div class= "ui-g-12">
+
+         <div class= "ui-g-12" style=" margin-left: 13px" *ngIf = "heathCheckMonData.useProxy">
+           <!-- <div class= "ui-g-12"> -->
               <div class="ui-g-2" style="margin-top: 2px" >
            <label>Proxy Host:Port </label>
+         </div>
+         <div class ="ui-g-2" style="margin-left: -47px">
+           <input name="url" type="text"  [disabled]="!heathCheckMonData.useProxy" pInputText [(ngModel)]="heathCheckMonData.httpUrl"   ngModel />
+         </div>
+         <div class = "ui-g-2" style="margin-left: 46px;margin-top: 2px">
+            <label>User Name</label>
         </div>
-        <div class ="ui-g-2" style="margin-left: -47px">
-          <input name="url" type="text"  [disabled]="!heathCheckMonData.useProxy" pInputText [(ngModel)]="heathCheckMonData.httpUrl"   ngModel />
-       </div>
-      <div class = "ui-g-2" style="margin-left: 46px;margin-top: 2px">
-           <label>User Name</label>
-        </div>
-       <div class ="ui-g-2" style="margin-left: -61px">
+        <div class ="ui-g-2" style="margin-left: -61px">
           <input name="usrname" type="text"  [disabled]="!heathCheckMonData.useProxy" pInputText [(ngModel)]="heathCheckMonData.httpUser" 
                 pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$"  ngModel />
-       </div>
+        </div>
                         
-      <div class = "ui-g-2"  style="margin-left: 46px;margin-top: 2px">
-          <label>Password</label>
-       </div>
-       <div class ="ui-g-2" style="margin-left: -61px">
+        <div class = "ui-g-2"  style="margin-left: 46px;margin-top: 2px">
+           <label>Password</label>
+        </div>
+        <div class ="ui-g-2" style="margin-left: -61px">
            <input name="pswrd" type="password"  [disabled]="!heathCheckMonData.useProxy"
                  pInputText [(ngModel)]="heathCheckMonData.httpPwd" 
                 ngModel />
          </div>
-       </div>
+       <!-- </div> -->
      </div>
+
       <div class= "ui-g-12">
          <div class = "ui-g-2" style="width: 25%;margin-top: 2px">
             <label>Connection Timeout in sec(s)</label>
