@@ -14,7 +14,7 @@
   <p-checkbox [(ngModel)]="enableHealthCheckMon" name="enableChkMon" binary="true" label="Enable Health Check Monitor" ></p-checkbox>
 </div>
 
-<!--<form  (ngSubmit)="saveFinalData()" #form="ngForm" ngNativeValidate >-->
+<!--<form #form="ngForm" ngNativeValidate >-->
   <div>
     <p-fieldset  class ="healthChkMonCss" legend="Ping Health Check Settings" [toggleable]="true" collapsed="true">
       <div class= "ui-g-12">
@@ -22,7 +22,9 @@
            <label>Packet Count</label>
         </div>
         <div class ="ui-g-1" style="margin-left: -68px;">
-          <input name="pckt" style="width: 55px;" type="number" min="0" max="100" pInputText [(ngModel)]="globalProps.pingPkt" ngModel />
+          <input name="pckt" style="width: 55px;" type="number" min="0" max="100" 
+          required
+          pInputText [(ngModel)]="globalProps.pingPkt" ngModel />
          </div>
         
           <div class = "ui-g-2" style="margin-top: 2px; margin-left: 48px">
@@ -434,18 +436,12 @@
                   </p-column>
                </p-treeTable>
                </div>
-        
                
-               
-                 <!-- <div class="ui-g-12">
-                   <button type="button" pButton  icon="fa-check" style="float: right" (click)= "finalSubmit()" title="Save" label="Save"></button>
-                   <button type="button" pButton  icon="fa-close" style="float: right" (click)= "dialogCloseEvent()" label="Cancel" title="Close"></button>
-                 </div> -->
       </p-tabPanel>
-  </p-tabView>
-
             <div class="pull-right">
                 <button type="button" pButton icon="fa-check" (click)= "saveFinalData()" label="Save"></button>
                 <button type="button" pButton icon="fa-check"  label="Cancel"></button>
             </div>
+  </p-tabView>
+
 </p-dialog>

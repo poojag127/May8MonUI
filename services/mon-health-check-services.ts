@@ -33,36 +33,33 @@ export class MonHealthCheckService {
     getHealthCheckTreeTableData()
     {
      return this.healthCheckTreeTableData;
-     }
+    }
+    
+    getNodeName()
+    {
+
+    }
 
     setHealthCheckTreeTableData(heathCheckMonitorData)
     {
-     this.healthCheckTreeTableData = heathCheckMonitorData
+     let uniqueKey = [];
+     heathCheckMonitorData.map(function(each){
+       let tierName = each['data']['nodeName'];
+       let serverList = each['children'];
+       serverList.map(function(each){
+         let serverName = each['data']['nodeName'];
+         let healthChkList = each['children'];
+         healthChkList.map(function(each){
+           let helthChkTypeName =  each['data']['nodeName'];
+           let key = tierName + serverName + this.heathCheckMonData.instName;
+           uniqueKey.push(key);
+         })
+       })
+     })
+     console.log("On edit creating uniqueKey = ",uniqueKey)
+     
+     this.healthCheckTreeTableData = heathCheckMonitorData;
     }
-
-    readHealthMonitorJson(topoName, profileName, mode, userName, trNum )
-    {
-    //   console.log("Method readHealthMonitorJson called = ")
-    //   let url = this.monDataService.getserviceURL() + URL.GET_HEALTH_MON_STATS;
-    //   let params: URLSearchParams = new URLSearchParams();
-    //    params.set('topoName', this.topoName);
-    //    params.set('profileName', this.profileName);
-    //    params.set('monMode', this.monDataService.getMonMode().toString());
-    //    params.set('userName', this.monDataService.getUserName());
-    //    params.set('testRun', this.monDataService.getTestRunNum().toString());
-    //    params.set('productKey', this.monDataService.getProductKey());
-
-    //    return this.http.get(url, { search: params }).map(res => res.json())
-    //      .toPromise()
-    //      .then(res => {
-            
-    //   }).
-    //   catch(this.handleError);
-    let url = this.monDataService.getserviceURL() + URL.GET_HEALTH_MON_STATS + "?topoName=" + `${topoName}` + "&profileName=" + `${profileName}` + "&mode=" + `${mode}` + "&userName="+ `${userName}` + "&testRun="+ `${trNum}` + "&productKey=" + this.monDataService.getProductKey();
-    console.log("url for health Chk Mon --", url)
-    return this._restApi.getDataByGetReq(url);
-    }
-
 
 
     savehealthCheckData(heathCheckMonitorData,globalProps,enableHealthCheckMon)
