@@ -616,10 +616,13 @@ export class CavMonHealthCheckComponent implements OnInit {
     this.heathCheckMonData.sockeTo = -1;
   }
 
-  updateHealthCheckType(healthCheckTypeNode, healthCheckMonData) {
-    console.log("new healthCheckMonData = ", healthCheckMonData)
-    console.log("healthCheckTypeNode = ", healthCheckTypeNode)
-    this.createArguments(healthCheckTypeNode, healthCheckMonData)
+  
+
+   updateHealthCheckType(healthCheckTypeNode,healthCheckMonData)
+   {
+    console.log("new healthCheckMonData = ",healthCheckMonData)
+    console.log("healthCheckTypeNode = ",healthCheckTypeNode)
+    this.createArguments(healthCheckTypeNode,healthCheckMonData)
     this.editMode = false;
   }
 
@@ -641,15 +644,25 @@ export class CavMonHealthCheckComponent implements OnInit {
       if (this.heathCheckMonData.pingIntrvl != null)
         healthChkTypeString = healthChkTypeString + ", Wait Interval = " + this.heathCheckMonData.pingIntrvl;
     }
+
     else if (this.heathCheckMonData.healthCheckType == "Socket") {
       healthChkTypeString = "Host = " + this.heathCheckMonData.host +
                             ",Port = " + this.heathCheckMonData.port +
                             ", Instance Name = " + this.heathCheckMonData.instName;
       if (this.heathCheckMonData.sockeTo != null)
         healthChkTypeString = healthChkTypeString + " TimeOut = " + this.heathCheckMonData.sockeTo;
+        
+      if (this.heathCheckMonData.user != null)
+        healthChkTypeString = healthChkTypeString + ", User Name = " + this.heathCheckMonData.user;
+
+      if (this.heathCheckMonData.pwd != null) 
+          healthChkTypeString = healthChkTypeString + ", Password = " + this.heathCheckMonData.pwd;
     }
+
     else if (this.heathCheckMonData.healthCheckType == "Http") {
-      healthChkTypeString = "Url = " + this.heathCheckMonData.url + + ", Instance = " + this.heathCheckMonData.instName;
+      healthChkTypeString = "Url = " + this.heathCheckMonData.url 
+                        +  ", Instance = " + this.heathCheckMonData.instName;
+      
       if (this.heathCheckMonData.user != null) {
         healthChkTypeString = healthChkTypeString + ", User Name = " + this.heathCheckMonData.user;
       }
@@ -657,10 +670,10 @@ export class CavMonHealthCheckComponent implements OnInit {
         healthChkTypeString = healthChkTypeString + ", Password = " + this.heathCheckMonData.pwd;
       }
       if (this.heathCheckMonData.httpCTO != null) {
-        healthChkTypeString = healthChkTypeString + ",Connection TimeOut =" + this.heathCheckMonData.httpCTO; " ,Response TimeOut = " + this.heathCheckMonData.httpRTO;
+        healthChkTypeString = healthChkTypeString + ", Connection Timeout =" + this.heathCheckMonData.httpCTO;
       }
       if (this.heathCheckMonData.httpRTO != null) {
-        healthChkTypeString = healthChkTypeString + ",Response TimeOut = " + this.heathCheckMonData.httpRTO;
+        healthChkTypeString = healthChkTypeString + ", Response Timeout = " + this.heathCheckMonData.httpRTO;
       }
     }
     return healthChkTypeString;

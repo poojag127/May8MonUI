@@ -1,12 +1,8 @@
-<p-dialog class="profile-dialog monitor-dialog" 
-  [(visible)]="displayDialog" [style]="{'overflow': 'hidden','max-height': '520px'}"
-   header="Health Check Monitor Configurations" width="1000"  
+<p-dialog class="profile-dialog monitor-dialog" [(visible)]="displayDialog"  header="Health Check Monitor Configurations" width="1000"  
    [modal]="false" (onHide)="dialogCloseEvent($event)" [resizable]="true" [responsive]="true">
 
-
-
-
 <p-tabView  class="monitor-ui-tab">
+<<<<<<< HEAD
 
 <p-tabPanel header="Health Check Settings">
 
@@ -17,54 +13,65 @@
 <!--<form #form="ngForm" ngNativeValidate >-->
   <div>
     <p-fieldset  class ="healthChkMonCss" legend="Ping Health Check Settings" [toggleable]="true" collapsed="true">
+=======
+ <p-tabPanel header="Health Check Settings">
+  <p-fieldset  class ="healthChkMonCss" legend="Ping Health Check Settings" [toggleable]="true" collapsed="true">
+   <div class= "ui-g-12">
+     <div class="ui-g-2" style="margin-top: 2px;">
+       <label>Packet Count</label>
+     </div>
+     <div class ="ui-g-1" style="margin-left: -68px;">
+       <input name="pckt" style="width: 55px;" type="number" min="0" max="100" 
+           autofocus required pInputText [(ngModel)]="globalProps.pingPkt"  ngModel />
+      </div>
+        
+      <div class = "ui-g-2" style="margin-top: 2px; margin-left: 48px">
+        <label>Wait Interval in sec(s)</label>
+      </div>
+      <div class ="ui-g-1" style="margin-left: -23px;">
+        <input name="intvrl" style="width: 55px;" type="number" autofocus required
+          step="0.1" min="0" max="1" pInputText [(ngModel)]="globalProps.pingIntrvl" ngModel />
+      </div>
+        
+      <div class="ui-g-2" style="margin-top: 2px; margin-left: 48px">
+          <label>Thread Pool Size</label>
+      </div>
+      <div class = "ui-g-1" style="margin-left: -50px;">
+        <input name="tpSize" style="width: 55px;" type="number" autofocus required
+               pInputText [(ngModel)]="globalProps.pingTP"  ngModel />
+      </div>
+    </div>
+  </p-fieldset>
+  <p-fieldset  class = "healthChkMonCss" legend="HTTP  Health Check Settings" [toggleable]="true" collapsed="true">
+    <div class = "ui-g-12">
+      <div class = "ui-g-2">
+          <p-checkbox [(ngModel)]="globalProps.useProxy"  name="proxy" binary=true label="Use Proxy" ></p-checkbox>
+      </div>
+    </div>
+        
+    <div class= "ui-g-12" style="margin-left: 13px;">
+>>>>>>> 39ffacf4de1ab91e8c3d6d7d1410c676485a0b7a
       <div class= "ui-g-12">
         <div class="ui-g-2" style="margin-top: 2px;">
-           <label>Packet Count</label>
+          <label>Proxy Host:Port </label>
         </div>
+<<<<<<< HEAD
         <div class ="ui-g-1" style="margin-left: -68px;">
           <input name="pckt" style="width: 55px;" type="number" min="0" max="100" 
           required
           pInputText [(ngModel)]="globalProps.pingPkt" ngModel />
+=======
+        <div class ="ui-g-2" style="margin-left: -47px">
+            <input name="globalUrl" type="text" [disabled]="!globalProps.useProxy"  
+                  pInputText [(ngModel)]="globalProps.httpUrl"  autofocus required ngModel />
+>>>>>>> 39ffacf4de1ab91e8c3d6d7d1410c676485a0b7a
          </div>
         
-          <div class = "ui-g-2" style="margin-top: 2px; margin-left: 48px">
-            <label>Wait Interval in sec(s)</label>
-          </div>
-           <div class ="ui-g-1" style="margin-left: -23px;">
-              <input name="intvrl" style="width: 55px;" type="number" step="0.1" min="0" max="1" pInputText [(ngModel)]="globalProps.pingIntrvl" ngModel />
-           </div>
-        
-          <div class="ui-g-2" style="margin-top: 2px; margin-left: 48px">
-             <label>Thread Pool Size</label>
-          </div>
-          <div class = "ui-g-1" style="margin-left: -50px;">
-              <input name="tpSize" style="width: 55px;" type="number"  pInputText [(ngModel)]="globalProps.pingTP"  ngModel />
-          </div>
+        <div class = "ui-g-2" style="margin-left: 46px; margin-top: 2px">
+            <label>User Name</label>
         </div>
-    </p-fieldset>
-        
-        <p-fieldset  class = "healthChkMonCss" legend="HTTP  Health Check Settings" [toggleable]="true" collapsed="true">
-          <div class = "ui-g-12">
-            <div class = "ui-g-2">
-               <p-checkbox [(ngModel)]="globalProps.useProxy"  name="proxy" binary=true label="Use Proxy" ></p-checkbox>
-             </div>
-           </div>
-        
-          <div class= "ui-g-12" style="margin-left: 13px;">
-            <div class= "ui-g-12">
-              <div class="ui-g-2" style="margin-top: 2px;">
-                 <label>Proxy Host:Port </label>
-             </div>
-             <div class ="ui-g-2" style="margin-left: -47px">
-               <input name="globalUrl" type="text" [disabled]="!globalProps.useProxy"  
-                  pInputText [(ngModel)]="globalProps.httpUrl"  required ngModel />
-             </div>
-        
-            <div class = "ui-g-2" style="margin-left: 46px; margin-top: 2px">
-                <label>User Name</label>
-            </div>
-            <div class ="ui-g-2" style="margin-left: -61px">
-                 <input name="globalUser" type="text"  [disabled]="!globalProps.useProxy" 
+        <div class ="ui-g-2" style="margin-left: -61px">
+               <input name="globalUser" type="text"  [disabled]="!globalProps.useProxy" 
                    pInputText [(ngModel)]="globalProps.httpUser" 
                  autofocus required pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$" required ngModel />
             </div>
@@ -77,14 +84,15 @@
                        pInputText [(ngModel)]="globalProps.httpPwd">
                 </div>
             </div>
-          </div>
+        </div>
         
           <div class= "ui-g-12">
               <div class = "ui-g-2" style="width: 20%; margin-top: 2px">
                 <label>Connection Timeout in sec(s)</label>
               </div>
               <div class ="ui-g-2" style="margin-left: -13px;">
-                <input name="timeOut" type="number" style="width: 55px" pInputText [(ngModel)]="globalProps.httpCTO" ngModel/>
+                <input name="timeOut" type="number" style="width: 55px" pInputText autofocus required
+                [(ngModel)]="globalProps.httpCTO" ngModel/>
               </div>
         
                     
@@ -92,21 +100,24 @@
                   <label>Response Timeout in sec(s)</label>
                 </div>
                 <div class ="ui-g-2" style="margin-left: 29px">
-                    <input name="resTimeOut" type="number" style="width: 55px" pInputText [(ngModel)]="globalProps.httpRTO" ngModel/>
+                    <input name="resTimeOut" type="number" style="width: 55px" autofocus required
+                     pInputText [(ngModel)]="globalProps.httpRTO" ngModel/>
                 </div>
         
                 <div class="ui-g-2" style="margin-left: -58px; margin-top: 2px">
                     <label>Thread Pool Size</label>
                   </div>
                   <div class = "ui-g-2" style="margin-left: -34px">
-                     <input name="threadPool"  style="width: 55px;" type="number"  pInputText [(ngModel)]="globalProps.httpTP"  ngModel />
+                     <input name="threadPool"  style="width: 55px;" type="number"  autofocus required
+                     pInputText [(ngModel)]="globalProps.httpTP"  ngModel />
                    </div>
             </div>
           
           <div class= "ui-g-12" style="margin-left: 5px">
                 <label>Status code for successful health check</label>
             <span>
-              <input name="globalStatusCode" style="margin-left: 29px" type="text"  pInputText  title="Comma separated list of status code"  [(ngModel)]="globalProps.httpSc"  ngModel />
+              <input name="globalStatusCode" style="margin-left: 29px" autofocus required
+              type="text"  pInputText  title="Comma separated list of status code"  [(ngModel)]="globalProps.httpSc"  ngModel />
             </span>
           </div>
         
@@ -118,20 +129,12 @@
               <label>Connection Timeout in sec(s)</label>
              </div>
              <div class ="ui-g-3">
-               <input name="socketCTO" type="number" style="width: 55px;" min="0"  pInputText [(ngModel)]="globalProps.sockeTo" ngModel /> 
+               <input name="socketCTO" type="number" style="width: 55px;" min="0" autofocus required
+                pInputText [(ngModel)]="globalProps.sockeTo" ngModel /> 
             </div>
           </div>    
         </p-fieldset>
-      </div>
-
-      <!--<div class="ui-g-12">
-            <button type="submit" pButton  icon="fa-check" style="float: right"  title="Save" label="Save"></button>
-            <button type="button" pButton  icon="fa-close" style="float: right" (click)= "dialogCloseEvent()" label="Cancel" title="Close"></button>
-      </div>-->
-    <!--</form>-->
-
-</p-tabPanel>
-
+ </p-tabPanel>
 
      <p-tabPanel header="Health Check Monitor">
           <form  (ngSubmit)="saveData()" #form="ngForm" ngNativeValidate >
@@ -194,46 +197,7 @@
                      pInputText [(ngModel)]="heathCheckMonData.customServerName"  title = "Enter server name" ngModel />
                 </div>
           </div>
-          
-          <!-- 
-           <div class = "ui-g-12">
-              <div class ="ui-g-2">
-                <label>
-                  Enter Tier Name
-                </label>
-              </div>
-              <div class ="ui-g-3" >
-                   <input name="tierName" type="text" [disabled]="heathCheckMonData.tierName != 'Others'"
-                    pInputText [(ngModel)]="heathCheckMonData.customTierName" title="Enter tier name" required ngModel />
-              </div>
-          
-                <div class ="ui-g-2">
-                  <label>
-                    Enter Server Name
-                  </label>
-                </div>
-                  <div class ="ui-g-3">
-                    <input name="serverName" type="text" [disabled]="heathCheckMonData.tierName != 'Others'"
-                     pInputText [(ngModel)]="heathCheckMonData.customServerName"  title = "Enter server name" ngModel />
-                  </div>
-          
-            </div>  -->
-          <!--     
-             <div class = "ui-g-12">
-                 <div class = "ui-g-2">
-                     <label>
-                       Health Check Type
-                     </label>
-                 </div>
-          
-                 
-                       <div class = "ui-g-3" style="margin-left: -38px">
-                            <p-dropdown name="healthChkList"  [style]="{'width':'120px'}"
-                              [disabled]="editMode"
-                              [options]="healthCheckList" [(ngModel)]="heathCheckMonData.healthCheckType" >
-                             </p-dropdown>
-                        </div>
-             </div> -->
+
              <div class = "ui-g-12">
               <div class = "ui-g-2" style="margin-top: 2px"  *ngIf = "heathCheckMonData.healthCheckType != 'Http'" >
                 <label>Host</label>
@@ -303,125 +267,115 @@
                            <label>Packet Count</label>
                        </div>
                     <div class = "ui-g-3" style="margin-left: -53px;">
-                         <input name="packet" type="number"  min="0" max="100"  pInputText [(ngModel)]="heathCheckMonData.pingPkt" autofocus required ngModel />
+                         <input name="packet" type="number"  style="width: 55px;" min="0" max="100"  pInputText [(ngModel)]="heathCheckMonData.pingPkt" ngModel />
                    </div>
           
-                 <div class = "ui-g-2" style="margin-top: 2px">
+                 <div class = "ui-g-2" style="margin-top: 2px; margin-left: -71px;" >
                       <label>Wait Interval in sec(s)</label>
                </div>
                  <div class ="ui-g-3">
-                     <input name="interval" type="number" min="0" step="0.1" max="1" pInputText [(ngModel)]="heathCheckMonData.pingIntrvl"  ngModel />
+                     <input name="interval" type="number"  style="width: 55px;"  min="0" step="0.1" max="1" pInputText [(ngModel)]="heathCheckMonData.pingIntrvl"  ngModel />
               </div>
      </div>    
                        
        <div class = "ui-g-12" style= "border: 1px solid" *ngIf='heathCheckMonData.overideGlobalSettings &&heathCheckMonData.healthCheckType == "Socket"'>
                   
-          <div class = "ui-g-2" style="margin-top: 2px" >
+          <div class = "ui-g-2" style="margin-top:2px; width: 20%" >
                 <label>Connection Timeout in sec(s)</label>
             </div>
           <div class ="ui-g-3">
-            <input name="connectionTimeOut" type="number"  pInputText [(ngModel)]="heathCheckMonData.sockeTo" 
+            <input name="connectionTimeOut" type="number" style="width: 55px;" pInputText [(ngModel)]="heathCheckMonData.sockeTo" 
              ngModel />
         </div>
         
       </div>     
      <div class= "ui-g-12" style= "border: 1px solid" *ngIf='heathCheckMonData.overideGlobalSettings && heathCheckMonData.healthCheckType == "Http"'>
-                        <div class = "ui-g-12">
-                            <div class = "ui-g-2">
-                               <p-checkbox [(ngModel)]="heathCheckMonData.useProxy"  name="proxy" binary=true label="Use Proxy" ></p-checkbox>
-                             </div>
-                           </div>
+        <div class = "ui-g-12">
+            <div class = "ui-g-2">
+               <p-checkbox [(ngModel)]="heathCheckMonData.useProxy"  name="proxy" binary=true label="Use Proxy" ></p-checkbox>
+             </div>
+        </div>
+         <div class= "ui-g-12" style=" margin-left: 13px">
+           <div class= "ui-g-12">
+              <div class="ui-g-2" style="margin-top: 2px" >
+           <label>Proxy Host:Port </label>
+        </div>
+        <div class ="ui-g-2" style="margin-left: -47px">
+          <input name="url" type="text"  [disabled]="!heathCheckMonData.useProxy" pInputText [(ngModel)]="heathCheckMonData.httpUrl"   ngModel />
+       </div>
+      <div class = "ui-g-2" style="margin-left: 46px;margin-top: 2px">
+           <label>User Name</label>
+        </div>
+       <div class ="ui-g-2" style="margin-left: -61px">
+          <input name="usrname" type="text"  [disabled]="!heathCheckMonData.useProxy" pInputText [(ngModel)]="heathCheckMonData.httpUser" 
+                pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$"  ngModel />
+       </div>
                         
-                          <div class= "ui-g-12" style=" margin-left: 13px">
-                            <div class= "ui-g-12">
-                              <div class="ui-g-2" style="margin-top: 2px" >
-                                 <label>Proxy Host:Port </label>
-                             </div>
-                             <div class ="ui-g-2" style="margin-left: -47px">
-                                <input name="url" type="text"  [disabled]="!heathCheckMonData.useProxy" pInputText [(ngModel)]="heathCheckMonData.httpUrl"   ngModel />
-                             </div>
+      <div class = "ui-g-2"  style="margin-left: 46px;margin-top: 2px">
+          <label>Password</label>
+       </div>
+       <div class ="ui-g-2" style="margin-left: -61px">
+           <input name="pswrd" type="password"  [disabled]="!heathCheckMonData.useProxy"
+                 pInputText [(ngModel)]="heathCheckMonData.httpPwd" 
+                ngModel />
+         </div>
+       </div>
+     </div>
+      <div class= "ui-g-12">
+         <div class = "ui-g-2" style="width: 25%;margin-top: 2px">
+            <label>Connection Timeout in sec(s)</label>
+      </div>
+        <div class ="ui-g-2" style="margin-left: -31px">
+             <input name="cto" type="number"  pInputText  style="width: 55px;"
+                  [(ngModel)]="heathCheckMonData.httpCTO" ngModel />
+        </div>
                         
-                            <div class = "ui-g-2" style="margin-left: 46px;margin-top: 2px">
-                                <label>User Name</label>
-                            </div>
-                            <div class ="ui-g-2" style="margin-left: -61px">
-                                <input name="usrname" type="text"  [disabled]="!heathCheckMonData.useProxy" pInputText [(ngModel)]="heathCheckMonData.httpUser" 
-                                pattern="^[a-zA-Z][a-zA-Z0-9_-]{0,31}$"  ngModel />
-                            </div>
-                        
-                              <div class = "ui-g-2"  style="margin-left: 46px;margin-top: 2px">
-                                  <label>Password</label>
-                                </div>
-                                <div class ="ui-g-2" style="margin-left: -61px">
-                                    <input name="pswrd" type="password"  [disabled]="!heathCheckMonData.useProxy"
-                                    pInputText [(ngModel)]="heathCheckMonData.httpPwd" 
-                                     ngModel />
-                                </div>
-                            </div>
-                          </div>
-                        
-                          <div class= "ui-g-12">
-                              <div class = "ui-g-2" style="width: 25%;margin-top: 2px">
-                                <label>Connection Timeout in sec(s)</label>
-                              </div>
-                              <div class ="ui-g-2" style="margin-left: -31px">
-                                  <input name="cto" type="number"  pInputText style="width: 132px"
-                                  [(ngModel)]="heathCheckMonData.httpCTO" ngModel />
-                                <!-- <span>
-                                    (sec)
-                                </span> -->
-                              </div>
-                        
-                                    
-                              <div class = "ui-g-2"  style="margin-left: -26px; width: 24%;margin-top: 2px">
-                                  <label>Response Timeout in sec(s)</label>
-                                </div>
-                                <div class ="ui-g-2" >
-                                    <input name="rto" style="width: 118px; margin-left: -23px;" type="number"  pInputText  [(ngModel)]="heathCheckMonData.httpRTO"
-                                    ngModel />
-                                </div>
-                      
-                            </div>
+        <div class = "ui-g-2"  style="margin-left: -26px; width: 24%;margin-top: 2px">
+             <label>Response Timeout in sec(s)</label>
+        </div>
+            <div class ="ui-g-2" >
+                  <input name="rto"  style="width: 55px;" type="number"  pInputText  [(ngModel)]="heathCheckMonData.httpRTO"
+                ngModel />
+           </div>
+        </div>
                           
-                          <div class= "ui-g-12" style="margin-left: 5px;margin-top: 2px">
-                                <label>Status code for successful health check</label>
-                            <span>
-                                <input name="statusCode" type="text"  pInputText title="Comma separated list of status code"
-                                [(ngModel)]="heathCheckMonData.httpSc" ngModel />
-                            </span>
-                          </div>      
-                    </div>
-                    </p-accordionTab>       
-                  </p-accordion>   
-                </div>
+         <div class= "ui-g-12" style="margin-left: 5px;margin-top: 2px">
+              <label>Status code for successful health check</label>
+         <span>
+            <input name="statusCode"  title="Comma separated list of status code"  type="text" style="width: 170px;margin-left: 23px"  pInputText title="Comma separated list of status code"
+                [(ngModel)]="heathCheckMonData.httpSc" ngModel />
+          </span>
+         </div>      
+        </div>
+      </p-accordionTab>       
+   </p-accordion>   
+  </div>
           
-          
-                <div class="ui-g-12" style="margin-top: 7px">
-                    <button type="submit" pButton icon="fa-check" style="width: 63px ; float: right"  *ngIf="!editMode" label="Add"></button>
-                    <button type="submit" pButton icon="fa-check" style="width: 63px ; float: right" *ngIf="editMode" label="Update"></button>
-                    <button type="button" pButton icon="fa-close" style="width: 93px ; float: right" (click)="closeConfiguration()"  *ngIf="editMode" label="Cancel"></button>
-                </div>
-              </div>
-            </p-fieldset>
-            </form>
+  <div class="ui-g-12" style="margin-top: 7px">
+          <button type="submit" pButton icon="fa-check" style="width: 63px ; float: right"  *ngIf="!editMode" label="Add"></button>
+          <button type="submit" pButton icon="fa-check" style="width: 63px ; float: right" *ngIf="editMode" label="Update"></button>
+          <button type="button" pButton icon="fa-close" style="width: 93px ; float: right" (click)="closeConfiguration()"  *ngIf="editMode" label="Cancel"></button>
+      </div>
+   </div>
+   </p-fieldset>
+  </form>
 
-            <div class = "ui-g-12" style="margin-top: -3px">
-                <p-treeTable  class = "healthChk-treeTable" [value]="heathCheckMonitorData"  selectionMode="single" [(selection)]="selectedFile">
-                   <p-header class="health-check-mon-header">
-                       <span >Configured Health Check Monitor</span>
-                    </p-header>
+    <div class = "ui-g-12" style="margin-top: 27px">
+      <p-treeTable  class = "healthChk-treeTable" [value]="heathCheckMonitorData"  selectionMode="single" [(selection)]="selectedFile">
+        <p-header class="health-check-mon-header">
+               <span >Configured Health Check Monitor</span>
+        </p-header>
                
-                  <p-column field="nodeName" header="Monitor Name"></p-column>
-                  <p-column field="arguments" header="Arguments">
-                     <template let-col let-data="rowData" pTemplate>
-                             <p-checkbox *ngIf="data.data['arguments'] == 'false' ||data.data['arguments'] == 'true'|| data.data['arguments'] == false ||data.data['arguments'] == true" 
-                              [(ngModel)]="data.data.enabled "
-                              (click)="onCheckBoxChange(data,data.data.enabled)"  binary="false">
-               
-                             </p-checkbox>   
-                               <span *ngIf="!(data.data['arguments'] == 'false' ||data.data['arguments'] == 'true' || data.data['arguments'] == false ||data.data['arguments'] == true)" title="{{data.data['arguments']}}">{{data.data['arguments']}}</span>
-                     </template>
-                  </p-column>
+        <p-column field="nodeName" header="Monitor Name"></p-column>
+        <p-column field="arguments" header="Arguments">
+        <template let-col let-data="rowData" pTemplate>
+            <p-checkbox *ngIf="data.data['arguments'] == 'false' ||data.data['arguments'] == 'true'|| data.data['arguments'] == false ||data.data['arguments'] == true" 
+                 [(ngModel)]="data.data.enabled "
+                (click)="onCheckBoxChange(data,data.data.enabled)"  binary="false">
+             </p-checkbox>   
+          <span *ngIf="!(data.data['arguments'] == 'false' ||data.data['arguments'] == 'true' || data.data['arguments'] == false ||data.data['arguments'] == true)" title="{{data.data['arguments']}}">{{data.data['arguments']}}</span>
+          </template>
+      </p-column>
                   
                   <p-column [style]="{'width':'80px'}" field="Actions" header="Actions">
                      <template  let-data="rowData" pTemplate type="body">
@@ -443,5 +397,6 @@
                 <button type="button" pButton icon="fa-check"  label="Cancel"></button>
             </div>
   </p-tabView>
+
 
 </p-dialog>
