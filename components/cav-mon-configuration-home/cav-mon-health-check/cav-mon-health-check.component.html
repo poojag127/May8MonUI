@@ -1,11 +1,10 @@
 <p-dialog class="profile-dialog monitor-dialog" [(visible)]="displayDialog"  header="Health Check Monitor Configurations" width="1000"  
    [modal]="false" (onHide)="dialogCloseEvent($event)" [resizable]="true" [responsive]="true">
 
+
+
+
 <p-tabView  class="monitor-ui-tab">
-  <p-tabPanel header="Health Check Settings">
-    <div class = "ui-g-12" style="margin-bottom: 10px; margin-left: 10px;">
-       <p-checkbox [(ngModel)]="enableHealthCheckMon" name="enableChkMon" binary="true" label="Enable Health Check Monitor" ></p-checkbox>
-     </div>
 
    <!-- <form  (ngSubmit)="saveFinalData()" #form="ngForm" ngNativeValidate > -->
     <div>
@@ -126,7 +125,7 @@
     <!-- </form> -->
  </p-tabPanel>
 
-      <p-tabPanel header="Health Check Monitor">
+     <p-tabPanel header="Health Check Monitor">
           <form  (ngSubmit)="saveData()" #form="ngForm" ngNativeValidate >
               <p-fieldset  class = "healthChkMonCss"  legend="Configuration" [toggleable]="true"  [collapsed] = "false">
                 <div class = "ui-g-12" style="margin-top: 6px">
