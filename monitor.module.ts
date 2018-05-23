@@ -14,7 +14,7 @@ import { Logger, Options as LoggerOptions, Level as LoggerLevel } from '../../..
 import { AccordionModule, DataTableModule, ContextMenuModule, MultiSelectModule, 
   ConfirmDialogModule, InputTextModule, ButtonModule, DialogModule, DropdownModule, FieldsetModule, RadioButtonModule,
   CheckboxModule, InputTextareaModule, TreeTableModule,SharedModule, FileUploadModule, PaginatorModule, PanelModule, SpinnerModule,
-  GrowlModule,BreadcrumbModule,MessagesModule,ToolbarModule,ConfirmationService,TreeModule
+  GrowlModule,BreadcrumbModule,MessagesModule,ToolbarModule,ConfirmationService,TreeModule,TabViewModule
 } from 'primeng/primeng';
 
 import { BlockUIModule } from 'ng-block-ui';
@@ -130,6 +130,7 @@ import { MonitorCompReducer } from './reducers/monitor-comp-reducer';
     MessagesModule,
     ToolbarModule,
     TreeModule,
+    TabViewModule,
     StoreModule.provideStore({ monitorData: MonitorReducer ,selectedMon:MonitorCompReducer}),
   ],
   providers: [

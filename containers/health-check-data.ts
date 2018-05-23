@@ -1,10 +1,10 @@
 export class HealthCheckMonData
 {
  prop :any= {};
- packet:number =5;
+ packet:number;
  interval:number ;
- proxyUrl:string = "NA";
- userName:string = "cavisson";
+ proxyUrl:string;
+ userName:string;
  pwd:string;
  statusCode:string;
  threadPool:number;
@@ -21,17 +21,16 @@ export class HealthCheckMonData
  host:string;
  port:number;
 
- globalPacket:number = 5;
 
  instName:string ='';
- pingPkt:number ;
+
+ pingPkt:number;
  pingIntrvl:number;
  sockeTo:number;
  socketTP:string;
- httpUrl:string= "";
- httpUser:string= "";
- httpPwd:string= "";
- httpCnfrmPwd:string = "";
+ httpUrl:string;
+ httpUser:string;
+ httpPwd:string;
  httpTP:number;
  httpSc:string; 
  arguments:string = "false";
@@ -42,7 +41,7 @@ overideGlobalSettings:boolean = false;
 instNameHttp:string;
 enableHealthCheckMon:boolean;
 
-url:string='';
+url:string;
 user:string;
 
 httpCTO:number;
