@@ -660,12 +660,12 @@ export class CavMonHealthCheckComponent implements OnInit {
       this.heathCheckMonData.httpUrl = '';
       this.heathCheckMonData.httpUser = '';
       this.heathCheckMonData.httpPwd ='';
-      this.heathCheckMonData.httpCTO = -1;
-      this.heathCheckMonData.httpRTO = -1;
+      // this.heathCheckMonData.httpCTO = -1;
+      // this.heathCheckMonData.httpRTO = -1;
       this.heathCheckMonData.statusCode = '';
-      this.heathCheckMonData.pingIntrvl = -1;
-      this.heathCheckMonData.pingPkt = -1;
-      this.heathCheckMonData.sockeTo = -1;
+      // this.heathCheckMonData.pingIntrvl = -1;
+      // this.heathCheckMonData.pingPkt = -1;
+      // this.heathCheckMonData.sockeTo = -1;
    }
 
    updateHealthCheckType(healthCheckTypeNode,healthCheckMonData)
