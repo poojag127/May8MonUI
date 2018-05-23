@@ -1,13 +1,20 @@
-<p-dialog class="profile-dialog monitor-dialog" [(visible)]="displayDialog" [style]="{'overflow': 'hidden','max-height': '520px'}" header="Health Check Monitor Configurations" width="1000"  
+<p-dialog class="profile-dialog monitor-dialog" 
+  [(visible)]="displayDialog" [style]="{'overflow': 'hidden','max-height': '520px'}"
+   header="Health Check Monitor Configurations" width="1000"  
    [modal]="false" (onHide)="dialogCloseEvent($event)" [resizable]="true" [responsive]="true">
 
-<p-tabView  class="monitor-ui-tab">
-  <p-tabPanel header="Health Check Settings">
-    <div class = "ui-g-12" style="margin-bottom: 10px; margin-left: 10px;">
-       <p-checkbox [(ngModel)]="enableHealthCheckMon" name="enableChkMon" binary="true" label="Enable Health Check Monitor" ></p-checkbox>
-     </div>
 
-<form  (ngSubmit)="saveFinalData()" #form="ngForm" ngNativeValidate >
+
+
+<p-tabView  class="monitor-ui-tab">
+
+<p-tabPanel header="Health Check Settings">
+
+<div class = "ui-g-12" style="margin-bottom: 10px; margin-left: 10px;">
+  <p-checkbox [(ngModel)]="enableHealthCheckMon" name="enableChkMon" binary="true" label="Enable Health Check Monitor" ></p-checkbox>
+</div>
+
+<!--<form  (ngSubmit)="saveFinalData()" #form="ngForm" ngNativeValidate >-->
   <div>
     <p-fieldset  class ="healthChkMonCss" legend="Ping Health Check Settings" [toggleable]="true" collapsed="true">
       <div class= "ui-g-12">
@@ -115,16 +122,16 @@
         </p-fieldset>
       </div>
 
-      <div class="ui-g-12">
+      <!--<div class="ui-g-12">
             <button type="submit" pButton  icon="fa-check" style="float: right"  title="Save" label="Save"></button>
             <button type="button" pButton  icon="fa-close" style="float: right" (click)= "dialogCloseEvent()" label="Cancel" title="Close"></button>
-      </div>
-    </form>
+      </div>-->
+    <!--</form>-->
 
 </p-tabPanel>
 
 
-      <p-tabPanel header="Health Check Monitor">
+     <p-tabPanel header="Health Check Monitor">
           <form  (ngSubmit)="saveData()" #form="ngForm" ngNativeValidate >
               <p-fieldset  class = "healthChkMonCss"  legend="Configuration" [toggleable]="true"  [collapsed] = "false">
                 <div class = "ui-g-12" style="margin-top: 6px">
@@ -436,4 +443,9 @@
                  </div> -->
       </p-tabPanel>
   </p-tabView>
+
+            <div class="pull-right">
+                <button type="button" pButton icon="fa-check" (click)= "saveFinalData()" label="Save"></button>
+                <button type="button" pButton icon="fa-check"  label="Cancel"></button>
+            </div>
 </p-dialog>
