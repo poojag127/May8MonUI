@@ -104,7 +104,12 @@ export class CavMonHealthCheckComponent implements OnInit {
     // this.healthChkMonServiceObj.readHealthMonitorJson(this.monConfServiceObj.topoName, this.monConfServiceObj.profileName,  this.monDataService.getMonMode(), this.monDataService.userName, this.monDataService.getTestRunNum());
     console.log("Method CavMonHealthCheckComponent called")
     this.heathCheckMonData =  new HealthCheckMonData();
-   
+    // this.heathCheckMonitorData = this.healthChkMonServiceObj.getHealthCheckTreeTableData();
+    // console.log("this.heathCheckMonitorData",this.heathCheckMonitorData)
+    // if(this.heathCheckMonitorData == null)
+    // {
+    //   this.heathCheckMonitorData = [];
+    // }
     
     this.tierHeadersList = this.monConfServiceObj.getTierHeaderList();
     let tierList = [];
@@ -112,6 +117,7 @@ export class CavMonHealthCheckComponent implements OnInit {
       if(each.name != "All Tiers")
          tierList.push(each.name)
     })
+    // tierList.unshift("--Select --");
     console.log("tierList CavMonHealthCheckComponentcalled= "+tierList)
     this.tierList = UtilityService.createDropdown(tierList);
     this.tierList = this.tierList.concat({ label: 'Others', value: 'Others' });
@@ -153,8 +159,8 @@ export class CavMonHealthCheckComponent implements OnInit {
       .subscribe(data => {
                  if(data != null)
                  {
-                   data["label"].unshift("All Servers");
-                   data["value"].unshift("All Servers");
+                  //  data["label"].unshift("All Servers");
+                  //  data["value"].unshift("All Servers");
                    this.serverList = UtilityService.createListWithKeyValue(data["label"], data["value"]);
                  }
                })
@@ -492,7 +498,7 @@ export class CavMonHealthCheckComponent implements OnInit {
       })
   }
 
-  finalSubmit()
+  saveFinalData()
   {
     console.log("method finalSubmit =", this.heathCheckMonitorData )
     let customConfiguratons = this.heathCheckMonitorData;
@@ -530,22 +536,7 @@ export class CavMonHealthCheckComponent implements OnInit {
     console.log("Method editHealthMonData called, rowData=  ", rowData)
     this.heathCheckMonData = rowData.data.instanceInfo[0];
     console.log(" this.heathCheckMonData  ", this.heathCheckMonData)
-    let otherTierServerFlag:boolean = false
-    let that = this;
-    this.tierList.map(function(each){
-      if(each.value == that.heathCheckMonData.tierName)
-      {
-        otherTierServerFlag = true;
-        return null;
-      }
-    })
     this.editMode = true;
-    if(otherTierServerFlag)
-    {
-     this.heathCheckMonData = rowData.data.instanceInfo[0];
-     this.heathCheckMonData.customTierName = this.heathCheckMonData.tierName;
-     this.heathCheckMonData.customServerName = this.heathCheckMonData.serverName;
-    }
   }
 
  deleteNode(nodeArr,idToDelete)
@@ -710,8 +701,6 @@ export class CavMonHealthCheckComponent implements OnInit {
      healthCheckTypeNode.data.instanceInfo = arr;
    }
 
- 
-
 
  /*This method is called when user clicks on cancel button to close the configuration without making any changes.
  * This method shows a new form to perform ADD operation.
@@ -719,7 +708,7 @@ export class CavMonHealthCheckComponent implements OnInit {
   closeConfiguration()
  {
    this.heathCheckMonData = new HealthCheckMonData(); // for clearing form fields.
-   this.editMode = true; 
+   this.editMode = false; 
  }
 
    
