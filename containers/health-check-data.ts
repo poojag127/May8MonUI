@@ -23,6 +23,7 @@ export class HealthCheckMonData
 
 
  instName:string ='';
+
  pingPkt:number;
  pingIntrvl:number;
  sockeTo:number;
