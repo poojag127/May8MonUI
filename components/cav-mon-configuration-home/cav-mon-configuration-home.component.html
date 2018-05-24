@@ -23,7 +23,7 @@
   
   <p-panel>
    <div style='overflow:auto' id='mainDiv'>
-    <p-treeTable  #treeRef class="mon-ui configTreeTable" selectionMode="single"  [(selection)]="selectedFile" (onNodeExpand)="loadNode($event)" [value]="compData" [style]="{'max-height':'530px'}">
+    <p-treeTable  #treeRef class="mon-ui configTreeTable healthChk-treeTable" selectionMode="single"  [(selection)]="selectedFile" (onNodeExpand)="loadNode($event)" [value]="compData" [style]="{'max-height':'530px'}">
       <!-- <div class="ui-g-12" id="top-div"> -->
   
       <p-column [style]="{'width':'230px'}" field="monitor" header="Monitor(s)">
