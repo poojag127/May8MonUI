@@ -91,6 +91,7 @@ export class CavMonHealthCheckComponent implements OnInit {
       console.log("data = ", data)
       if (data['customConfiguratons'] != null) {
         that.healthChkMonServiceObj.setHealthCheckTreeTableData(data['customConfiguratons']['data']);
+        that.createUniqueKeyForInstanceValidations(data['customConfiguratons']['data']);
         that.heathCheckMonitorData = data['customConfiguratons']['data'];
       }
 
@@ -122,6 +123,32 @@ export class CavMonHealthCheckComponent implements OnInit {
 
 
   }
+
+/**
+ * Need to create in case of data receiving from server
+ * @param heathCheckMonitorData 
+ */
+  createUniqueKeyForInstanceValidations(heathCheckMonitorData)
+  {
+    let uniqueKey = [];
+    console.log("Method createUniqueKeyForInstanceValidations called",heathCheckMonitorData)
+    heathCheckMonitorData.map(function(each){
+      let tierName = each['data']['nodeName'];
+      let serverList = each['children'];
+      serverList.map(function(each){
+        let serverName = each['data']['nodeName'];
+        let healthChkList = each['children'];
+        healthChkList.map(function(each){
+          let helthChkTypeName =  each['data']['nodeName'];
+          let key = tierName + serverName + helthChkTypeName + each['data']['instanceInfo']['instName'];
+          uniqueKey.push(key);
+      })
+    })
+   })
+   console.log("On edit creating uniqueKey = ",uniqueKey)
+   this.uniqueKey= uniqueKey;
+  }
+  
 
   nodeSelect(event) {
     console.log("event = ", event)
@@ -271,7 +298,7 @@ export class CavMonHealthCheckComponent implements OnInit {
         "enabled": false
       }
 
-      let key = tierName + serverName + this.heathCheckMonData.instName;
+      let key = tierName + serverName + healthCheckTypeName+this.heathCheckMonData.instName;
       this.uniqueKey.push(key);
 
       console.log("healthChkTypeString= " + healthChkTypeNode.arguments)
@@ -306,9 +333,6 @@ export class CavMonHealthCheckComponent implements OnInit {
         "children": serChildArr,
       }
       console.log("newTierNode = ", newTierNode)
-
-
-      //  let data = JSON.stringify(newTierNode);
 
       this.heathCheckMonitorData = ImmutableArray.push(this.heathCheckMonitorData, newTierNode);
       console.log(" this.heathCheckMonitorData = ", this.heathCheckMonitorData)
@@ -345,7 +369,7 @@ export class CavMonHealthCheckComponent implements OnInit {
               }
               else {
 
-                let key = tierName + serverName + this.heathCheckMonData.instName;
+                let key = tierName + serverName + healthCheckTypeName+this.heathCheckMonData.instName;
                 if (this.editMode) {
                   this.updateHealthCheckType(healthCheckTypeObj, this.heathCheckMonData);
                 }
@@ -357,6 +381,7 @@ export class CavMonHealthCheckComponent implements OnInit {
                     return;
                   }
                   else {
+                    this.uniqueKey.push(key);
                     console.log("new instane ", healthChkNodeId)
                     this.addhealthCheckNode(existingServerNode, this.heathCheckMonData, healthChkNodeId);
                   }
@@ -476,6 +501,11 @@ export class CavMonHealthCheckComponent implements OnInit {
     //   return;
     // }
 
+    if(!this.validataGlobalData(this.globalProps))
+    {
+      return;
+    }
+
     this.heathCheckMonData = new HealthCheckMonData();
     console.log("globalConfiguration= ", this.globalProps)
 
@@ -489,6 +519,54 @@ export class CavMonHealthCheckComponent implements OnInit {
     if (this.dialogRef) {
       this.dialogRef.close();
     }
+  }
+
+  validataGlobalData(globalData)
+  {
+    console.log("globalData=",globalData)
+    if(globalData.pingPkt == null ||globalData.pingPkt =='')
+    {
+      this.messageService.errorMessage("Enter Packet value for Ping health check settings")
+      return false;
+    }
+
+    if(globalData.pingIntrvl == null ||globalData.pingIntrvl == '')    
+    {
+      this.messageService.errorMessage("Enter Interval for Ping health check settings")
+      return false;
+    }
+
+    if(globalData.pingIntrvl == null ||globalData.pingTP == '')    
+    {
+      this.messageService.errorMessage("Enter Thread Pool value for Ping health check settings")
+      return false;
+    }
+
+    if(globalData.httpSc == null||globalData.httpSc == '')    
+    {
+      this.messageService.errorMessage("Enter Status code for Http health check settings")
+      return false;
+    }
+
+    
+    if(globalData.httpCTO == null ||globalData.httpCTO == '')    
+    {
+      this.messageService.errorMessage("Enter Connection Time Out value for Http health check settings")
+      return false;
+    }
+
+     if(globalData.httpRTO == null ||globalData.httpRTO == '')    
+    {
+      this.messageService.errorMessage("Enter Response Time Out value for Http health check settings")
+      return false;
+    }
+
+    if(globalData.sockeTo == null ||globalData.sockeTo == '')    
+    {
+      this.messageService.errorMessage("Enter  Time Out value for Socket health check settings")
+      return false;
+    }
+    return true;
   }
 
   /*
@@ -685,8 +763,13 @@ export class CavMonHealthCheckComponent implements OnInit {
   * This method shows a new form to perform ADD operation.
   */
   closeConfiguration() {
+    
     this.heathCheckMonData = new HealthCheckMonData(); // for clearing form fields.
     this.editMode = false;
+    
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
   }
 
 

@@ -22,6 +22,8 @@ export class MonHealthCheckService {
     private topoName: string; // to store topology name 
   
     private profileName: string; // to store profile name
+
+    uniqueKey:any[]=[]
   
     constructor(private _restApi: RestApiService,
       private monConfigServiceObj : MonConfigurationService,
@@ -42,22 +44,7 @@ export class MonHealthCheckService {
 
     setHealthCheckTreeTableData(heathCheckMonitorData)
     {
-     let uniqueKey = [];
-     heathCheckMonitorData.map(function(each){
-       let tierName = each['data']['nodeName'];
-       let serverList = each['children'];
-       serverList.map(function(each){
-         let serverName = each['data']['nodeName'];
-         let healthChkList = each['children'];
-         healthChkList.map(function(each){
-           let helthChkTypeName =  each['data']['nodeName'];
-           let key = tierName + serverName + this.heathCheckMonData.instName;
-           uniqueKey.push(key);
-         })
-       })
-     })
-     console.log("On edit creating uniqueKey = ",uniqueKey)
-     
+    
      this.healthCheckTreeTableData = heathCheckMonitorData;
     }
 
