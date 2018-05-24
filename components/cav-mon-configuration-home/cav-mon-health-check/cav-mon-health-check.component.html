@@ -158,13 +158,13 @@
                    type="text" pInputText [(ngModel)]="heathCheckMonData.customTierName" title="Enter tier name" required ngModel />
               </div>
           
-              <div class = "ui-g-1" style="margin-left: 73px; margin-top: 2px">
+              <div class = "ui-g-2" style="margin-left: 73px; margin-top: 2px">
                 <label>
                   Server Display Name
                 </label>  
               </div>
               
-               <div class ="ui-g-2" >
+               <div class ="ui-g-2" style="margin-left: -25px;" >
                   <p-dropdown [style]="{'width':'150px'}" name="lists" required
                       [disabled]="heathCheckMonData.tierName == '' ||heathCheckMonData.tierName == 'Others'||editMode" placeholder= "-- Select Server--"  [options]="serverList" [(ngModel)]="heathCheckMonData.serverName" >
                     </p-dropdown>
@@ -333,8 +333,8 @@
           
   <div class="ui-g-12" style="margin-top: 7px">
           <button type="submit" pButton icon="fa-check" style="width: 63px ; float: right"  *ngIf="!editMode" label="Add"></button>
-          <button type="submit" pButton icon="fa-check" style="width: 63px ; float: right" *ngIf="editMode" label="Update"></button>
-          <button type="button" pButton icon="fa-close" style="width: 93px ; float: right" (click)="closeConfiguration()"  *ngIf="editMode" label="Cancel"></button>
+          <button type="submit" pButton icon="fa-check" style="float: right" *ngIf="editMode" label="Update"></button>
+          <button type="button" pButton icon="fa-close" style="float: right" (click)="closeConfiguration()"  *ngIf="editMode" label="Cancel"></button>
       </div>
    </div>
    </p-fieldset>
