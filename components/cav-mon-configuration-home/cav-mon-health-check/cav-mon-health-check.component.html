@@ -6,6 +6,9 @@
 <p-tabView  class="monitor-ui-tab">
  <p-tabPanel header="Health Check Settings">
   <div class ="FirstTab" >
+    <div class = "ui-g-12" style="margin-bottom: 10px; margin-left: 10px;">
+     <p-checkbox [(ngModel)]="enableHealthCheckMon" name="enableChkMon" binary="true" label="Enable Health Check Monitor" ></p-checkbox>
+    </div>
    <p-fieldset  class ="healthChkMonCss healthChkLegend" legend="Ping Health Check Settings" [toggleable]="true" [collapsed] = "false">
     <div class= "ui-g-12">
       <div class="ui-g-2 labelCss">
