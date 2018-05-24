@@ -335,7 +335,7 @@ export class CavMonHealthCheckComponent implements OnInit {
       console.log("newTierNode = ", newTierNode)
 
       this.heathCheckMonitorData = ImmutableArray.push(this.heathCheckMonitorData, newTierNode);
-      console.log(" this.heathCheckMonitorData = ", this.heathCheckMonitorData)
+      console.log(" this.heathCheckMonitorData New row added ", this.heathCheckMonitorData)
 
       this.healthChkMonServiceObj.setHealthCheckTreeTableData(this.heathCheckMonitorData);
       this.heathCheckMonData = new HealthCheckMonData();
