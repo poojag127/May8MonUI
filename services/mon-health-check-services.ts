@@ -22,6 +22,8 @@ export class MonHealthCheckService {
     private topoName: string; // to store topology name 
   
     private profileName: string; // to store profile name
+
+    uniqueKey:any[]=[]
   
     constructor(private _restApi: RestApiService,
       private monConfigServiceObj : MonConfigurationService,
@@ -33,36 +35,18 @@ export class MonHealthCheckService {
     getHealthCheckTreeTableData()
     {
      return this.healthCheckTreeTableData;
-     }
+    }
+    
+    getNodeName()
+    {
+
+    }
 
     setHealthCheckTreeTableData(heathCheckMonitorData)
     {
-     this.healthCheckTreeTableData = heathCheckMonitorData
+    
+     this.healthCheckTreeTableData = heathCheckMonitorData;
     }
-
-    readHealthMonitorJson(topoName, profileName, mode, userName, trNum )
-    {
-    //   console.log("Method readHealthMonitorJson called = ")
-    //   let url = this.monDataService.getserviceURL() + URL.GET_HEALTH_MON_STATS;
-    //   let params: URLSearchParams = new URLSearchParams();
-    //    params.set('topoName', this.topoName);
-    //    params.set('profileName', this.profileName);
-    //    params.set('monMode', this.monDataService.getMonMode().toString());
-    //    params.set('userName', this.monDataService.getUserName());
-    //    params.set('testRun', this.monDataService.getTestRunNum().toString());
-    //    params.set('productKey', this.monDataService.getProductKey());
-
-    //    return this.http.get(url, { search: params }).map(res => res.json())
-    //      .toPromise()
-    //      .then(res => {
-            
-    //   }).
-    //   catch(this.handleError);
-    let url = this.monDataService.getserviceURL() + URL.GET_HEALTH_MON_STATS + "?topoName=" + `${topoName}` + "&profileName=" + `${profileName}` + "&mode=" + `${mode}` + "&userName="+ `${userName}` + "&testRun="+ `${trNum}` + "&productKey=" + this.monDataService.getProductKey();
-    console.log("url for health Chk Mon --", url)
-    return this._restApi.getDataByGetReq(url);
-    }
-
 
 
     savehealthCheckData(heathCheckMonitorData,globalProps,enableHealthCheckMon)

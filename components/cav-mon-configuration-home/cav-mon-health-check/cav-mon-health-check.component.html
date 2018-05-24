@@ -49,6 +49,15 @@
             pInputText [(ngModel)]="globalProps.httpUrl"  autofocus required ngModel />
     </div>
         
+      <!--<div class= "ui-g-12">-->
+        <div class="ui-g-2" style="margin-top: 2px;">
+          <label>Proxy Host:Port </label>
+        </div>
+
+        <div class ="ui-g-2" style="margin-left: -47px">
+            <input name="globalUrl" type="text" [disabled]="!globalProps.useProxy"  
+                  pInputText [(ngModel)]="globalProps.httpUrl"  autofocus required ngModel />
+         </div>
     <div class = "ui-g-2" style="margin-left: 46px; margin-top: 2px">
       <label>User Name</label>
     </div>
@@ -375,8 +384,6 @@
                   </p-column>
                </p-treeTable>
                </div>
-        
-               
                
                  <!-- <div class="ui-g-12">
                    <button type="button" pButton  icon="fa-check" style="float: right" (click)= "finalSubmit()" title="Save" label="Save"></button>
